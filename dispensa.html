@@ -68,13 +68,11 @@
 
         .btn-container {
             display: flex;
-            justify-content: space-between;
-            gap: 10px;
+            justify-content: center;
         }
 
         .btn {
-            width: 100%;
-            padding: 12px;
+            padding: 12px 20px;
             font-size: 16px;
             font-weight: bold;
             color: #fff;
@@ -149,8 +147,15 @@
                 content: [
                     { text: `DISPENSA ELETRÔNICA Nº ${numeroDispensa}/2024`, style: 'header', alignment: 'center' },
                     { text: `PROCESSO ADMINISTRATIVO Nº ${numeroProcesso}`, style: 'header', alignment: 'center' },
-                    { text: `O Consórcio Intermunicipal de Saúde Centro Leste – CISCEL, torna público para conhecimento dos interessados que fará realizar DISPENSA ELETRÔNICA DE LICITAÇÃO Nº ${numeroDispensa}/2024, no dia ${dataDispensa}, através da plataforma www.licitardigital.com.br, para ${objeto}.`, margin: [0, 20], alignment: 'justify' },
-                    { text: `Mais informações poderão ser obtidas na sede do CISCEL, situado na Av. Duque de Caxias, nº 850, Esplanada da Estação, Itabira, MG, ou pelo telefone (31) 3831-3555. E-mail: licitacao@ciscel.mg.gov.br ou pelo site www.ciscel.mg.br.`, alignment: 'justify' },
+                    {
+                        text: `O Consórcio Intermunicipal de Saúde Centro Leste – CISCEL, torna público para conhecimento dos interessados que fará realizar DISPENSA ELETRÔNICA DE LICITAÇÃO Nº ${numeroDispensa}/2024, no dia ${dataDispensa}, através da plataforma www.licitardigital.com.br, para ${objeto}.`,
+                        margin: [0, 20],
+                        alignment: 'justify'
+                    },
+                    {
+                        text: `Mais informações poderão ser obtidas na sede do CISCEL, situado na Av. Duque de Caxias, nº 850, Esplanada da Estação, Itabira, MG, ou pelo telefone (31) 3831-3555. E-mail: licitacao@ciscel.mg.gov.br ou pelo site www.ciscel.mg.br.`,
+                        alignment: 'justify'
+                    },
                     { text: `Itabira, ${dataAtual}.`, margin: [0, 20], alignment: 'right' },
                     { text: `Dayane C. R. de Paulo\nPresidente da CPL`, alignment: 'right' }
                 ],
