@@ -121,10 +121,14 @@
             <textarea id="objeto" rows="4" placeholder="Descreva o objeto da licitação" required></textarea>
 
             <button type="button" onclick="gerarPDF()">Gerar PDF</button>
+            <button type="button" onclick="gerarDOCX()">Gerar DOCX</button>
         </form>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pizzip/3.1.1/pizzip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/docxtemplater/3.22.2/docxtemplater.js"></script>
+
     <script>
         function gerarPDF() {
             const { jsPDF } = window.jspdf;
@@ -147,8 +151,8 @@ O Consórcio Intermunicipal de Saúde Centro Leste – CISCEL, torna público pa
 
 Mais informações poderão ser obtidas na sede do CISCEL, situado na Av. Duque de Caxias, nº 850, Esplanada da Estação, Itabira, MG, ou pelo telefone (31) 3831-3555. E-mail: licitacao@ciscel.mg.gov.br ou pelo site www.ciscel.mg.br.
 
-Itabira, 10 de outubro de 2024.
-
+Itabira, (DATA ATUAL).
+        
 Dayane C. R. de Paulo
 Presidente da CPL`;
 
@@ -162,11 +166,51 @@ Presidente da CPL`;
                 doc.text(line, 10, startY + index * 10);
             });
 
-            // Adiciona espaçamento de 1,5 entre as linhas
-            startY += lines.length * 10 + 5; // Adiciona 5 para o espaçamento entre parágrafos
-
             // Salva o PDF
             doc.save(`dispensa_${numeroDispensa}_2024.pdf`);
+        }
+
+        function gerarDOCX() {
+            // Coleta os valores dos campos
+            const numeroDispensa = document.getElementById("numeroDispensa").value;
+            const numeroProcesso = document.getElementById("numeroProcesso").value;
+            const dataDispensa = new Date(document.getElementById("dataDispensa").value).toLocaleDateString('pt-BR');
+            const objeto = document.getElementById("objeto").value;
+
+            // Texto para o DOCX
+            const textoDOCX = `DISPENSA ELETRÔNICA Nº ${numeroDispensa}/2024
+PROCESSO ADMINISTRATIVO Nº ${numeroProcesso}
+
+O Consórcio Intermunicipal de Saúde Centro Leste – CISCEL, torna público para conhecimento dos interessados que fará realizar DISPENSA ELETRÔNICA DE LICITAÇÃO Nº ${numeroDispensa}/2024, no dia ${dataDispensa}, através da plataforma www.licitardigital.com.br, para ${objeto}.
+
+Mais informações poderão ser obtidas na sede do CISCEL, situado na Av. Duque de Caxias, nº 850, Esplanada da Estação, Itabira, MG, ou pelo telefone (31) 3831-3555. E-mail: licitacao@ciscel.mg.gov.br ou pelo site www.ciscel.mg.br.
+
+Itabira, (DATA ATUAL).
+        
+Dayane C. R. de Paulo
+Presidente da CPL`;
+
+            // Configuração do PizZip e Docxtemplater para criar um .docx
+            const zip = new PizZip();
+            const doc = new Docxtemplater(zip);
+
+            doc.setData({
+                texto: textoDOCX
+            });
+
+            try {
+                doc.render();
+            } catch (error) {
+                console.error("Erro ao renderizar documento: ", error);
+            }
+
+            const blob = doc.getZip().generate({
+                type: "blob",
+                mimeType: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+            });
+
+            // Salva o arquivo .docx
+            saveAs(blob, `dispensa_${numeroDispensa}_2024.docx`);
         }
     </script>
 </body>
