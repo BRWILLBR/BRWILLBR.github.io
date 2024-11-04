@@ -6,7 +6,101 @@
     <title>Formulário de Aviso de Dispensa Eletrônica</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        /* Estilos omitidos para clareza */
+        /* Estilos Gerais */
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f5f7fa;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        h2 {
+            text-align: center;
+            color: #007bff;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            color: #555;
+            margin-bottom: 5px;
+            display: block;
+            font-size: 14px;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        textarea {
+            width: 100%;
+            padding: 12px 15px;
+            font-size: 15px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            background-color: #fafafa;
+            transition: border-color 0.3s, background-color 0.3s;
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        input:focus,
+        textarea:focus {
+            border-color: #007bff;
+            background-color: #f1f9ff;
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn i {
+            font-size: 18px;
+        }
     </style>
 </head>
 <body>
@@ -25,30 +119,33 @@
             <label for="objeto">Objeto da Licitação:</label>
             <textarea id="objeto" rows="4" placeholder="Descreva o objeto da licitação" required></textarea>
 
-            <button type="button" onclick="gerarPDF()">Gerar PDF</button>
-            <button type="button" onclick="gerarDOCX()">Gerar DOCX</button>
+            <div class="btn-container">
+                <button type="button" class="btn" onclick="gerarDocumentos()">
+                    <i class="fas fa-file-download"></i> Gerar PDF e DOC
+                </button>
+            </div>
         </form>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 
     <script>
+        function gerarDocumentos() {
+            gerarPDF();
+            gerarDOCX();
+        }
+
         function gerarPDF() {
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
 
-            // Define a fonte e o tamanho
-            doc.setFont("calibri");
-            doc.setFontSize(12);
-
-            // Coleta os valores dos campos
             const numeroDispensa = document.getElementById("numeroDispensa").value;
             const numeroProcesso = document.getElementById("numeroProcesso").value;
             const dataDispensa = new Date(document.getElementById("dataDispensa").value).toLocaleDateString('pt-BR');
             const objeto = document.getElementById("objeto").value;
             const dataAtual = new Date().toLocaleDateString('pt-BR');
 
-            // Texto do PDF
             const tituloCentralizado = `DISPENSA ELETRÔNICA Nº ${numeroDispensa}/2024\nPROCESSO ADMINISTRATIVO Nº ${numeroProcesso}`;
             const textoCorpo = `
 O Consórcio Intermunicipal de Saúde Centro Leste – CISCEL, torna público para conhecimento dos interessados que fará realizar DISPENSA ELETRÔNICA DE LICITAÇÃO Nº ${numeroDispensa}/2024, no dia ${dataDispensa}, através da plataforma www.licitardigital.com.br, para ${objeto}.
@@ -60,29 +157,22 @@ Itabira, ${dataAtual}.
 Dayane C. R. de Paulo
 Presidente da CPL`;
 
-            // Adiciona o título centralizado
             doc.text(tituloCentralizado, 105, 20, { align: "center" });
-
-            // Adiciona o texto do corpo justificado
-            let startY = 50;
             const lines = doc.splitTextToSize(textoCorpo, 180);
             lines.forEach((line, index) => {
-                doc.text(line, 10, startY + index * 10);
+                doc.text(line, 10, 50 + index * 10);
             });
 
-            // Salva o PDF
             doc.save(`dispensa_${numeroDispensa}_2024.pdf`);
         }
 
         function gerarDOCX() {
-            // Coleta os valores dos campos
             const numeroDispensa = document.getElementById("numeroDispensa").value;
             const numeroProcesso = document.getElementById("numeroProcesso").value;
             const dataDispensa = new Date(document.getElementById("dataDispensa").value).toLocaleDateString('pt-BR');
             const objeto = document.getElementById("objeto").value;
             const dataAtual = new Date().toLocaleDateString('pt-BR');
 
-            // Cria o conteúdo do arquivo DOCX com o formato .doc
             const conteudoDOCX = `
 DISPENSA ELETRÔNICA Nº ${numeroDispensa}/2024
 PROCESSO ADMINISTRATIVO Nº ${numeroProcesso}
@@ -96,16 +186,11 @@ Itabira, ${dataAtual}.
 Dayane C. R. de Paulo
 Presidente da CPL`;
 
-            // Cria um Blob com o conteúdo e define o tipo MIME como 'application/msword'
             const blob = new Blob([conteudoDOCX], { type: "application/msword" });
-            
-            // Cria um link de download para o arquivo DOCX
             const link = document.createElement("a");
             link.href = URL.createObjectURL(blob);
             link.download = `dispensa_${numeroDispensa}_2024.doc`;
             link.click();
-
-            // Libera o URL criado
             URL.revokeObjectURL(link.href);
         }
     </script>
