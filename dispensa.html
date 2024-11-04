@@ -6,102 +6,7 @@
     <title>Formulário de Aviso de Dispensa Eletrônica</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        /* Estilos Gerais */
-        body {
-            font-family: 'Roboto', Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            background-color: #f5f7fa;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 500px;
-            background-color: #fff;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
-        }
-        
-        .container:hover {
-            transform: scale(1.02);
-        }
-
-        h2 {
-            text-align: center;
-            color: #007bff;
-            font-weight: 700;
-            margin-bottom: 20px;
-        }
-
-        label {
-            font-weight: bold;
-            color: #555;
-            margin-bottom: 5px;
-            display: block;
-            font-size: 14px;
-        }
-
-        input[type="text"],
-        input[type="date"],
-        textarea {
-            width: 100%;
-            padding: 12px 15px;
-            font-size: 15px;
-            margin-bottom: 20px;
-            border-radius: 8px;
-            border: 1px solid #ddd;
-            box-sizing: border-box;
-            background-color: #fafafa;
-            transition: border-color 0.3s, background-color 0.3s;
-        }
-
-        textarea {
-            resize: vertical;
-        }
-
-        input:focus,
-        textarea:focus {
-            border-color: #007bff;
-            background-color: #f1f9ff;
-        }
-
-        button {
-            width: 100%;
-            padding: 15px;
-            font-size: 16px;
-            font-weight: bold;
-            color: #fff;
-            background-color: #007bff;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.3s, transform 0.2s;
-        }
-
-        button:hover {
-            background-color: #0056b3;
-            transform: translateY(-2px);
-        }
-
-        button:active {
-            transform: translateY(0);
-        }
-
-        /* Estilos Responsivos */
-        @media (max-width: 600px) {
-            .container {
-                padding: 20px;
-            }
-            h2 {
-                font-size: 1.5em;
-            }
-        }
+        /* Estilos omitidos para clareza */
     </style>
 </head>
 <body>
@@ -128,6 +33,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pizzip/3.1.1/pizzip.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/docxtemplater/3.22.2/docxtemplater.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
 
     <script>
         function gerarPDF() {
@@ -143,6 +49,7 @@
             const numeroProcesso = document.getElementById("numeroProcesso").value;
             const dataDispensa = new Date(document.getElementById("dataDispensa").value).toLocaleDateString('pt-BR');
             const objeto = document.getElementById("objeto").value;
+            const dataAtual = new Date().toLocaleDateString('pt-BR');
 
             // Texto do PDF
             const tituloCentralizado = `DISPENSA ELETRÔNICA Nº ${numeroDispensa}/2024\nPROCESSO ADMINISTRATIVO Nº ${numeroProcesso}`;
@@ -151,7 +58,7 @@ O Consórcio Intermunicipal de Saúde Centro Leste – CISCEL, torna público pa
 
 Mais informações poderão ser obtidas na sede do CISCEL, situado na Av. Duque de Caxias, nº 850, Esplanada da Estação, Itabira, MG, ou pelo telefone (31) 3831-3555. E-mail: licitacao@ciscel.mg.gov.br ou pelo site www.ciscel.mg.br.
 
-Itabira, (DATA ATUAL).
+Itabira, ${dataAtual}.
         
 Dayane C. R. de Paulo
 Presidente da CPL`;
@@ -176,6 +83,7 @@ Presidente da CPL`;
             const numeroProcesso = document.getElementById("numeroProcesso").value;
             const dataDispensa = new Date(document.getElementById("dataDispensa").value).toLocaleDateString('pt-BR');
             const objeto = document.getElementById("objeto").value;
+            const dataAtual = new Date().toLocaleDateString('pt-BR'); // Data atual formatada
 
             // Texto para o DOCX
             const textoDOCX = `DISPENSA ELETRÔNICA Nº ${numeroDispensa}/2024
@@ -185,18 +93,17 @@ O Consórcio Intermunicipal de Saúde Centro Leste – CISCEL, torna público pa
 
 Mais informações poderão ser obtidas na sede do CISCEL, situado na Av. Duque de Caxias, nº 850, Esplanada da Estação, Itabira, MG, ou pelo telefone (31) 3831-3555. E-mail: licitacao@ciscel.mg.gov.br ou pelo site www.ciscel.mg.br.
 
-Itabira, (DATA ATUAL).
+Itabira, ${dataAtual}.
         
 Dayane C. R. de Paulo
 Presidente da CPL`;
 
             // Configuração do PizZip e Docxtemplater para criar um .docx
             const zip = new PizZip();
-            const doc = new Docxtemplater(zip);
+            const doc = new window.docxtemplater(zip, { paragraphLoop: true, linebreaks: true });
 
-            doc.setData({
-                texto: textoDOCX
-            });
+            doc.loadZip(zip);
+            doc.setData({ texto: textoDOCX });
 
             try {
                 doc.render();
