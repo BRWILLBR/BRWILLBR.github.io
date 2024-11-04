@@ -135,12 +135,18 @@
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
     <script>
         $(document).ready(function() {
             $('#cpf').mask('000.000.000-00');
             $('#cep').mask('00000-000');
             $('#celular').mask('(00) 00000-0000');
+            $('#rg').mask('00.000.000-A');
 
+            // Initialize EmailJS
+            emailjs.init("S6dHhX3kiAubNDFEN"); // Public Key
+
+            // Validate CPF function
             function validateCPF(cpf) {
                 cpf = cpf.replace(/[^\d]+/g, '');
                 if (cpf.length !== 11 || /^(\d)\1{10}$/.test(cpf)) return false;
@@ -198,7 +204,33 @@
                 let confirmText = "Confirme os dados antes de enviar:\n";
                 formData.forEach(field => confirmText += `${field.name}: ${field.value}\n`);
                 if (confirm(confirmText)) {
-                    this.submit();
+                    // Send data using EmailJS
+                    const templateParams = {
+                        data_hora_chegada: $('input[name="data_hora_chegada"]').val(),
+                        nome: $('input[name="nome"]').val(),
+                        data_nascimento: $('input[name="data_nascimento"]').val(),
+                        sexo: $('select[name="sexo"]').val(),
+                        email: $('input[name="email"]').val(),
+                        cpf: $('input[name="cpf"]').val(),
+                        rg: $('input[name="rg"]').val(),
+                        data_emissao: $('input[name="data_emissao"]').val(),
+                        cep: $('input[name="cep"]').val(),
+                        endereco: $('input[name="endereco"]').val(),
+                        bairro: $('input[name="bairro"]').val(),
+                        cidade: $('input[name="cidade"]').val(),
+                        estado: $('input[name="estado"]').val(),
+                        celular: $('input[name="celular"]').val(),
+                        observacoes: $('textarea[name="observacoes"]').val()
+                    };
+
+                    emailjs.send('service_4lgw7cd', 'template_icjz8ft', templateParams)
+                        .then(function(response) {
+                            alert('Check-in enviado com sucesso!', response.status, response.text);
+                            // Reset form after submission
+                            $('form')[0].reset();
+                        }, function(error) {
+                            alert('Erro ao enviar: ' + JSON.stringify(error));
+                        });
                 }
             });
         });
@@ -207,7 +239,7 @@
 <body>
     <div class="container">
         <h2>Check-in de Hotel</h2>
-        <form action="enviar_email.php" method="POST">
+        <form id="checkinForm">
             <div class="form-group">
                 <label>Data e Hora da Chegada:</label>
                 <input type="datetime-local" name="data_hora_chegada" required>
@@ -242,6 +274,16 @@
                 <label>CPF:</label>
                 <input type="text" id="cpf" name="cpf" required>
                 <span class="error-message cpf-error">CPF inválido</span>
+            </div>
+
+            <div class="form-group">
+                <label>RG:</label>
+                <input type="text" id="rg" name="rg" required>
+            </div>
+
+            <div class="form-group">
+                <label>Data de Emissão do RG:</label>
+                <input type="date" name="data_emissao" required>
             </div>
 
             <div class="form-group">
