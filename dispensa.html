@@ -31,9 +31,6 @@
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pizzip/3.1.1/pizzip.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/docxtemplater/3.22.2/docxtemplater.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
 
     <script>
         function gerarPDF() {
@@ -83,10 +80,11 @@ Presidente da CPL`;
             const numeroProcesso = document.getElementById("numeroProcesso").value;
             const dataDispensa = new Date(document.getElementById("dataDispensa").value).toLocaleDateString('pt-BR');
             const objeto = document.getElementById("objeto").value;
-            const dataAtual = new Date().toLocaleDateString('pt-BR'); // Data atual formatada
+            const dataAtual = new Date().toLocaleDateString('pt-BR');
 
-            // Texto para o DOCX
-            const textoDOCX = `DISPENSA ELETRÔNICA Nº ${numeroDispensa}/2024
+            // Cria o conteúdo do arquivo DOCX com o formato .doc
+            const conteudoDOCX = `
+DISPENSA ELETRÔNICA Nº ${numeroDispensa}/2024
 PROCESSO ADMINISTRATIVO Nº ${numeroProcesso}
 
 O Consórcio Intermunicipal de Saúde Centro Leste – CISCEL, torna público para conhecimento dos interessados que fará realizar DISPENSA ELETRÔNICA DE LICITAÇÃO Nº ${numeroDispensa}/2024, no dia ${dataDispensa}, através da plataforma www.licitardigital.com.br, para ${objeto}.
@@ -98,26 +96,17 @@ Itabira, ${dataAtual}.
 Dayane C. R. de Paulo
 Presidente da CPL`;
 
-            // Configuração do PizZip e Docxtemplater para criar um .docx
-            const zip = new PizZip();
-            const doc = new window.docxtemplater(zip, { paragraphLoop: true, linebreaks: true });
+            // Cria um Blob com o conteúdo e define o tipo MIME como 'application/msword'
+            const blob = new Blob([conteudoDOCX], { type: "application/msword" });
+            
+            // Cria um link de download para o arquivo DOCX
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            link.download = `dispensa_${numeroDispensa}_2024.doc`;
+            link.click();
 
-            doc.loadZip(zip);
-            doc.setData({ texto: textoDOCX });
-
-            try {
-                doc.render();
-            } catch (error) {
-                console.error("Erro ao renderizar documento: ", error);
-            }
-
-            const blob = doc.getZip().generate({
-                type: "blob",
-                mimeType: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-            });
-
-            // Salva o arquivo .docx
-            saveAs(blob, `dispensa_${numeroDispensa}_2024.docx`);
+            // Libera o URL criado
+            URL.revokeObjectURL(link.href);
         }
     </script>
 </body>
