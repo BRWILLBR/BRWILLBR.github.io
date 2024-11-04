@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulário de Aviso de Dispensa Eletrônica</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Calibri&display=swap" rel="stylesheet">
     <style>
         /* Estilos Gerais */
         body {
-            font-family: 'Roboto', Arial, sans-serif;
+            font-family: 'Calibri', Arial, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -127,6 +127,7 @@
         </form>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
@@ -144,47 +145,19 @@
             const objeto = document.getElementById("objeto").value;
             const dataAtual = new Date().toLocaleDateString('pt-BR');
 
-            // Definindo a estrutura do documento
             const docDefinition = {
                 content: [
-                    {
-                        text: `DISPENSA ELETRÔNICA Nº ${numeroDispensa}/2024`, 
-                        style: 'header', 
-                        alignment: 'center'
-                    },
-                    {
-                        text: `PROCESSO ADMINISTRATIVO Nº ${numeroProcesso}`, 
-                        style: 'header', 
-                        alignment: 'center'
-                    },
-                    {
-                        text: `O Consórcio Intermunicipal de Saúde Centro Leste – CISCEL, torna público para conhecimento dos interessados que fará realizar DISPENSA ELETRÔNICA DE LICITAÇÃO Nº ${numeroDispensa}/2024, no dia ${dataDispensa}, através da plataforma www.licitardigital.com.br, para ${objeto}.`,
-                        margin: [0, 20],
-                        alignment: 'justify'
-                    },
-                    {
-                        text: `Mais informações poderão ser obtidas na sede do CISCEL, situado na Av. Duque de Caxias, nº 850, Esplanada da Estação, Itabira, MG, ou pelo telefone (31) 3831-3555. E-mail: licitacao@ciscel.mg.gov.br ou pelo site www.ciscel.mg.br.`,
-                        alignment: 'justify'
-                    },
-                    {
-                        text: `Itabira, ${dataAtual}.`,
-                        margin: [0, 20],
-                        alignment: 'right'
-                    },
-                    {
-                        text: `Dayane C. R. de Paulo\nPresidente da CPL`,
-                        alignment: 'right'
-                    }
+                    { text: `DISPENSA ELETRÔNICA Nº ${numeroDispensa}/2024`, style: 'header', alignment: 'center' },
+                    { text: `PROCESSO ADMINISTRATIVO Nº ${numeroProcesso}`, style: 'header', alignment: 'center' },
+                    { text: `O Consórcio Intermunicipal de Saúde Centro Leste – CISCEL, torna público para conhecimento dos interessados que fará realizar DISPENSA ELETRÔNICA DE LICITAÇÃO Nº ${numeroDispensa}/2024, no dia ${dataDispensa}, através da plataforma www.licitardigital.com.br, para ${objeto}.`, margin: [0, 20], alignment: 'justify' },
+                    { text: `Mais informações poderão ser obtidas na sede do CISCEL, situado na Av. Duque de Caxias, nº 850, Esplanada da Estação, Itabira, MG, ou pelo telefone (31) 3831-3555. E-mail: licitacao@ciscel.mg.gov.br ou pelo site www.ciscel.mg.br.`, alignment: 'justify' },
+                    { text: `Itabira, ${dataAtual}.`, margin: [0, 20], alignment: 'right' },
+                    { text: `Dayane C. R. de Paulo\nPresidente da CPL`, alignment: 'right' }
                 ],
                 styles: {
                     header: {
                         fontSize: 12,
                         bold: true,
-                        font: 'Calibri',
-                        lineHeight: 1.5
-                    },
-                    normal: {
-                        fontSize: 12,
                         font: 'Calibri',
                         lineHeight: 1.5
                     }
@@ -196,7 +169,6 @@
                 }
             };
 
-            // Gerar PDF
             pdfMake.createPdf(docDefinition).download(`dispensa_${numeroDispensa}_2024.pdf`);
         }
 
@@ -216,17 +188,16 @@ O Consórcio Intermunicipal de Saúde Centro Leste – CISCEL, torna público pa
 Mais informações poderão ser obtidas na sede do CISCEL, situado na Av. Duque de Caxias, nº 850, Esplanada da Estação, Itabira, MG, ou pelo telefone (31) 3831-3555. E-mail: licitacao@ciscel.mg.gov.br ou pelo site www.ciscel.mg.br.
 
 Itabira, ${dataAtual}.
-        
+
 Dayane C. R. de Paulo
 Presidente da CPL`;
 
             const blob = new Blob([conteudoDOCX], { type: "application/msword" });
             const link = document.createElement("a");
             link.href = URL.createObjectURL(blob);
-            link.download = `dispensa_${numeroDispensa}_2024.docx`;
-            document.body.appendChild(link);
+            link.download = `dispensa_${numeroDispensa}_2024.doc`;
             link.click();
-            document.body.removeChild(link);
+            URL.revokeObjectURL(link.href);
         }
     </script>
 </body>
