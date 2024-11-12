@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de Termo de Apostilamento</title>
+</head>
+<body>
+    <h1>Gerador de Termo de Apostilamento</h1>
+    <form id="apostilamentoForm">
+        <label for="termo">Número do Termo:</label>
+        <input type="text" id="termo" name="termo" required><br><br>
+
+        <label for="contratoAno">Ano do Contrato:</label>
+        <input type="text" id="contratoAno" name="contratoAno" required><br><br>
+
+        <label for="contratoNumero">Número do Contrato:</label>
+        <input type="text" id="contratoNumero" name="contratoNumero" required><br><br>
+
+        <label for="processo">Número do Processo:</label>
+        <input type="text" id="processo" name="processo" required><br><br>
+
+        <label for="processoAno">Ano do Processo:</label>
+        <input type="text" id="processoAno" name="processoAno" required><br><br>
+
+        <label for="empresa">Nome da Empresa:</label>
+        <input type="text" id="empresa" name="empresa" required><br><br>
+
+        <label for="objeto">Objeto:</label>
+        <input type="text" id="objeto" name="objeto" required><br><br>
+
+        <label for="dataAssinatura">Data de Assinatura:</label>
+        <input type="text" id="dataAssinatura" name="dataAssinatura" required><br><br>
+
+        <label for="contratante">Informações do Contratante:</label>
+        <input type="text" id="contratante" name="contratante" required><br><br>
+
+        <label for="contratada">Informações da Contratada:</label>
+        <input type="text" id="contratada" name="contratada" required><br><br>
+
+        <button type="button" onclick="gerarDOC()">Gerar DOC</button>
+    </form>
+
+    <script>
+        function gerarDOC() {
+            const form = document.getElementById("apostilamentoForm");
+            const data = {
+                termo: form.termo.value,
+                contratoAno: form.contratoAno.value,
+                contratoNumero: form.contratoNumero.value,
+                processo: form.processo.value,
+                processoAno: form.processoAno.value,
+                empresa: form.empresa.value,
+                objeto: form.objeto.value,
+                dataAssinatura: form.dataAssinatura.value,
+                contratante: form.contratante.value,
+                contratada: form.contratada.value,
+            };
+
+            // Monta o conteúdo do documento em HTML
+            const docContent = `
+                <html>
+                    <head>
+                        <meta charset="UTF-8">
+                        <title>Termo de Apostilamento</title>
+                    </head>
+                    <body>
+                        <h1 style="text-align: center;">TERMO DE APOSTILAMENTO AO CONTRATO Nº ${data.termo}/${data.contratoAno}</h1>
+                        <p style="text-align: center;">ENTRE O CONSÓRCIO INTERMUNICIPAL DE SAÚDE CENTRO LESTE (CISCEL) E A EMPRESA ${data.empresa}.</p>
+                        <p>Consórcio Intermunicipal de Saúde Centro Leste - CISCEL, com sede à Avenida Duque de Caxias, 850, Bairro Esplanada da Estação, em Itabira-MG, inscrito no CNPJ sob o nº 01.921.228/0001-87, neste ato resolve modificar o Contrato nº ${data.contratoNumero}/${data.contratoAno}, conforme Processo nº ${data.processo}/${data.processoAno}, que se regerá pela legislação pertinente, Lei Federal nº 14.133/21 e Portaria Ciscel nº 006/2020, com as alterações introduzidas posteriormente e pelas cláusulas e condições seguintes:</p>
+                        
+                        <p><strong>CLÁUSULA PRIMEIRA - DO OBJETO</strong></p>
+                        <p>O presente Instrumento contratual tem como objetivo a modificação do contrato registrado e publicado através do nº ${data.contratoNumero}/${data.contratoAno}, por parte do CISCEL e da Empresa ${data.empresa}, visando o ${data.objeto}.</p>
+                        
+                        <p><strong>CLÁUSULA SEGUNDA – DA RETIFICAÇÃO</strong></p>
+                        <p>Ratificam-se todas as demais cláusulas e condições anteriormente acordadas do Contrato nº ${data.contratoNumero}/${data.contratoAno}, permanecendo válidas e inalteradas as não expressamente modificadas.</p>
+
+                        <p><strong>CLÁUSULA TERCEIRA – DA PUBLICAÇÃO</strong></p>
+                        <p>O CISCEL providenciará a publicação resumida do presente Termo, que é condição indispensável para sua eficiência.</p>
+
+                        <p style="text-align: right;">Itabira/MG, ${data.dataAssinatura}</p>
+
+                        <p><strong>CISCEL - Consórcio Intermunicipal de Saúde Centro Leste</strong></p>
+                        <p><strong>${data.empresa}</strong></p>
+                        
+                        <p><strong>Informações do Contratante:</strong> ${data.contratante}</p>
+                        <p><strong>Informações da Contratada:</strong> ${data.contratada}</p>
+                    </body>
+                </html>
+            `;
+
+            // Cria o blob e o link para download
+            const blob = new Blob(['\ufeff', docContent], { type: 'application/msword' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'termo_apostilamento.doc';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+    </script>
+</body>
+</html>
