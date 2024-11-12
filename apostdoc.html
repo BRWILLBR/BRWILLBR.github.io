@@ -3,169 +3,130 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gerador de Documento</title>
+    <title>Formulário de Termo de Apostilamento</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
+            background-color: #f9f9f9;
             margin: 0;
-            padding: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-        }
-        .container {
-            background-color: #ffffff;
             padding: 20px;
-            max-width: 600px;
-            width: 100%;
+        }
+        .form-container {
+            background-color: white;
+            padding: 30px;
             border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            margin: 0 auto;
         }
         h1 {
-            font-size: 1.5em;
             text-align: center;
             color: #333;
         }
-        .form-group {
-            margin-bottom: 15px;
-        }
         label {
             font-weight: bold;
+            margin-top: 10px;
             display: block;
-            margin-bottom: 5px;
         }
-        input[type="text"], input[type="date"], textarea {
+        input[type="text"], input[type="date"] {
             width: 100%;
             padding: 10px;
+            margin-top: 5px;
+            border-radius: 4px;
             border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 1em;
         }
-        textarea {
-            resize: vertical;
-            min-height: 80px;
-        }
-        .fixed-fields {
-            background-color: #f9f9f9;
-            padding: 8px;
-            border-radius: 5px;
-            color: #777;
-            font-weight: bold;
-        }
-        button {
-            width: 100%;
-            padding: 12px;
-            background-color: #007bff;
+        input[type="button"] {
+            padding: 10px 20px;
+            background-color: #4CAF50;
             color: white;
             border: none;
-            border-radius: 5px;
-            font-size: 1em;
+            border-radius: 4px;
             cursor: pointer;
-            transition: background-color 0.3s;
+            margin-top: 20px;
         }
-        button:hover {
-            background-color: #0056b3;
+        input[type="button"]:hover {
+            background-color: #45a049;
+        }
+        .form-section {
+            margin-bottom: 20px;
+        }
+        .form-section:last-child {
+            margin-bottom: 0;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Gerador de Documento</h1>
-        <form id="form" action="javascript:void(0);">
-            <div class="form-group">
-                <label>Nome da Empresa</label>
-                <input type="text" id="empresa" required>
-            </div>
-            <div class="form-group">
-                <label>Número do Contrato</label>
-                <input type="text" id="contratoNumero" required>
-            </div>
-            <div class="form-group">
-                <label>Ano do Contrato</label>
-                <input type="text" id="contratoAno" required>
-            </div>
-            <div class="form-group">
-                <label>Objeto</label>
-                <textarea id="objeto" required></textarea>
-            </div>
-            <div class="form-group">
-                <label>Data de Assinatura</label>
-                <input type="date" id="dataAssinatura" required>
-            </div>
-            <div class="form-group">
-                <label>Informações do Contratante</label>
-                <textarea id="contratante" required></textarea>
-            </div>
-            <div class="form-group">
-                <label>Informações da Contratada</label>
-                <textarea id="contratada" required></textarea>
-            </div>
-            <div class="form-group">
-                <label>Número do Processo</label>
-                <div class="fixed-fields">077</div>
-            </div>
-            <div class="form-group">
-                <label>Ano do Processo</label>
-                <div class="fixed-fields">2022</div>
-            </div>
-            <button onclick="gerarDOC()">Gerar Documento</button>
-        </form>
-    </div>
-    <script>
-        function gerarDOC() {
-            const data = {
-                empresa: document.getElementById('empresa').value,
-                contratoNumero: document.getElementById('contratoNumero').value,
-                contratoAno: document.getElementById('contratoAno').value,
-                objeto: document.getElementById('objeto').value,
-                dataAssinatura: document.getElementById('dataAssinatura').value,
-                contratante: document.getElementById('contratante').value,
-                contratada: document.getElementById('contratada').value,
-                processo: '077',
-                processoAno: '2022'
-            };
 
-            const textContent = `
-                TERMO DE APOSTILAMENTO AO CONTRATO Nº ${data.contratoNumero}/${data.contratoAno}
-                ENTRE O CONSÓRCIO INTERMUNICIPAL DE SAÚDE CENTRO LESTE (CISCEL)
-                E A EMPRESA ${data.empresa}.
+<div class="form-container">
+    <h1>Termo de Apostilamento</h1>
+    <form id="apostilamentoForm">
+        <div class="form-section">
+            <label for="numeroContrato">Número do Contrato:</label>
+            <input type="text" id="numeroContrato" name="numeroContrato" placeholder="Ex: 123" required>
+        </div>
+        
+        <div class="form-section">
+            <label for="anoContrato">Ano do Contrato:</label>
+            <input type="text" id="anoContrato" name="anoContrato" placeholder="Ex: 2024" required>
+        </div>
 
-                Consórcio Intermunicipal de Saúde Centro Leste - CISCEL, com sede à Avenida Duque de Caxias, 850,
-                Bairro Esplanada da Estação, em Itabira-MG, inscrito no CNPJ sob o nº 01.921.228/0001-87, neste ato
-                resolve modificar o Contrato nº ${data.contratoNumero}/${data.contratoAno}, conforme Processo nº ${data.processo}/${data.processoAno}, que se regerá
-                pela legislação pertinente, Lei Federal nº 14.133/21 e Portaria Ciscel nº 006/2020, com as alterações
-                introduzidas posteriormente e pelas cláusulas e condições seguintes:
+        <div class="form-section">
+            <label for="empresa">Nome da Empresa:</label>
+            <input type="text" id="empresa" name="empresa" placeholder="Ex: Empresa XYZ" required>
+        </div>
 
-                CLÁUSULA PRIMEIRA - DO OBJETO
-                O presente Instrumento contratual tem como objetivo a modificação do contrato registrado e publicado
-                através do nº ${data.contratoNumero}/${data.contratoAno}, por parte do CISCEL e da Empresa ${data.empresa}, visando o ${data.objeto}.
+        <div class="form-section">
+            <label for="dataAssinatura">Data de Assinatura:</label>
+            <input type="date" id="dataAssinatura" name="dataAssinatura" required>
+        </div>
 
-                CLÁUSULA SEGUNDA – DA RETIFICAÇÃO
-                Ratificam-se todas as demais cláusulas e condições anteriormente acordadas do Contrato nº ${data.contratoNumero}/${data.contratoAno},
-                permanecendo válidas e inalteradas as não expressamente modificadas.
+        <input type="button" value="Gerar Documento" onclick="gerarDocumento()">
+    </form>
+</div>
 
-                CLÁUSULA TERCEIRA – DA PUBLICAÇÃO
-                O CISCEL providenciará a publicação resumida do presente Termo, que é condição indispensável para sua
-                eficiência.
+<script>
+    function gerarDocumento() {
+        // Coleta os dados do formulário
+        const numeroContrato = document.getElementById('numeroContrato').value;
+        const anoContrato = document.getElementById('anoContrato').value;
+        const empresa = document.getElementById('empresa').value;
+        const dataAssinatura = document.getElementById('dataAssinatura').value;
 
-                Itabira/MG, ${data.dataAssinatura}
+        // Criação do texto do contrato com os dados inseridos
+        const contratoTexto = `
+XXXº TERMO DE APOSTILAMENTO AO CONTRATO Nº ${numeroContrato}/${anoContrato}
 
-                CISCEL - Consórcio Intermunicipal de Saúde Centro Leste
-                ${data.empresa}
+ENTRE O CONSÓRCIO INTERMUNICIPAL DE SAÚDE 
+CENTRO LESTE (CISCEL) E A EMPRESA ${empresa}.
 
-                Informações do Contratante: ${data.contratante}
-                Informações da Contratada: ${data.contratada}
-            `;
+O Consórcio Intermunicipal de Saúde Centro Leste - CISCEL, com sede à Avenida Duque de Caxias, 850, Bairro Esplanada da Estação, em Itabira-MG, inscrito no CNPJ sob o nº 01.921.228/0001-87, neste ato representado pelo Secretário Executivo, Sr. Maurício Guimarães Mendes, portador do CPF nº 140.072.406-63, resolve modificar o Contrato nº ${numeroContrato}/${anoContrato}, conforme Processo nº 077/2022, que se regerá pela legislação pertinente, Lei Federal nº 14.133/21 e Portaria Ciscel nº 006/2020, com as alterações introduzidas posteriormente e pelas cláusulas e condições seguintes:
 
-            const blob = new Blob([textContent], { type: 'application/msword' });
-            const link = document.createElement('a');
-            link.href = URL.createObjectURL(blob);
-            link.download = 'termo_apostilamento.doc';
-            link.click();
-            URL.revokeObjectURL(link.href);
-        }
-    </script>
+CLÁUSULA PRIMEIRA - DO OBJETO
+O presente Instrumento contratual tem como objetivo a modificação do contrato registrado e publicado através do nº ${numeroContrato}/${anoContrato}, por parte do CISCEL e da Empresa ${empresa}, visando alteração de valor dos Itens abaixo:
+
+CLÁUSULA SEGUNDA – DA RETIFICAÇÃO
+Ratificam-se todas as demais cláusulas e condições anteriormente acordadas do Contrato nº 116/2022, permanecendo válidas e inalteradas as não expressamente modificadas.
+
+CLÁUSULA TERCEIRA – DA PUBLICAÇÃO
+O CISCEL providenciará a publicação resumida do presente Termo, que é condição indispensável para sua eficácia.
+
+Itabira/MG, ${dataAssinatura}
+
+CISCEL - Consórcio Intermunicipal de Saúde Centro Leste 
+
+Maurício Guimarães Mendes - CPF nº 140.072.406-63
+
+CONTRATANTE
+`;
+
+        // Cria um Blob com o texto e converte para download
+        const blob = new Blob([contratoTexto], { type: 'application/msword' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = `Termo_Apostilamento_${numeroContrato}_${anoContrato}.doc`;
+        link.click();
+    }
+</script>
+
 </body>
 </html>
