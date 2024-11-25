@@ -7,124 +7,183 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-        th {
             background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .product-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            justify-items: center;
+        }
+        .product-card {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            width: 100%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .product-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        }
+        .product-card img {
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+            margin-bottom: 10px;
+        }
+        .product-card h3 {
+            margin: 10px 0;
+            color: #333;
+        }
+        .product-card p {
+            font-size: 14px;
+            color: #555;
+        }
+        .price {
+            font-weight: bold;
+            color: #007BFF;
+            font-size: 16px;
+            margin: 10px 0;
+        }
+        @media (max-width: 600px) {
+            .product-card {
+                width: 90%;
+            }
         }
     </style>
 </head>
 <body>
     <h1>Lista de Produtos</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>Código</th>
-                <th>Descrição dos Itens</th>
-                <th>Valor</th>
-                <th>Tipo</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>A06</td>
-                <td>Barra de Cereal 23GR</td>
-                <td>R$ 5,00</td>
-                <td>Por UN</td>
-            </tr>
-            <tr>
-                <td>B01</td>
-                <td>Água Mineral c/ Gás 500 ML</td>
-                <td>R$ 5,00</td>
-                <td>Por UN</td>
-            </tr>
-            <tr>
-                <td>B04</td>
-                <td>Água Mineral s/ Gás 500 ML</td>
-                <td>R$ 4,50</td>
-                <td>Por UN</td>
-            </tr>
-            <tr>
-                <td>B05</td>
-                <td>Cerveja Heineken LTA 350ML</td>
-                <td>R$ 9,00</td>
-                <td>Por UN</td>
-            </tr>
-            <tr>
-                <td>B06</td>
-                <td>Toddyinho 200 ML</td>
-                <td>R$ 6,00</td>
-                <td>Por UN</td>
-            </tr>
-            <tr>
-                <td>B07</td>
-                <td>Água de Coco 200 ML</td>
-                <td>R$ 6,00</td>
-                <td>Por UN</td>
-            </tr>
-            <tr>
-                <td>B08</td>
-                <td>Gatorade PET 500 ML</td>
-                <td>R$ 9,90</td>
-                <td>Por UN</td>
-            </tr>
-            <tr>
-                <td>B12</td>
-                <td>Coca Cola 350 ML</td>
-                <td>R$ 6,00</td>
-                <td>Por UN</td>
-            </tr>
-            <tr>
-                <td>B13</td>
-                <td>Coca Cola Zero 350 ML</td>
-                <td>R$ 6,00</td>
-                <td>Por UN</td>
-            </tr>
-            <tr>
-                <td>B21</td>
-                <td>Bebida Láctea 3 Corações 260ML</td>
-                <td>R$ 9,90</td>
-                <td>Por UN</td>
-            </tr>
-            <tr>
-                <td>B22</td>
-                <td>Suco Caixa 330 ML</td>
-                <td>R$ 6,00</td>
-                <td>Por UN</td>
-            </tr>
-            <tr>
-                <td>C05</td>
-                <td>Galak Branco 25 GR</td>
-                <td>R$ 4,00</td>
-                <td>Por UN</td>
-            </tr>
-            <tr>
-                <td>C09</td>
-                <td>Trento Chocolate 32GR</td>
-                <td>R$ 4,00</td>
-                <td>Por UN</td>
-            </tr>
-            <tr>
-                <td>C12</td>
-                <td>Choc Alpino Nestlé 25 GR</td>
-                <td>R$ 4,00</td>
-                <td>Por UN</td>
-            </tr>
-            <tr>
-                <td>T04</td>
-                <td>Batata Chips Petisco 45 GR</td>
-                <td>R$ 5,50</td>
-                <td>Por UN</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="product-container">
+        <div class="product-card">
+            <img src="https://docemalu.vtexassets.com/arquivos/ids/5356791-800-auto?v=638615695698470000&width=800&height=auto&aspect=true">
+            <h3>Barra de Cereal 23GR</h3>
+            <p>Código: A06</p>
+            <p class="price">R$ 5,00</p>
+            <p>Por UN</p>
+        </div>
+
+        <div class="product-card">
+            <img src="https://muffatosupermercados.vtexassets.com/arquivos/ids/368145/7894900531008.jpg?v=638307503124200000">
+            <h3>Água Mineral c/ Gás 500 ML</h3>
+            <p>Código: B01</p>
+            <p class="price">R$ 5,00</p>
+            <p>Por UN</p>
+        </div>
+
+        <div class="product-card">
+            <img src="https://static.paodeacucar.com/img/uploads/1/132/11825132.jpg">
+            <h3>Água Mineral s/ Gás 500 ML</h3>
+            <p>Código: B04</p>
+            <p class="price">R$ 4,50</p>
+            <p>Por UN</p>
+        </div>
+
+        <div class="product-card">
+            <img src="https://via.placeholder.com/100x100?text=Cerveja+Heineken" alt="Cerveja Heineken LTA 350ML">
+            <h3>Cerveja Heineken LTA 350ML</h3>
+            <p>Código: B05</p>
+            <p class="price">R$ 9,00</p>
+            <p>Por UN</p>
+        </div>
+
+        <div class="product-card">
+            <img src="https://via.placeholder.com/100x100?text=Toddyinho" alt="Toddyinho 200ML">
+            <h3>Toddyinho 200 ML</h3>
+            <p>Código: B06</p>
+            <p class="price">R$ 6,00</p>
+            <p>Por UN</p>
+        </div>
+
+        <div class="product-card">
+            <img src="https://via.placeholder.com/100x100?text=Água+de+Coco" alt="Água de Coco 200ML">
+            <h3>Água de Coco 200 ML</h3>
+            <p>Código: B07</p>
+            <p class="price">R$ 6,00</p>
+            <p>Por UN</p>
+        </div>
+
+        <div class="product-card">
+            <img src="https://via.placeholder.com/100x100?text=Gatorade" alt="Gatorade PET 500ML">
+            <h3>Gatorade PET 500 ML</h3>
+            <p>Código: B08</p>
+            <p class="price">R$ 9,90</p>
+            <p>Por UN</p>
+        </div>
+
+        <div class="product-card">
+            <img src="https://via.placeholder.com/100x100?text=Coca+Cola" alt="Coca Cola 350ML">
+            <h3>Coca Cola 350 ML</h3>
+            <p>Código: B12</p>
+            <p class="price">R$ 6,00</p>
+            <p>Por UN</p>
+        </div>
+
+        <div class="product-card">
+            <img src="https://via.placeholder.com/100x100?text=Coca+Cola+Zero" alt="Coca Cola Zero 350ML">
+            <h3>Coca Cola Zero 350 ML</h3>
+            <p>Código: B13</p>
+            <p class="price">R$ 6,00</p>
+            <p>Por UN</p>
+        </div>
+
+        <div class="product-card">
+            <img src="https://via.placeholder.com/100x100?text=Bebida+Láctea" alt="Bebida Láctea 3 Corações 260ML">
+            <h3>Bebida Láctea 3 Corações 260ML</h3>
+            <p>Código: B21</p>
+            <p class="price">R$ 9,90</p>
+            <p>Por UN</p>
+        </div>
+
+        <div class="product-card">
+            <img src="https://via.placeholder.com/100x100?text=Suco+Caixa" alt="Suco Caixa 330ML">
+            <h3>Suco Caixa 330 ML</h3>
+            <p>Código: B22</p>
+            <p class="price">R$ 6,00</p>
+            <p>Por UN</p>
+        </div>
+
+        <div class="product-card">
+            <img src="https://via.placeholder.com/100x100?text=Galak+Branco" alt="Galak Branco 25GR">
+            <h3>Galak Branco 25 GR</h3>
+            <p>Código: C05</p>
+            <p class="price">R$ 4,00</p>
+            <p>Por UN</p>
+        </div>
+
+        <div class="product-card">
+            <img src="https://via.placeholder.com/100x100?text=Trento+Chocolate" alt="Trento Chocolate 32GR">
+            <h3>Trento Chocolate 32GR</h3>
+            <p>Código: C09</p>
+            <p class="price">R$ 4,00</p>
+            <p>Por UN</p>
+        </div>
+
+        <div class="product-card">
+            <img src="https://via.placeholder.com/100x100?text=Choc+Alpino" alt="Choc Alpino Nestlé 25GR">
+            <h3>Choc Alpino Nestlé 25 GR</h3>
+            <p>Código: C12</p>
+            <p class="price">R$ 4,00</p>
+            <p>Por UN</p>
+        </div>
+
+        <div class="product-card">
+            <img src="https://via.placeholder.com/100x100?text=Batata+Chips" alt="Batata Chips Petisco 45GR">
+            <h3>Batata Chips Petisco 45 GR</h3>
+            <p>Código: T04</p>
+            <p class="price">R$ 5,50</p>
+            <p>Por UN</p>
+        </div>
+    </div>
 </body>
 </html>
