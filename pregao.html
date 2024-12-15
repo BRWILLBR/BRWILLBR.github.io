@@ -1,160 +1,256 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulário de Aviso de Licitação</title>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Fluxo de Trabalho Atualizado: Recebimento, Execução e Gestão de Pedidos</title>
     <style>
-        /* Estilo básico */
         body {
             font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
             margin: 0;
             padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            background-color: #f0f2f5;
+            line-height: 1.6;
         }
-
-        .container {
-            width: 100%;
-            max-width: 500px;
-            background-color: #fff;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
-        }
-        
-        .container:hover {
-            transform: scale(1.01);
-        }
-
-        h2 {
-            text-align: center;
-            color: #333;
-            font-weight: 600;
-            margin-bottom: 20px;
-        }
-
-        label {
-            font-weight: bold;
-            color: #555;
-            margin-bottom: 5px;
-            display: block;
-            font-size: 14px;
-        }
-
-        input[type="text"],
-        input[type="date"],
-        select,
-        textarea {
-            width: 100%;
-            padding: 12px 15px;
-            font-size: 15px;
-            margin-bottom: 20px;
-            border-radius: 8px;
-            border: 1px solid #ddd;
-            box-sizing: border-box;
-            background-color: #fafafa;
-            outline-color: #5cb85c;
-            transition: all 0.3s ease;
-        }
-
-        textarea {
-            resize: vertical;
-        }
-
-        input:focus, select:focus, textarea:focus {
-            border-color: #5cb85c;
-            background-color: #f5fff5;
-        }
-
-        button {
-            width: 100%;
-            padding: 15px;
-            font-size: 16px;
-            font-weight: bold;
+        header {
+            background-color: #333;
             color: #fff;
-            background-color: #5cb85c;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
+            text-align: center;
+            padding: 10px 0;
         }
-
-        button:hover {
-            background-color: #4cae4c;
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            color: #333;
+        }
+        ol {
+            margin-left: 20px;
+        }
+        ul {
+            margin-left: 20px;
+        }
+        section {
+            margin-bottom: 30px;
+        }
+        .section-title {
+            font-size: 1.3em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .responsible {
+            font-style: italic;
+            color: #555;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h2>Formulário de Aviso de Licitação</h2>
-        <form id="licitacaoForm">
-            <label for="numeroPregao">Número do Pregão (3 dígitos):</label>
-            <input type="text" id="numeroPregao" maxlength="3" placeholder="Ex.: 123" required>
 
-            <label for="anoPregao">Ano do Pregão:</label>
-            <select id="anoPregao" required>
-                <option value="2024">2024</option>
-                <option value="2025">2025</option>
-            </select>
+<header>
+    <h1>Fluxo de Trabalho Atualizado: Recebimento, Execução e Gestão de Pedidos</h1>
+</header>
 
-            <label for="numeroProcesso">Número do Processo Administrativo (3 dígitos):</label>
-            <input type="text" id="numeroProcesso" maxlength="3" placeholder="Ex.: 001" required>
+<div class="container">
+    <section>
+        <h2>1. Recebimento de Pedidos</h2>
+        <p class="responsible">Responsável: Funcionário A</p>
+        <ol>
+            <li><strong>Passo 1: Identificação do Tipo de Serviço/Produto</strong>
+                <ul>
+                    <li>Serviços: Urgentes, corretivos ou preventivos.</li>
+                    <li>Produtos ou Materiais: Compras necessárias, como materiais de limpeza, ferramentas, peças de reposição, etc.</li>
+                </ul>
+            </li>
+            <li><strong>Passo 2: Registro no Sistema</strong>
+                <p>Todos os pedidos devem ser registrados no sistema de gestão (ou planilha) para controle, com detalhes completos sobre:</p>
+                <ul>
+                    <li>Tipo de serviço ou produto.</li>
+                    <li>Grau de urgência e prazo de execução.</li>
+                </ul>
+            </li>
+        </ol>
+    </section>
 
-            <label for="dataAbertura">Data de Abertura e Limite para Recebimento das Propostas:</label>
-            <input type="date" id="dataAbertura" required>
+    <section>
+        <h2>2. Execução de Serviços Urgentes (Resolvido na Hora)</h2>
+        <p class="responsible">Responsáveis: Funcionário A e/ou B</p>
+        <ol>
+            <li><strong>Passo 1: Ação Imediata</strong>
+                <ul>
+                    <li>Serviço Urgente: Funcionário A toma as ações necessárias para resolver o problema de imediato, sem necessidade de cotações.</li>
+                    <li>Produto/Material: Caso seja necessário comprar materiais urgentemente, o Funcionário B realiza a compra diretamente.</li>
+                </ul>
+            </li>
+            <li><strong>Passo 2: Lançamento no Sistema</strong>
+                <ul>
+                    <li>Após a execução do serviço ou compra, registrar todas as informações no sistema, incluindo:</li>
+                    <li>Detalhes do fornecedor.</li>
+                    <li>Data da compra e custo.</li>
+                </ul>
+            </li>
+        </ol>
+    </section>
 
-            <label for="detalhesContratacao">Detalhes da Contratação:</label>
-            <textarea id="detalhesContratacao" rows="4" placeholder="Descreva o objeto da licitação" required></textarea>
+    <section>
+        <h2>3. Execução de Serviços Urgentes (Pode Esperar 24h a 48h)</h2>
+        <p class="responsible">Responsável: Funcionário B</p>
+        <ol>
+            <li><strong>Passo 1: Solicitação de Cotações</strong>
+                <ul>
+                    <li>Solicitar cotações para fornecedores de serviços ou materiais necessários.</li>
+                </ul>
+            </li>
+            <li><strong>Passo 2: Análise de Cotações e Compra</strong>
+                <ul>
+                    <li>Realizar a análise das cotações e fazer a compra ou contratação mais vantajosa para a situação.</li>
+                </ul>
+            </li>
+            <li><strong>Passo 3: Lançamento no Sistema</strong>
+                <ul>
+                    <li>Registrar a compra no sistema, incluindo detalhes do fornecedor, valor e prazo.</li>
+                </ul>
+            </li>
+        </ol>
+    </section>
 
-            <button type="button" onclick="gerarPDF()">Gerar PDF</button>
-        </form>
-    </div>
+    <section>
+        <h2>4. Execução de Serviços Corretivos</h2>
+        <p class="responsible">Responsável: Funcionário B</p>
+        <ol>
+            <li><strong>Passo 1: Solicitação de Cotações</strong>
+                <ul>
+                    <li>Para serviços corretivos não urgentes, solicitar cotações de fornecedores.</li>
+                </ul>
+            </li>
+            <li><strong>Passo 2: Compra de Materiais/Produtos</strong>
+                <ul>
+                    <li>Se necessário, realizar a compra de materiais ou produtos relacionados (ex.: peças de reposição, ferramentas).</li>
+                </ul>
+            </li>
+            <li><strong>Passo 3: Análise e Contratação</strong>
+                <ul>
+                    <li>Após analisar as cotações, contratar o serviço ou realizar a compra.</li>
+                </ul>
+            </li>
+            <li><strong>Passo 4: Lançamento no Sistema</strong>
+                <ul>
+                    <li>Registrar no sistema: fornecedor, custos, prazo e status do pedido.</li>
+                </ul>
+            </li>
+        </ol>
+    </section>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script>
-        function gerarPDF() {
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
+    <section>
+        <h2>5. Execução de Manutenção Preventiva</h2>
+        <p class="responsible">Responsável: Funcionário C</p>
+        <ol>
+            <li><strong>Passo 1: Planejamento e Agendamento</strong>
+                <ul>
+                    <li>Planejar as manutenções preventivas com antecedência, considerando a necessidade de materiais e produtos.</li>
+                </ul>
+            </li>
+            <li><strong>Passo 2: Solicitação de Compras</strong>
+                <ul>
+                    <li>Caso necessite de materiais, o Funcionário B solicita cotações e realiza a compra.</li>
+                </ul>
+            </li>
+            <li><strong>Passo 3: Execução</strong>
+                <ul>
+                    <li>Realizar a manutenção conforme o cronograma, utilizando os materiais adquiridos e fornecedores contratados.</li>
+                </ul>
+            </li>
+            <li><strong>Passo 4: Lançamento no Sistema</strong>
+                <ul>
+                    <li>Registrar os detalhes no sistema: custos e resultados do serviço.</li>
+                </ul>
+            </li>
+        </ol>
+    </section>
 
-            // Define a fonte e o tamanho
-            doc.setFont("calibri");
-            doc.setFontSize(12);
+    <section>
+        <h2>6. Compra de Materiais e Produtos</h2>
+        <p class="responsible">Responsável: Funcionário B</p>
+        <ol>
+            <li><strong>Passo 1: Identificação da Necessidade de Compra</strong>
+                <ul>
+                    <li>Quando materiais ou produtos forem necessários, o Funcionário B deve ser informado.</li>
+                </ul>
+            </li>
+            <li><strong>Passo 2: Cotação e Análise</strong>
+                <ul>
+                    <li>Solicitar cotações, comparar preços e prazos de entrega.</li>
+                </ul>
+            </li>
+            <li><strong>Passo 3: Compra e Registro</strong>
+                <ul>
+                    <li>Efetuar a compra e registrar no sistema: fornecedor, data, custo e prazo.</li>
+                </ul>
+            </li>
+            <li><strong>Passo 4: Recebimento de Materiais</strong>
+                <ul>
+                    <li>Acompanhar o recebimento e verificar conformidade. Resolver discrepâncias com o fornecedor imediatamente.</li>
+                </ul>
+            </li>
+        </ol>
+    </section>
 
-            // Coleta os valores dos campos
-            const numeroPregao = document.getElementById("numeroPregao").value;
-            const anoPregao = document.getElementById("anoPregao").value;
-            const numeroProcesso = document.getElementById("numeroProcesso").value;
-            const dataAbertura = new Date(document.getElementById("dataAbertura").value).toLocaleDateString('pt-BR');
-            const detalhesContratacao = document.getElementById("detalhesContratacao").value;
+    <section>
+        <h2>7. Feedback para o Solicitante</h2>
+        <p class="responsible">Responsáveis: Funcionário A (serviços) e Funcionário B (compras)</p>
+        <ol>
+            <li><strong>Passo 1: Feedback após Execução de Serviços</strong>
+                <ul>
+                    <li>Entrar em contato com o solicitante (síndico, morador ou gestor) para verificar se o serviço foi realizado corretamente.</li>
+                </ul>
+            </li>
+            <li><strong>Passo 2: Feedback após Compra de Produtos</strong>
+                <ul>
+                    <li>Garantir que os materiais adquiridos atendem às expectativas. Registrar feedbacks positivos ou negativos no sistema.</li>
+                </ul>
+            </li>
+            <li><strong>Passo 3: Registro de Feedback</strong>
+                <ul>
+                    <li>Registrar todos os feedbacks no sistema para melhorias futuras.</li>
+                </ul>
+            </li>
+        </ol>
+    </section>
 
-            // Texto do PDF
-            const tituloCentralizado = `AVISO DE LICITAÇÃO\nPREGÃO ELETRÔNICO Nº ${numeroPregao}/${anoPregao}\nPROCESSO ADMINISTRATIVO Nº ${numeroProcesso}`;
-            const textoCorpo = `
-O Consórcio Intermunicipal de Saúde Centro Leste – CISCEL, torna público para conhecimento dos interessados a publicação do Edital de Pregão Eletrônico n° ${numeroPregao}/${anoPregao}, com abertura prevista para o dia ${dataAbertura} através da plataforma www.licitardigital.com.br, para ${detalhesContratacao}.
+    <section>
+        <h2>8. Relatórios e Encerramento</h2>
+        <p class="responsible">Responsável: Todos</p>
+        <ol>
+            <li><strong>Passo 1: Relatório de Serviços e Compras</strong>
+                <ul>
+                    <li>Gerar relatórios periódicos com informações sobre custos, prazos e qualidade.</li>
+                </ul>
+            </li>
+            <li><strong>Passo 2: Revisão de Processos</strong>
+                <ul>
+                    <li>Realizar reuniões para analisar o desempenho, identificar gargalos e planejar melhorias nos processos.</li>
+                </ul>
+            </li>
+        </ol>
+    </section>
 
-A data limite para recebimento das propostas será até o dia ${dataAbertura} às 08h:30min.
+    <section>
+        <h2>Resumo do Fluxo de Trabalho Atualizado:</h2>
+        <ol>
+            <li>Recebimento de Pedidos: Funcionário A registra todos os pedidos, identificando tipo de serviço ou produto.</li>
+            <li>Execução de Serviços e Compras: Funcionário A (serviços urgentes), Funcionário B (compras de materiais ou serviços corretivos), Funcionário C (manutenções preventivas).</li>
+            <li>Compra de Materiais e Produtos: Funcionário B realiza a compra de materiais/produtos, registra e acompanha o recebimento.</li>
+            <li>Feedback para o Solicitante: Funcionário A (serviços) e Funcionário B (compras) garantem o feedback do solicitante.</li>
+            <li>Relatórios e Encerramento: Todos os membros geram relatórios e planejam melhorias.</li>
+        </ol>
+    </section>
+</div>
 
-Mais informações poderão ser obtidas na sede do CISCEL, situado na Av. Duque de Caxias, nº 850, Esplanada da Estação, Itabira, MG, ou pelo telefone (31)3831-3555. E-mail: licitacao@ciscel.mg.gov.br ou pelo site: www.ciscel.mg.gov.br.
-
-Itabira, 22 de outubro de 2024.
-
-Dayane C. R. de Paulo
-Presidente da CPL`;
-
-            // Adiciona o título centralizado
-            doc.text(tituloCentralizado, 105, 20, { align: "center" });
-
-            // Adiciona o texto do corpo alinhado à esquerda
-            doc.text(textoCorpo, 10, 50, { align: "left", maxWidth: 180 });
-
-            // Salva o PDF
-            doc.save(`aviso_licitacao_${numeroPregao}_${anoPregao}.pdf`);
-        }
-    </script>
 </body>
 </html>
+
