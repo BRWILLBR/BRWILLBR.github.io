@@ -1,488 +1,165 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulário de Termo de Apostilamento</title>
+    <title>Cadastro de Demandas</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f9f9f9;
-            margin: 0;
-            padding: 20px;
+            margin: 20px;
+            background-color: #f7f7f7;
         }
         .form-container {
-            background-color: white;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            max-width: 800px;
+            max-width: 600px;
             margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
-        h1 {
-            text-align: center;
-            color: #333;
+        .form-group {
+            margin-bottom: 15px;
         }
-        label {
-            font-weight: bold;
-            margin-top: 10px;
+        .form-group label {
             display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
         }
-        input[type="text"], select, textarea {
+        .form-group input, .form-group select, .form-group textarea {
             width: 100%;
-            padding: 10px;
-            margin-top: 5px;
-            border-radius: 4px;
+            padding: 8px;
             border: 1px solid #ccc;
+            border-radius: 4px;
         }
-        input[type="button"] {
-            padding: 10px 20px;
-            background-color: #4CAF50;
+        .form-group textarea {
+            resize: vertical;
+        }
+        .form-group button {
+            background-color: #007BFF;
             color: white;
+            padding: 10px 15px;
             border: none;
             border-radius: 4px;
             cursor: pointer;
-            margin-top: 20px;
+            font-size: 16px;
         }
-        input[type="button"]:hover {
-            background-color: #45a049;
-        }
-        .form-section {
-            margin-bottom: 20px;
-        }
-        .form-section:last-child {
-            margin-bottom: 0;
-        }
-        textarea {
-            font-family: Arial, sans-serif;
-            font-size: 12px;
-            text-align: justify;
-            resize: vertical;
-            min-height: 100px;
-        }
-        .checkbox-group {
-            display: flex;
-            flex-direction: column;
-        }
-        .checkbox-group label {
-            font-weight: normal;
+        .form-group button:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
 <body>
-
-<div class="form-container">
-    <h1>Termo de Apostilamento</h1>
-    <form id="apostilamentoForm">
-        <div class="form-section">
-            <label for="numeroContrato">Número do Contrato:</label>
-            <input type="text" id="numeroContrato" name="numeroContrato" placeholder="Ex: 123" maxlength="3" required>
-        </div>
-        
-        <div class="form-section">
-            <label for="anoContrato">Ano do Contrato:</label>
-            <select id="anoContrato" name="anoContrato" required>
-                <option value="2022">2022</option>
-                <option value="2023">2023</option>
-                <option value="2024">2024</option>
-            </select>
-        </div>
-
-        <div class="form-section">
-            <label for="empresa">Nome da Empresa:</label>
-            <input type="text" id="empresa" name="empresa" placeholder="Ex: Empresa XYZ" required>
-        </div>
-
-        <div class="form-section">
-            <label for="numeroTermo">Número do Termo:</label>
-            <input type="text" id="numeroTermo" name="numeroTermo" placeholder="Ex: XXX" required>
-        </div>
-
-        <div class="form-section">
-            <label>Objeto do Contrato (Selecione os exames e valores):</label>
-            <div class="checkbox-group">
-                <label><input type="checkbox" name="exame" value="Procedimento Duplex Scan Arterial - Unilateral (Consultório CISCEL: R$112,00)"> Procedimento Duplex Scan Arterial - Unilateral (Consultório CISCEL: R$112,00)</label> 
-<label><input type="checkbox" name="exame" value="Procedimento Duplex Scan Arterial - Unilateral (Prestador: R$150,00)"> Procedimento Duplex Scan Arterial - Unilateral (Prestador: R$150,00)</label> 
-<label><input type="checkbox" name="exame" value="Procedimento Duplex Scan Arterial - Unilateral (Municípios: R$165,00)"> Procedimento Duplex Scan Arterial - Unilateral (Municípios: R$165,00)</label>
-
-<label><input type="checkbox" name="exame" value="Procedimento Duplex Scan De Aorta Iliaca (Consultório CISCEL: R$110,00)"> Procedimento Duplex Scan De Aorta Iliaca (Consultório CISCEL: R$110,00)</label> 
-<label><input type="checkbox" name="exame" value="Procedimento Duplex Scan De Aorta Iliaca (Prestador: R$153,00)"> Procedimento Duplex Scan De Aorta Iliaca (Prestador: R$153,00)</label> 
-<label><input type="checkbox" name="exame" value="Procedimento Duplex Scan De Aorta Iliaca (Municípios: R$153,00)"> Procedimento Duplex Scan De Aorta Iliaca (Municípios: R$153,00)</label>
-
-<label><input type="checkbox" name="exame" value="Procedimento Duplex Scan De Arterias Renais (Consultório CISCEL: R$100,00)"> Procedimento Duplex Scan De Arterias Renais (Consultório CISCEL: R$100,00)</label> 
-<label><input type="checkbox" name="exame" value="Procedimento Duplex Scan De Arterias Renais (Prestador: R$142,00)"> Procedimento Duplex Scan De Arterias Renais (Prestador: R$142,00)</label> 
-<label><input type="checkbox" name="exame" value="Procedimento Duplex Scan De Arterias Renais (Municípios: R$142,00)"> Procedimento Duplex Scan De Arterias Renais (Municípios: R$142,00)</label>
-
-<label><input type="checkbox" name="exame" value="Procedimento Duplex Scan De Carotidas E Vertebrais (Consultório CISCEL: R$143,00)"> Procedimento Duplex Scan De Carotidas E Vertebrais (Consultório CISCEL: R$143,00)</label> 
-<label><input type="checkbox" name="exame" value="Procedimento Duplex Scan De Carotidas E Vertebrais (Prestador: R$165,00)"> Procedimento Duplex Scan De Carotidas E Vertebrais (Prestador: R$165,00)</label> 
-<label><input type="checkbox" name="exame" value="Procedimento Duplex Scan De Carotidas E Vertebrais (Municípios: R$192,00)"> Procedimento Duplex Scan De Carotidas E Vertebrais (Municípios: R$192,00)</label>
-
-<label><input type="checkbox" name="exame" value="Procedimento Duplex Scan Vasos Cervicais (Consultório CISCEL: R$143,00)"> Procedimento Duplex Scan Vasos Cervicais (Consultório CISCEL: R$143,00)</label> 
-<label><input type="checkbox" name="exame" value="Procedimento Duplex Scan Vasos Cervicais (Prestador: R$165,00)"> Procedimento Duplex Scan Vasos Cervicais (Prestador: R$165,00)</label> 
-<label><input type="checkbox" name="exame" value="Procedimento Duplex Scan Vasos Cervicais (Municípios: R$192,00)"> Procedimento Duplex Scan Vasos Cervicais (Municípios: R$192,00)</label>
-
-<label><input type="checkbox" name="exame" value="Procedimento Duplex Scan Venoso - Unilateral (Consultório CISCEL: R$100,00)"> Procedimento Duplex Scan Venoso - Unilateral (Consultório CISCEL: R$100,00)</label> 
-<label><input type="checkbox" name="exame" value="Procedimento Duplex Scan Venoso - Unilateral (Prestador: R$142,00)"> Procedimento Duplex Scan Venoso - Unilateral (Prestador: R$142,00)</label> 
-<label><input type="checkbox" name="exame" value="Procedimento Duplex Scan Venoso - Unilateral (Municípios: R$142,00)"> Procedimento Duplex Scan Venoso - Unilateral (Municípios: R$142,00)</label>
-
-<label><input type="checkbox" name="exame" value="Sessão De Escleroterapia Com Espuma (O Médico Deverá Trazer O Medicamento) (Consultório CISCEL: R$430,00)"> Sessão De Escleroterapia Com Espuma (O Médico Deverá Trazer O Medicamento) (Consultório CISCEL: R$430,00)</label> 
-<label><input type="checkbox" name="exame" value="Sessão De Escleroterapia Com Espuma (O Médico Deverá Trazer O Medicamento) (Prestador: R$450,00)"> Sessão De Escleroterapia Com Espuma (O Médico Deverá Trazer O Medicamento) (Prestador: R$450,00)</label> 
-<label><input type="checkbox" name="exame" value="Sessão De Escleroterapia Com Espuma (O Médico Deverá Trazer O Medicamento) (Municípios: R$490,00)"> Sessão De Escleroterapia Com Espuma (O Médico Deverá Trazer O Medicamento) (Municípios: R$490,00)</label>
-
-<label><input type="checkbox" name="exame" value="Ecocardiografia De Estresse Farmacológico (Prestador: R$298,00)"> Ecocardiografia De Estresse Farmacológico (Prestador: R$298,00)</label> 
-<label><input type="checkbox" name="exame" value="Ecocardiografia Transesofágica (Prestador: R$339,00)"> Ecocardiografia Transesofágica (Prestador: R$339,00)</label> 
-<label><input type="checkbox" name="exame" value="Ecocardiografia De Estresse (Esforço) (Prestador: R$300,00)"> Ecocardiografia De Estresse (Esforço) (Prestador: R$300,00)</label> 
-<label><input type="checkbox" name="exame" value="Ecocardiograma Fetal (Prestador: R$319,00)"> Ecocardiograma Fetal (Prestador: R$319,00)</label> 
-<label><input type="checkbox" name="exame" value="Ecodoplercardiograma (Prestador: R$126,00)"> Ecodoplercardiograma (Prestador: R$126,00)</label> 
-<label><input type="checkbox" name="exame" value="Ecodoplercardiograma Infantil (Prestador: R$213,00)"> Ecodoplercardiograma Infantil (Prestador: R$213,00)</label> 
-<label><input type="checkbox" name="exame" value="Eletrocardiograma - Ecg (Prestador: R$30,00)"> Eletrocardiograma - Ecg (Prestador: R$30,00)</label> 
-<label><input type="checkbox" name="exame" value="Laudo De Ecg (Prestador: R$6,00)"> Laudo De Ecg (Prestador: R$6,00)</label> 
-<label><input type="checkbox" name="exame" value="Mapa (Prestador: R$103,00)"> Mapa (Prestador: R$103,00)</label> 
-<label><input type="checkbox" name="exame" value="Monitoramento Pelo Sistema Holter 24 Hs 3 Canais (Prestador: R$103,00)"> Monitoramento Pelo Sistema Holter 24 Hs 3 Canais (Prestador: R$103,00)</label>
-
-<label><input type="checkbox" name="exame" value="Ultrassonografia De Abdômen Total - Fígado, Vesicula Biliar, Rins, Pâncreas, Bexiga, Grandes Vasos Retroperitonio E Trato Gastrointestinal (Consultório CISCEL: R$92,00)"> Ultrassonografia De Abdômen Total - Fígado, Vesicula Biliar, Rins, Pâncreas, Bexiga, Grandes Vasos Retroperitonio E Trato Gastrointestinal (Consultório CISCEL: R$92,00)</label>
-<label><input type="checkbox" name="exame" value="Ultrassonografia De Abdômen Total - Fígado, Vesicula Biliar, Rins, Pâncreas, Bexiga, Grandes Vasos Retroperitonio E Trato Gastrointestinal (Prestador: R$102,00)"> Ultrassonografia De Abdômen Total - Fígado, Vesicula Biliar, Rins, Pâncreas, Bexiga, Grandes Vasos Retroperitonio E Trato Gastrointestinal (Prestador: R$102,00)</label>
-<label><input type="checkbox" name="exame" value="Ultrassonografia De Abdômen Total - Fígado, Vesicula Biliar, Rins, Pâncreas, Bexiga, Grandes Vasos Retroperitonio E Trato Gastrointestinal (Municípios: R$112,00)"> Ultrassonografia De Abdômen Total - Fígado, Vesicula Biliar, Rins, Pâncreas, Bexiga, Grandes Vasos Retroperitonio E Trato Gastrointestinal (Municípios: R$112,00)</label>
-
-<label><input type="checkbox" name="exame" value="Ultrassonografia Transfontanela (Consultório CISCEL: R$72,00)"> Ultrassonografia Transfontanela (Consultório CISCEL: R$72,00)</label>
-<label><input type="checkbox" name="exame" value="Ultrassonografia Transfontanela (Prestador: R$92,00)"> Ultrassonografia Transfontanela (Prestador: R$92,00)</label>
-<label><input type="checkbox" name="exame" value="Ultrassonografia Transfontanela (Municípios: R$150,00)"> Ultrassonografia Transfontanela (Municípios: R$150,00)</label>
-
-<label><input type="checkbox" name="exame" value="Ultrassonografia De Prostata Via Transretal Com Biopsia E Anestesia (Prestador: R$756,70)"> Ultrassonografia De Prostata Via Transretal Com Biopsia E Anestesia (Prestador: R$756,70)</label>
-
-<label><input type="checkbox" name="exame" value="Ultrassonografia De Articulação - Antebraço, Braço, Cotovelo, Punho, Mão, Ombro, Quadril, Fêmur, Perna, Joelho, Panturrilha, Tornozelo, Pe, Tendão (Consultório CISCEL: R$72,00)"> Ultrassonografia De Articulação - Antebraço, Braço, Cotovelo, Punho, Mão, Ombro, Quadril, Fêmur, Perna, Joelho, Panturrilha, Tornozelo, Pe, Tendão (Consultório CISCEL: R$72,00)</label>
-<label><input type="checkbox" name="exame" value="Ultrassonografia De Articulação - Antebraço, Braço, Cotovelo, Punho, Mão, Ombro, Quadril, Fêmur, Perna, Joelho, Panturrilha, Tornozelo, Pe, Tendão (Prestador: R$83,00)"> Ultrassonografia De Articulação - Antebraço, Braço, Cotovelo, Punho, Mão, Ombro, Quadril, Fêmur, Perna, Joelho, Panturrilha, Tornozelo, Pe, Tendão (Prestador: R$83,00)</label>
-<label><input type="checkbox" name="exame" value="Ultrassonografia De Articulação - Antebraço, Braço, Cotovelo, Punho, Mão, Ombro, Quadril, Fêmur, Perna, Joelho, Panturrilha, Tornozelo, Pe, Tendão (Municípios: R$92,00)"> Ultrassonografia De Articulação - Antebraço, Braço, Cotovelo, Punho, Mão, Ombro, Quadril, Fêmur, Perna, Joelho, Panturrilha, Tornozelo, Pe, Tendão (Municípios: R$92,00)</label>
-
-<label><input type="checkbox" name="exame" value="Ultrassonografia De Mama E Axila Bilateral (Consultório CISCEL: R$140,00)"> Ultrassonografia De Mama E Axila Bilateral (Consultório CISCEL: R$140,00)</label>
-<label><input type="checkbox" name="exame" value="Ultrassonografia De Mama E Axila Bilateral (Prestador: R$165,00)"> Ultrassonografia De Mama E Axila Bilateral (Prestador: R$165,00)</label>
-<label><input type="checkbox" name="exame" value="Ultrassonografia De Mama E Axila Bilateral (Municípios: R$175,00)"> Ultrassonografia De Mama E Axila Bilateral (Municípios: R$175,00)</label>
-
-<label><input type="checkbox" name="exame" value="Ultrassonografia De Tireóide - Glandulas Salivares E Cadeias Linfonodais Cervicais (Consultório CISCEL: R$72,00)"> Ultrassonografia De Tireóide - Glandulas Salivares E Cadeias Linfonodais Cervicais (Consultório CISCEL: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Ultrassonografia De Tireóide - Glandulas Salivares E Cadeias Linfonodais Cervicais (Prestador: R$83,00)"> Ultrassonografia De Tireóide - Glandulas Salivares E Cadeias Linfonodais Cervicais (Prestador: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Ultrassonografia De Tireóide - Glandulas Salivares E Cadeias Linfonodais Cervicais (Municípios: R$92,00)"> Ultrassonografia De Tireóide - Glandulas Salivares E Cadeias Linfonodais Cervicais (Municípios: R$XXX)</label>
-
-<label><input type="checkbox" name="exame" value="Ultrassonografia De Abdômen Superior (Consultório CISCEL: R$XXX)"> Ultrassonografia De Abdômen Superior (Consultório CISCEL: R$72,00)</label>
-<label><input type="checkbox" name="exame" value="Ultrassonografia De Abdômen Superior (Prestador: R$XXX)"> Ultrassonografia De Abdômen Superior (Prestador: R$83,00)</label>
-<label><input type="checkbox" name="exame" value="Ultrassonografia De Abdômen Superior (Municípios: R$XXX)"> Ultrassonografia De Abdômen Superior (Municípios: R$92,00)</label>
-
-<label><input type="checkbox" name="exame" value="Ultrassonografia De Aparelho Urinário - Rins, Ureteres, Bexiga (Consultório CISCEL: R$XXX)"> Ultrassonografia De Aparelho Urinário - Rins, Ureteres, Bexiga (Consultório CISCEL: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Ultrassonografia De Aparelho Urinário - Rins, Ureteres, Bexiga (Prestador: R$XXX)"> Ultrassonografia De Aparelho Urinário - Rins, Ureteres, Bexiga (Prestador: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Ultrassonografia De Aparelho Urinário - Rins, Ureteres, Bexiga (Municípios: R$XXX)"> Ultrassonografia De Aparelho Urinário - Rins, Ureteres, Bexiga (Municípios: R$XXX)</label>
-
-<label><input type="checkbox" name="exame" value="Ultrassonografia De Próstata Por Via Abdominal - Bexiga, Próstata E Vesicula Seminais (Consultório CISCEL: R$XXX)"> Ultrassonografia De Próstata Por Via Abdominal - Bexiga, Próstata E Vesicula Seminais (Consultório CISCEL: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Ultrassonografia De Próstata Por Via Abdominal - Bexiga, Próstata E Vesicula Seminais (Prestador: R$XXX)"> Ultrassonografia De Próstata Por Via Abdominal - Bexiga, Próstata E Vesicula Seminais (Prestador: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Ultrassonografia De Próstata Por Via Abdominal - Bexiga, Próstata E Vesicula Seminais (Municípios: R$XXX)"> Ultrassonografia De Próstata Por Via Abdominal - Bexiga, Próstata E Vesicula Seminais (Municípios: R$XXX)</label>
-
-<label><input type="checkbox" name="exame" value="Ultrassonografia Pelvica Ginecológica - Útero, Ovários, Trompas Arterias E Veias Da Região (Consultório CISCEL: R$XXX)"> Ultrassonografia Pelvica Ginecológica - Útero, Ovários, Trompas Arterias E Veias Da Região (Consultório CISCEL: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Ultrassonografia Pelvica Ginecológica - Útero, Ovários, Trompas Arterias E Veias Da Região (Prestador: R$XXX)"> Ultrassonografia Pelvica Ginecológica - Útero, Ovários, Trompas Arterias E Veias Da Região (Prestador: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Ultrassonografia Pelvica Ginecológica - Útero, Ovários, Trompas Arterias E Veias Da Região (Municípios: R$XXX)"> Ultrassonografia Pelvica Ginecológica - Útero, Ovários, Trompas Arterias E Veias Da Região (Municípios: R$XXX)</label>
-
-<label><input type="checkbox" name="exame" value="Ultrassonografia Obstétrica Cada Feto (Consultório CISCEL: R$XXX)"> Ultrassonografia Obstétrica Cada Feto (Consultório CISCEL: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Ultrassonografia Obstétrica Cada Feto (Prestador: R$XXX)"> Ultrassonografia Obstétrica Cada Feto (Prestador: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Ultrassonografia Obstétrica Cada Feto (Municípios: R$XXX)"> Ultrassonografia Obstétrica Cada Feto (Municípios: R$XXX)</label>
-
-<label><input type="checkbox" name="exame" value="Ultrassonografia Transvaginal Endovaginal - Útero E Ovário (Consultório CISCEL: R$XXX)"> Ultrassonografia Transvaginal Endovaginal - Útero E Ovário (Consultório CISCEL: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Ultrassonografia Transvaginal Endovaginal - Útero E Ovário (Prestador: R$XXX)"> Ultrassonografia Transvaginal Endovaginal - Útero E Ovário (Prestador: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Ultrassonografia Transvaginal Endovaginal - Útero E Ovário (Municípios: R$XXX)"> Ultrassonografia Transvaginal Endovaginal - Útero E Ovário (Municípios: R$XXX)</label>
-
-<label><input type="checkbox" name="exame" value="Ultrassonografia De Bolsa Escrotal, Testículo (Consultório CISCEL: R$XXX)"> Ultrassonografia De Bolsa Escrotal, Testículo (Consultório CISCEL: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Ultrassonografia De Bolsa Escrotal, Testículo (Prestador: R$XXX)"> Ultrassonografia De Bolsa Escrotal, Testículo (Prestador: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Ultrassonografia De Bolsa Escrotal, Testículo (Municípios: R$XXX)"> Ultrassonografia De Bolsa Escrotal, Testículo (Municípios: R$XXX)</label>
-
-<label><input type="checkbox" name="exame" value="Ultrassonografia De Região Inguinal Unilateral (Consultório CISCEL: R$XXX)"> Ultrassonografia De Região Inguinal Unilateral (Consultório CISCEL: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Ultrassonografia De Região Inguinal Unilateral (Prestador: R$XXX)"> Ultrassonografia De Região Inguinal Unilateral (Prestador: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Ultrassonografia De Região Inguinal Unilateral (Municípios: R$XXX)"> Ultrassonografia De Região Inguinal Unilateral (Municípios: R$XXX)</label>
-
-<label><input type="checkbox" name="exame" value="Ultrassonografia De Região Cervical (Consultório CISCEL: R$XXX)"> Ultrassonografia De Região Cervical (Consultório CISCEL: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Ultrassonografia De Região Cervical (Prestador: R$XXX)"> Ultrassonografia De Região Cervical (Prestador: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Ultrassonografia De Região Cervical (Municípios: R$XXX)"> Ultrassonografia De Região Cervical (Municípios: R$XXX)</label>
-
-<label><input type="checkbox" name="exame" value="Ultrassonografia Obstétrico Translucencia Nucal (Consultório CISCEL: R$XXX)"> Ultrassonografia Obstétrico Translucencia Nucal (Consultório CISCEL: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Ultrassonografia Obstétrico Translucencia Nucal (Prestador: R$XXX)"> Ultrassonografia Obstétrico Translucencia Nucal (Prestador: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Ultrassonografia Obstétrico Translucencia Nucal (Municípios: R$XXX)"> Ultrassonografia Obstétrico Translucencia Nucal (Municípios: R$XXX)</label>
-
-<label><input type="checkbox" name="exame" value="Ultrassonografia Obstétrico Pbf Perfil Biofisico (Consultório CISCEL: R$XXX)"> Ultrassonografia Obstétrico Pbf Perfil Biofisico (Consultório CISCEL: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Ultrassonografia Obstétrico Pbf Perfil Biofisico (Prestador: R$XXX)"> Ultrassonografia Obstétrico Pbf Perfil Biofisico (Prestador: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Ultrassonografia Obstétrico Pbf Perfil Biofisico (Municípios: R$XXX)"> Ultrassonografia Obstétrico Pbf Perfil Biofisico (Municípios: R$XXX)</label>
-
-<label><input type="checkbox" name="exame" value="Ultrassonografia De Parede Abdominal (Consultório CISCEL: R$XXX)"> Ultrassonografia De Parede Abdominal (Consultório CISCEL: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Ultrassonografia De Parede Abdominal (Prestador: R$XXX)"> Ultrassonografia De Parede Abdominal (Prestador: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Ultrassonografia De Parede Abdominal (Municípios: R$XXX)"> Ultrassonografia De Parede Abdominal (Municípios: R$XXX)</label>
-
-<label><input type="checkbox" name="exame" value="Ultrassonografia De Parótidas (Consultório CISCEL: R$XXX)"> Ultrassonografia De Parótidas (Consultório CISCEL: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Ultrassonografia De Parótidas (Prestador: R$XXX)"> Ultrassonografia De Parótidas (Prestador: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Ultrassonografia De Parótidas (Municípios: R$XXX)"> Ultrassonografia De Parótidas (Municípios: R$XXX)</label>
-
-<label><input type="checkbox" name="exame" value="Ultrassonografia De Partes Moles - Coxa, Glúteo, Face, Submandibular (Consultório CISCEL: R$XXX)"> Ultrassonografia De Partes Moles - Coxa, Glúteo, Face, Submandibular (Consultório CISCEL: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Ultrassonografia De Partes Moles - Coxa, Glúteo, Face, Submandibular (Prestador: R$XXX)"> Ultrassonografia De Partes Moles - Coxa, Glúteo, Face, Submandibular (Prestador: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Ultrassonografia De Partes Moles - Coxa, Glúteo, Face, Submandibular (Municípios: R$XXX)"> Ultrassonografia De Partes Moles - Coxa, Glúteo, Face, Submandibular (Municípios: R$XXX)</label>
-
-<label><input type="checkbox" name="exame" value="Ultrassom - Punção Com Agulha Fina (Paaf) Mama, Tireóide Cervical Por Punção (Consultório CISCEL: R$XXX)"> Ultrassom - Punção Com Agulha Fina (Paaf) Mama, Tireóide Cervical Por Punção (Consultório CISCEL: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Ultrassom - Punção Com Agulha Fina (Paaf) Mama, Tireóide Cervical Por Punção (Prestador: R$XXX)"> Ultrassom - Punção Com Agulha Fina (Paaf) Mama, Tireóide Cervical Por Punção (Prestador: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Ultrassom - Punção Com Agulha Fina (Paaf) Mama, Tireóide Cervical Por Punção (Municípios: R$XXX)"> Ultrassom - Punção Com Agulha Fina (Paaf) Mama, Tireóide Cervical Por Punção (Municípios: R$XXX)</label>
-
-               <label><input type="checkbox" name="exame" value="Ultrassonografia Morfológico (Consultório CISCEL: R$XXX)"> Ultrassonografia Morfológico (Consultório CISCEL: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Ultrassonografia Morfológico (Prestador: R$XXX)"> Ultrassonografia Morfológico (Prestador: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Ultrassonografia Morfológico (Municípios: R$XXX)"> Ultrassonografia Morfológico (Municípios: R$XXX)</label>
-
-<label><input type="checkbox" name="exame" value="Ultrassonografia Morfológico Com Doppler (Consultório CISCEL: R$XXX)"> Ultrassonografia Morfológico Com Doppler (Consultório CISCEL: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Ultrassonografia Morfológico Com Doppler (Prestador: R$XXX)"> Ultrassonografia Morfológico Com Doppler (Prestador: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Ultrassonografia Morfológico Com Doppler (Municípios: R$XXX)"> Ultrassonografia Morfológico Com Doppler (Municípios: R$XXX)</label>
-
-<label><input type="checkbox" name="exame" value="Ultrassonografia Obstétrico Com Doppler - Cada Feto (Consultório CISCEL: R$XXX)"> Ultrassonografia Obstétrico Com Doppler - Cada Feto (Consultório CISCEL: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Ultrassonografia Obstétrico Com Doppler - Cada Feto (Prestador: R$XXX)"> Ultrassonografia Obstétrico Com Doppler - Cada Feto (Prestador: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Ultrassonografia Obstétrico Com Doppler - Cada Feto (Municípios: R$XXX)"> Ultrassonografia Obstétrico Com Doppler - Cada Feto (Municípios: R$XXX)</label>
-
-<label><input type="checkbox" name="exame" value="Ultrassonografia De Bolsa Escrotal Testículo Com Doppler (Consultório CISCEL: R$XXX)"> Ultrassonografia De Bolsa Escrotal Testículo Com Doppler (Consultório CISCEL: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Ultrassonografia De Bolsa Escrotal Testículo Com Doppler (Prestador: R$XXX)"> Ultrassonografia De Bolsa Escrotal Testículo Com Doppler (Prestador: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Ultrassonografia De Bolsa Escrotal Testículo Com Doppler (Municípios: R$XXX)"> Ultrassonografia De Bolsa Escrotal Testículo Com Doppler (Municípios: R$XXX)</label>
-
-<label><input type="checkbox" name="exame" value="Ultrassonografia De Tireóide Com Doppler (Consultório CISCEL: R$XXX)"> Ultrassonografia De Tireóide Com Doppler (Consultório CISCEL: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Ultrassonografia De Tireóide Com Doppler (Prestador: R$XXX)"> Ultrassonografia De Tireóide Com Doppler (Prestador: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Ultrassonografia De Tireóide Com Doppler (Municípios: R$XXX)"> Ultrassonografia De Tireóide Com Doppler (Municípios: R$XXX)</label>
-
-<label><input type="checkbox" name="exame" value="Ultrassonografia De Abdômen Total Com Doppler (Consultório CISCEL: R$XXX)"> Ultrassonografia De Abdômen Total Com Doppler (Consultório CISCEL: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Ultrassonografia De Abdômen Total Com Doppler (Prestador: R$XXX)"> Ultrassonografia De Abdômen Total Com Doppler (Prestador: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Ultrassonografia De Abdômen Total Com Doppler (Municípios: R$XXX)"> Ultrassonografia De Abdômen Total Com Doppler (Municípios: R$XXX)</label>
-
-<label><input type="checkbox" name="exame" value="Ultrassonografia De Região Cervical Com Doppler (Consultório CISCEL: R$XXX)"> Ultrassonografia De Região Cervical Com Doppler (Consultório CISCEL: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Ultrassonografia De Região Cervical Com Doppler (Prestador: R$XXX)"> Ultrassonografia De Região Cervical Com Doppler (Prestador: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Ultrassonografia De Região Cervical Com Doppler (Municípios: R$XXX)"> Ultrassonografia De Região Cervical Com Doppler (Municípios: R$XXX)</label>
-
-<label><input type="checkbox" name="exame" value="Ultrassonografia Transvaginal Com Doppler (Consultório CISCEL: R$XXX)"> Ultrassonografia Transvaginal Com Doppler (Consultório CISCEL: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Ultrassonografia Transvaginal Com Doppler (Prestador: R$XXX)"> Ultrassonografia Transvaginal Com Doppler (Prestador: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Ultrassonografia Transvaginal Com Doppler (Municípios: R$XXX)"> Ultrassonografia Transvaginal Com Doppler (Municípios: R$XXX)</label>
-
-<label><input type="checkbox" name="exame" value="Ultrassonografia De Mamas Com Doppler (Consultório CISCEL: R$XXX)"> Ultrassonografia De Mamas Com Doppler (Consultório CISCEL: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Ultrassonografia De Mamas Com Doppler (Prestador: R$XXX)"> Ultrassonografia De Mamas Com Doppler (Prestador: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Ultrassonografia De Mamas Com Doppler (Municípios: R$XXX)"> Ultrassonografia De Mamas Com Doppler (Municípios: R$XXX)</label>
-
-<label><input type="checkbox" name="exame" value="Ultrassonografia Pelvica Ginecológica Com Doppler (Consultório CISCEL: R$XXX)"> Ultrassonografia Pelvica Ginecológica Com Doppler (Consultório CISCEL: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Ultrassonografia Pelvica Ginecológica Com Doppler (Prestador: R$XXX)"> Ultrassonografia Pelvica Ginecológica Com Doppler (Prestador: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Ultrassonografia Pelvica Ginecológica Com Doppler (Municípios: R$XXX)"> Ultrassonografia Pelvica Ginecológica Com Doppler (Municípios: R$XXX)</label>
-
-<label><input type="checkbox" name="exame" value="Ultrassonografia De Próstata Abdominal Com Doppler (Consultório CISCEL: R$XXX)"> Ultrassonografia De Próstata Abdominal Com Doppler (Consultório CISCEL: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Ultrassonografia De Próstata Abdominal Com Doppler (Prestador: R$XXX)"> Ultrassonografia De Próstata Abdominal Com Doppler (Prestador: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Ultrassonografia De Próstata Abdominal Com Doppler (Municípios: R$XXX)"> Ultrassonografia De Próstata Abdominal Com Doppler (Municípios: R$XXX)</label>
-
-<label><input type="checkbox" name="exame" value="Ultrassonografia De Partes Moles - Coxa Glúteo Panturrilha Face Submandibular Com Doppler (Consultório CISCEL: R$XXX)"> Ultrassonografia De Partes Moles - Coxa Glúteo Panturrilha Face Submandibular Com Doppler (Consultório CISCEL: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Ultrassonografia De Partes Moles - Coxa Glúteo Panturrilha Face Submandibular Com Doppler (Prestador: R$XXX)"> Ultrassonografia De Partes Moles - Coxa Glúteo Panturrilha Face Submandibular Com Doppler (Prestador: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Ultrassonografia De Partes Moles - Coxa Glúteo Panturrilha Face Submandibular Com Doppler (Municípios: R$XXX)"> Ultrassonografia De Partes Moles - Coxa Glúteo Panturrilha Face Submandibular Com Doppler (Municípios: R$XXX)</label>
-
-<label><input type="checkbox" name="exame" value="Contraste Adicional Para Ressonância Magnética (Consultório CISCEL: R$XXX)"> Contraste Adicional Para Ressonância Magnética (Consultório CISCEL: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Contraste Adicional Para Ressonância Magnética (Prestador: R$XXX)"> Contraste Adicional Para Ressonância Magnética (Prestador: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Contraste Adicional Para Ressonância Magnética (Municípios: R$XXX)"> Contraste Adicional Para Ressonância Magnética (Municípios: R$XXX)</label>
-
-<label><input type="checkbox" name="exame" value="Defeco Ressonância (Consultório CISCEL: R$XXX)"> Defeco Ressonância (Consultório CISCEL: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Defeco Ressonância (Prestador: R$XXX)"> Defeco Ressonância (Prestador: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Defeco Ressonância (Municípios: R$XXX)"> Defeco Ressonância (Municípios: R$XXX)</label>
-
-<label><input type="checkbox" name="exame" value="Ressonância Magnética De Abdomên Superior (Consultório CISCEL: R$XXX)"> Ressonância Magnética De Abdomên Superior (Consultório CISCEL: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Ressonância Magnética De Abdomên Superior (Prestador: R$XXX)"> Ressonância Magnética De Abdomên Superior (Prestador: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Ressonância Magnética De Abdomên Superior (Municípios: R$XXX)"> Ressonância Magnética De Abdomên Superior (Municípios: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Ressonância Magnética De Bacia Pelve Abdomên Inferior (Consultório CISCEL: R$XXX)"> Ressonância Magnética De Bacia Pelve Abdomên Inferior (Consultório CISCEL: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Ressonância Magnética De Bacia Pelve Abdomên Inferior (Prestador: R$XXX)"> Ressonância Magnética De Bacia Pelve Abdomên Inferior (Prestador: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Ressonância Magnética De Bacia Pelve Abdomên Inferior (Municípios: R$XXX)"> Ressonância Magnética De Bacia Pelve Abdomên Inferior (Municípios: R$XXX)</label>
-
-<label><input type="checkbox" name="exame" value="Ressonância Magnética De Coluna Lombo-Sacra (Consultório CISCEL: R$XXX)"> Ressonância Magnética De Coluna Lombo-Sacra (Consultório CISCEL: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Ressonância Magnética De Coluna Lombo-Sacra (Prestador: R$XXX)"> Ressonância Magnética De Coluna Lombo-Sacra (Prestador: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Ressonância Magnética De Coluna Lombo-Sacra (Municípios: R$XXX)"> Ressonância Magnética De Coluna Lombo-Sacra (Municípios: R$XXX)</label>
-
-<label><input type="checkbox" name="exame" value="Ressonância Magnética De Coluna Torácica (Consultório CISCEL: R$XXX)"> Ressonância Magnética De Coluna Torácica (Consultório CISCEL: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Ressonância Magnética De Coluna Torácica (Prestador: R$XXX)"> Ressonância Magnética De Coluna Torácica (Prestador: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Ressonância Magnética De Coluna Torácica (Municípios: R$XXX)"> Ressonância Magnética De Coluna Torácica (Municípios: R$XXX)</label>
-
-<label><input type="checkbox" name="exame" value="Ressonância Magnética De Crânio (Consultório CISCEL: R$XXX)"> Ressonância Magnética De Crânio (Consultório CISCEL: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Ressonância Magnética De Crânio (Prestador: R$XXX)"> Ressonância Magnética De Crânio (Prestador: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Ressonância Magnética De Crânio (Municípios: R$XXX)"> Ressonância Magnética De Crânio (Municípios: R$XXX)</label>
-
-<label><input type="checkbox" name="exame" value="Ressonância Magnética De Face (Consultório CISCEL: R$XXX)"> Ressonância Magnética De Face (Consultório CISCEL: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Ressonância Magnética De Face (Prestador: R$XXX)"> Ressonância Magnética De Face (Prestador: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Ressonância Magnética De Face (Municípios: R$XXX)"> Ressonância Magnética De Face (Municípios: R$XXX)</label>
-
-<label><input type="checkbox" name="exame" value="Ressonância Magnética De Mastoides (Consultório CISCEL: R$XXX)"> Ressonância Magnética De Mastoides (Consultório CISCEL: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Ressonância Magnética De Mastoides (Prestador: R$XXX)"> Ressonância Magnética De Mastoides (Prestador: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Ressonância Magnética De Mastoides (Municípios: R$XXX)"> Ressonância Magnética De Mastoides (Municípios: R$XXX)</label>
-
-<label><input type="checkbox" name="exame" value="Ressonância Magnética De Membro Inferior -Unilateral (Consultório CISCEL: R$XXX)"> Ressonância Magnética De Membro Inferior -Unilateral (Consultório CISCEL: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Ressonância Magnética De Membro Inferior -Unilateral (Prestador: R$XXX)"> Ressonância Magnética De Membro Inferior -Unilateral (Prestador: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Ressonância Magnética De Membro Inferior -Unilateral (Municípios: R$XXX)"> Ressonância Magnética De Membro Inferior -Unilateral (Municípios: R$XXX)</label>
-
-<label><input type="checkbox" name="exame" value="Ressonância Magnética De Membro Superior -Unilateral (Consultório CISCEL: R$XXX)"> Ressonância Magnética De Membro Superior -Unilateral (Consultório CISCEL: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Ressonância Magnética De Membro Superior -Unilateral (Prestador: R$XXX)"> Ressonância Magnética De Membro Superior -Unilateral (Prestador: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Ressonância Magnética De Membro Superior -Unilateral (Municípios: R$XXX)"> Ressonância Magnética De Membro Superior -Unilateral (Municípios: R$XXX)</label>
-
-<label><input type="checkbox" name="exame" value="Ressonância Magnética De Orbitas (Consultório CISCEL: R$XXX)"> Ressonância Magnética De Orbitas (Consultório CISCEL: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Ressonância Magnética De Orbitas (Prestador: R$XXX)"> Ressonância Magnética De Orbitas (Prestador: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Ressonância Magnética De Orbitas (Municípios: R$XXX)"> Ressonância Magnética De Orbitas (Municípios: R$XXX)</label>
-
-<label><input type="checkbox" name="exame" value="Ressonância Magnética De Prostata (Consultório CISCEL: R$XXX)"> Ressonância Magnética De Prostata (Consultório CISCEL: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Ressonância Magnética De Prostata (Prestador: R$XXX)"> Ressonância Magnética De Prostata (Prestador: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Ressonância Magnética De Prostata (Municípios: R$XXX)"> Ressonância Magnética De Prostata (Municípios: R$XXX)</label>
-
-<label><input type="checkbox" name="exame" value="Ressonância Magnética De Sela Túrcica (Consultório CISCEL: R$XXX)"> Ressonância Magnética De Sela Túrcica (Consultório CISCEL: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Ressonância Magnética De Sela Túrcica (Prestador: R$XXX)"> Ressonância Magnética De Sela Túrcica (Prestador: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Ressonância Magnética De Sela Túrcica (Municípios: R$XXX)"> Ressonância Magnética De Sela Túrcica (Municípios: R$XXX)</label>
-
-<label><input type="checkbox" name="exame" value="Ressonância Magnética De Tórax (Consultório CISCEL: R$XXX)"> Ressonância Magnética De Tórax (Consultório CISCEL: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Ressonância Magnética De Tórax (Prestador: R$XXX)"> Ressonância Magnética De Tórax (Prestador: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Ressonância Magnética De Tórax (Municípios: R$XXX)"> Ressonância Magnética De Tórax (Municípios: R$XXX)</label>
-
-<label><input type="checkbox" name="exame" value="Ressonância Magnética De Vias Biliares Colangiorressonância (Consultório CISCEL: R$XXX)"> Ressonância Magnética De Vias Biliares Colangiorressonância (Consultório CISCEL: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Ressonância Magnética De Vias Biliares Colangiorressonância (Prestador: R$XXX)"> Ressonância Magnética De Vias Biliares Colangiorressonância (Prestador: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Ressonância Magnética De Vias Biliares Colangiorressonância (Municípios: R$XXX)"> Ressonância Magnética De Vias Biliares Colangiorressonância (Municípios: R$XXX)</label>
-
-<label><input type="checkbox" name="exame" value="Ressonância Magnética Miocardica (Consultório CISCEL: R$XXX)"> Ressonância Magnética Miocardica (Consultório CISCEL: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Ressonância Magnética Miocardica (Prestador: R$XXX)"> Ressonância Magnética Miocardica (Prestador: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Ressonância Magnética Miocardica (Municípios: R$XXX)"> Ressonância Magnética Miocardica (Municípios: R$XXX)</label>
-
-<label><input type="checkbox" name="exame" value="Ressonância Magnética De Abdomen Total Com Enterorressonância (Consultório CISCEL: R$XXX)"> Ressonância Magnética De Abdomen Total Com Enterorressonância (Consultório CISCEL: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Ressonância Magnética De Abdomen Total Com Enterorressonância (Prestador: R$XXX)"> Ressonância Magnética De Abdomen Total Com Enterorressonância (Prestador: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Ressonância Magnética De Abdomen Total Com Enterorressonância (Municípios: R$XXX)"> Ressonância Magnética De Abdomen Total Com Enterorressonância (Municípios: R$XXX)</label>
-
-<label><input type="checkbox" name="exame" value="Angioressonância Cerebral Com Sedação (Consultório CISCEL: R$XXX)"> Angioressonância Cerebral Com Sedação (Consultório CISCEL: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Angioressonância Cerebral Com Sedação (Prestador: R$XXX)"> Angioressonância Cerebral Com Sedação (Prestador: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Angioressonância Cerebral Com Sedação (Municípios: R$XXX)"> Angioressonância Cerebral Com Sedação (Municípios: R$XXX)</label>
-
-<label><input type="checkbox" name="exame" value="Angioressonância De Aorta Torácica Com Sedação (Consultório CISCEL: R$XXX)"> Angioressonância De Aorta Torácica Com Sedação (Consultório CISCEL: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Angioressonância De Aorta Torácica Com Sedação (Prestador: R$XXX)"> Angioressonância De Aorta Torácica Com Sedação (Prestador: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Angioressonância De Aorta Torácica Com Sedação (Municípios: R$XXX)"> Angioressonância De Aorta Torácica Com Sedação (Municípios: R$XXX)</label>
-<label><input type="checkbox" name="exame" value="Hidro-Rm-Colangio-Rm-Uro-Rm-Mirlo-RmSialo-Rm-Cistografia Rm Com Sedação"> Hidro-Rm-Colangio-Rm-Uro-Rm-Mirlo-RmSialo-Rm-Cistografia Rm Com Sedação</label>
-<label><input type="checkbox" name="exame" value="Ressonância De Orbitas Com Sedação"> Ressonância De Orbitas Com Sedação</label>
-<label><input type="checkbox" name="exame" value="Ressonância Magnética Articular Com Sedação"> Ressonância Magnética Articular Com Sedação</label>
-<label><input type="checkbox" name="exame" value="Ressonância Magnética Com Espectroscopia Com Sedação"> Ressonância Magnética Com Espectroscopia Com Sedação</label>
-<label><input type="checkbox" name="exame" value="Ressonância Magnética De Abdomên Superior Com Sedação"> Ressonância Magnética De Abdomên Superior Com Sedação</label>
-<label><input type="checkbox" name="exame" value="Ressonância Magnética De Abdomên Total Com Sedação"> Ressonância Magnética De Abdomên Total Com Sedação</label>
-<label><input type="checkbox" name="exame" value="Ressonância Magnética De Articulação TemporoMandibular - Bilateral Com Sedação"> Ressonância Magnética De Articulação TemporoMandibular - Bilateral Com Sedação</label>
-<label><input type="checkbox" name="exame" value="Ressonância Magnética De Bacia -Articulacoes Sacroiliacas- Com Sedação"> Ressonância Magnética De Bacia -Articulacoes Sacroiliacas- Com Sedação</label>
-<label><input type="checkbox" name="exame" value="Ressonância Magnética De Coluna Cervical Com Sedação"> Ressonância Magnética De Coluna Cervical Com Sedação</label>
-<label><input type="checkbox" name="exame" value="Ressonância Magnética De Coluna Lombo-Sacra Com Sedação"> Ressonância Magnética De Coluna Lombo-Sacra Com Sedação</label>
-<label><input type="checkbox" name="exame" value="Ressonância Magnética De Coluna Torácica Com Sedação"> Ressonância Magnética De Coluna Torácica Com Sedação</label>
-<label><input type="checkbox" name="exame" value="Ressonância Magnética De Crânio Com Sedação"> Ressonância Magnética De Crânio Com Sedação</label>
-<label><input type="checkbox" name="exame" value="Ressonância Magnética De Face-Inclui Seios Da Face- Com Sedação"> Ressonância Magnética De Face-Inclui Seios Da Face- Com Sedação</label>
-<label><input type="checkbox" name="exame" value="Ressonância Magnética De Joelho - Unilateral Com Sedação"> Ressonância Magnética De Joelho - Unilateral Com Sedação</label>
-<label><input type="checkbox" name="exame" value="Ressonância Magnética De Mama Com Sedação"> Ressonância Magnética De Mama Com Sedação</label>
-<label><input type="checkbox" name="exame" value="Ressonância Magnética De Membro Superior - Unilateral Com Sedação"> Ressonância Magnética De Membro Superior - Unilateral Com Sedação</label>
-<label><input type="checkbox" name="exame" value="Ressonância Magnética De Orbita Com Sedação"> Ressonância Magnética De Orbita Com Sedação</label>
-<label><input type="checkbox" name="exame" value="Ressonância Magnética De Ossos Temporais - Bilateral Com Sedação"> Ressonância Magnética De Ossos Temporais - Bilateral Com Sedação</label>
-<label><input type="checkbox" name="exame" value="Ressonância Magnética De Pelve - Nao Inclui Art Coxofemorais Com Sedação"> Ressonância Magnética De Pelve - Nao Inclui Art Coxofemorais Com Sedação</label>
-<label><input type="checkbox" name="exame" value="Ressonância Magnética De Perna - Unilateral Com Sedação"> Ressonância Magnética De Perna - Unilateral Com Sedação</label>
-<label><input type="checkbox" name="exame" value="Ressonância Magnética De Pescoço Com Sedação"> Ressonância Magnética De Pescoço Com Sedação</label>
-<label><input type="checkbox" name="exame" value="Ressonância Magnética De Plexo Braquial Ou Lombossacral Com Sedação"> Ressonância Magnética De Plexo Braquial Ou Lombossacral Com Sedação</label>
-<label><input type="checkbox" name="exame" value="Ressonância Magnética De Tórax Com Sedação"> Ressonância Magnética De Tórax Com Sedação</label>
-<label><input type="checkbox" name="exame" value="Enterotomografia De Abdômen Total"> Enterotomografia De Abdômen Total</label>
-<label><input type="checkbox" name="exame" value="Tomografia Computadorizada De Abdômen Superior (Fígado, Baço, Pâncreas E Rins)"> Tomografia Computadorizada De Abdômen Superior (Fígado, Baço, Pâncreas E Rins)</label>
-<label><input type="checkbox" name="exame" value="Tomografia Computadorizada De Abdômen Total (Abdômen Superior + Abdômen Inferior)"> Tomografia Computadorizada De Abdômen Total (Abdômen Superior + Abdômen Inferior)</label>
-<label><input type="checkbox" name="exame" value="Tomografia Computadorizada De Articulações - Esterno Clavicular Ombros Cotovelos Punhos SacroIlíacas"> Tomografia Computadorizada De Articulações - Esterno Clavicular Ombros Cotovelos Punhos SacroIlíacas</label>
-<label><input type="checkbox" name="exame" value="Tomografia Computadorizada De Cada Segmento Adicional Para Coluna"> Tomografia Computadorizada De Cada Segmento Adicional Para Coluna</label>
-<label><input type="checkbox" name="exame" value="Tomografia Computadorizada De Face Seios Da Face Articulações Temporomandibulares"> Tomografia Computadorizada De Face Seios Da Face Articulações Temporomandibulares</label>
-<label><input type="checkbox" name="exame" value="Tomografia Computadorizada De Mandíbula Maxilar"> Tomografia Computadorizada De Mandíbula Maxilar</label>
-<label><input type="checkbox" name="exame" value="Tomografia Computadorizada De Mastoides Ou Ouvidos"> Tomografia Computadorizada De Mastoides Ou Ouvidos</label>
-<label><input type="checkbox" name="exame" value="Tomografia Computadorizada De Pelve Bacia Abdômen Inferior"> Tomografia Computadorizada De Pelve Bacia Abdômen Inferior</label>
-<label><input type="checkbox" name="exame" value="Tomografia Computadorizada De Segmentos Apendiculares - Braço Antebraço Mão Coxa Perna Pe"> Tomografia Computadorizada De Segmentos Apendiculares - Braço Antebraço Mão Coxa Perna Pe</label>
-<label><input type="checkbox" name="exame" value="Tomografia Computadorizada De Tórax"> Tomografia Computadorizada De Tórax</label>
-<label><input type="checkbox" name="exame" value="Tomografia Computadorizada Do Crânio Ou Sela Túrcica Ou Orbitas Ou Encéfalo"> Tomografia Computadorizada Do Crânio Ou Sela Túrcica Ou Orbitas Ou Encéfalo</label>
-<label><input type="checkbox" name="exame" value="Tomografia Computadorizada Do Pescoço"> Tomografia Computadorizada Do Pescoço</label>
-<label><input type="checkbox" name="exame" value="Tomografia Computadorizada Renal"> Tomografia Computadorizada Renal</label>
-<label><input type="checkbox" name="exame" value="Tomografia Computadorizada De Abdômen Total - Abdômen Superior Mais Abdômen Inferior - Atendimento De Urgência Em Horário Não Comercial"> Tomografia Computadorizada De Abdômen Total - Abdômen Superior Mais Abdômen Inferior - Atendimento De Urgência Em Horário Não Comercial</label>
-<label><input type="checkbox" name="exame" value="Tomografia Computadorizada De Tórax - Atendimento De Urgência Em Horário Não Comercial"> Tomografia Computadorizada De Tórax - Atendimento De Urgência Em Horário Não Comercial</label>
-<label><input type="checkbox" name="exame" value="Tomografia Computadorizada Do Crânio Ou Sela Túrcica Ou Órbitas - Atendimento De Urgência Em Horário Não Comercial"> Tomografia Computadorizada Do Crânio Ou Sela Túrcica Ou Órbitas - Atendimento De Urgência Em Horário Não Comercial</label>
-<label><input type="checkbox" name="exame" value="Tomografia Por Emissão De Pósitrons Pet-Ct"> Tomografia Por Emissão De Pósitrons Pet-Ct</label>
-<label><input type="checkbox" name="exame" value="Angiotomografia De Crânio Com Sedação - 1.058,00"> Angiotomografia De Crânio Com Sedação - 1.058,00</label>
-<label><input type="checkbox" name="exame" value="Tomografia Computadorizada De Abdomên Superior Com Sedação - 745,00"> Tomografia Computadorizada De Abdomên Superior Com Sedação - 745,00</label>
-<label><input type="checkbox" name="exame" value="Tomografia Computadorizada De Abdomên Total Com Sedação - 704,00"> Tomografia Computadorizada De Abdomên Total Com Sedação - 704,00</label>
-<label><input type="checkbox" name="exame" value="Tomografia Computadorizada De Articulação - Unilateral Com Sedação - 540,00"> Tomografia Computadorizada De Articulação - Unilateral Com Sedação - 540,00</label>
-<label><input type="checkbox" name="exame" value="Tomografia Computadorizada De Bacia Com Sedação - 540,00"> Tomografia Computadorizada De Bacia Com Sedação - 540,00</label>
-<label><input type="checkbox" name="exame" value="Tomografia Computadorizada De Cada Segmento Adicional Para Coluna Com Sedação - 360,00"> Tomografia Computadorizada De Cada Segmento Adicional Para Coluna Com Sedação - 360,00</label>
-<label><input type="checkbox" name="exame" value="Tomografia Computadorizada De Face Seios Da Face Com Sedação - 518,00"> Tomografia Computadorizada De Face Seios Da Face Com Sedação - 518,00</label>
-<label><input type="checkbox" name="exame" value="Tomografia Computadorizada De Mastoides Ou Ouvidos Com Sedação - 559,00"> Tomografia Computadorizada De Mastoides Ou Ouvidos Com Sedação - 559,00</label>
-<label><input type="checkbox" name="exame" value="Tomografia Computadorizada De Pelve Ou Abdomên Inferior Com Sedação - 845,00"> Tomografia Computadorizada De Pelve Ou Abdomên Inferior Com Sedação - 845,00</label>
-<label><input type="checkbox" name="exame" value="Tomografia Computadorizada De Segmentos Apendiculares Com Sedação - 559,00"> Tomografia Computadorizada De Segmentos Apendiculares Com Sedação - 559,00</label>
-<label><input type="checkbox" name="exame" value="Tomografia Computadorizada De Tórax Com Sedação - 586,00"> Tomografia Computadorizada De Tórax Com Sedação - 586,00</label>
-<label><input type="checkbox" name="exame" value="Tomografia Computadorizada Do Crânio Ou Sela Túrcica Ou Orbitas Com Sedação - 542,00"> Tomografia Computadorizada Do Crânio Ou Sela Túrcica Ou Orbitas Com Sedação - 542,00</label>
-<label><input type="checkbox" name="exame" value="Tomografia Computadorizada Do Pescoço Com Sedação - 542,00"> Tomografia Computadorizada Do Pescoço Com Sedação - 542,00</label>
-<label><input type="checkbox" name="exame" value="Cintilografia De Coração Com Galio 67 - 470,00"> Cintilografia De Coração Com Galio 67 - 470,00</label>
-<label><input type="checkbox" name="exame" value="Cintilografia De Pulmão Por Perfusão Minimo 4 Projeções - 147,00"> Cintilografia De Pulmão Por Perfusão Minimo 4 Projeções - 147,00</label>
-<label><input type="checkbox" name="exame" value="Cintilografia De Tireóide Com Ou Sem Captação - 99,00"> Cintilografia De Tireóide Com Ou Sem Captação - 99,00</label>
-<label><input type="checkbox" name="exame" value="Cintilografia Miocardica Esforço Repouso - 801,00"> Cintilografia Miocardica Esforço Repouso - 801,00</label>
-<label><input type="checkbox" name="exame" value="Cintilografia Para Determinação Do Tempo De Esvaziamento Gástrico - 466,00"> Cintilografia Para Determinação Do Tempo De Esvaziamento Gástrico - 466,00</label>
-<label><input type="checkbox" name="exame" value="Cintilografia De Ossos Com Ou Sem Fluxo Sanguíneo Corpo Inteiro - 205,00"> Cintilografia De Ossos Com Ou Sem Fluxo Sanguíneo Corpo Inteiro - 205,00</label>
-<label><input type="checkbox" name="exame" value="Cintilografia De Paratireóides - 335,00"> Cintilografia De Paratireóides - 335,00</label>
-<label><input type="checkbox" name="exame" value="Cintilografia De Pulmão Por Inalação Mínimo 2 Projeções - 138,00"> Cintilografia De Pulmão Por Inalação Mínimo 2 Projeções - 138,00</label>
-<label><input type="checkbox" name="exame" value="Cintilografia Renal Dinâmica - 219,00"> Cintilografia Renal Dinâmica - 219,00</label>
-<label><input type="checkbox" name="exame" value="Cintilografia Renal Estática - 145,00"> Cintilografia Renal Estática - 145,00</label>
-<label><input type="checkbox" name="exame" value="Linfocintilografia - 151,00"> Linfocintilografia - 151,00</label>
-<label><input type="checkbox" name="exame" value="Tratamento C/ Iodo 131 Para Hipertiroidismo Graves - 756,00"> Tratamento C/ Iodo 131 Para Hipertiroidismo Graves - 756,00</label>
-
-                <!-- Repita para cada letra do alfabeto conforme necessário -->
+    <div class="form-container">
+        <h2>Cadastro de Demandas</h2>
+        <form action="/submit" method="POST" onsubmit="gerarPDF(event)">
+            <!-- Condomínio -->
+            <div class="form-group">
+                <label for="condominio">Condomínio:</label>
+                <input type="text" id="condominio" name="condominio" placeholder="Digite o nome do condomínio" required>
             </div>
-        </div>
 
-        <input type="button" value="Gerar Documento" onclick="gerarDocumento()">
-    </form>
-</div>
+            <!-- Origem -->
+            <div class="form-group">
+                <label for="origem">Origem:</label>
+                <select id="origem" name="origem" required>
+                    <option value="">Selecione...</option>
+                    <option value="sindico">Síndico</option>
+                    <option value="morador">Morador</option>
+                    <option value="outro">Outro setor da empresa</option>
+                </select>
+            </div>
 
-<script>
-    function gerarDocumento() {
-        const numeroContrato = document.getElementById('numeroContrato').value;
-        const anoContrato = document.getElementById('anoContrato').value;
-        const empresa = document.getElementById('empresa').value;
-        const numeroTermo = document.getElementById('numeroTermo').value;
-        const dataAssinatura = '01/11/2024';
+            <!-- Forma de recebimento -->
+            <div class="form-group">
+                <label for="recebimento">Forma de Recebimento:</label>
+                <select id="recebimento" name="recebimento" required>
+                    <option value="">Selecione...</option>
+                    <option value="whatsapp">WhatsApp</option>
+                    <option value="email">E-mail</option>
+                    <option value="pessoalmente">Pessoalmente</option>
+                </select>
+            </div>
 
-        // Coletar todos os exames selecionados e formatar para o texto do contrato
-        const examesSelecionados = Array.from(document.querySelectorAll('input[name="exame"]:checked'))
-            .map(el => el.value)
-            .join('\n- ');
+            <!-- Dado de contato -->
+            <div class="form-group">
+                <label for="contato">Dado de Contato (E-mail ou Telefone):</label>
+                <input type="text" id="contato" name="contato" placeholder="Digite seu e-mail ou telefone" required>
+            </div>
 
-        const objetoContrato = examesSelecionados ? `\n- ${examesSelecionados}` : "";
+            <!-- Tipo de demanda -->
+            <div class="form-group">
+                <label for="tipo">Tipo de Demanda:</label>
+                <select id="tipo" name="tipo" required>
+                    <option value="">Selecione...</option>
+                    <option value="hidraulica">Hidráulica</option>
+                    <option value="eletrica">Elétrica</option>
+                    <option value="estrutural">Estrutural</option>
+                    <option value="limpeza">Limpeza</option>
+                    <option value="outros">Outros</option>
+                </select>
+            </div>
 
-        const contratoTexto = 
-`<html>
-<head>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            font-size: 12pt;
-            text-align: justify;
+            <!-- Descrição da demanda -->
+            <div class="form-group">
+                <label for="descricao">Descrição da Demanda:</label>
+                <textarea id="descricao" name="descricao" rows="4" placeholder="Descreva a demanda" required></textarea>
+            </div>
+
+            <!-- Urgência -->
+            <div class="form-group">
+                <label for="urgencia">Urgência:</label>
+                <select id="urgencia" name="urgencia" required>
+                    <option value="">Selecione...</option>
+                    <option value="imediato">Imediato</option>
+                    <option value="24-48h">Pode esperar 24 a 48 horas</option>
+                    <option value="corretiva">Corretiva (7 dias)</option>
+                </select>
+            </div>
+
+            <!-- Botão de envio -->
+            <div class="form-group">
+                <button type="submit">Cadastrar Demanda</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function gerarPDF(event) {
+            event.preventDefault();
+
+            const dataAtual = new Date().toLocaleDateString('pt-BR');
+            const condominio = document.getElementById('condominio').value;
+            const origem = document.getElementById('origem').value;
+            const recebimento = document.getElementById('recebimento').value;
+            const contato = document.getElementById('contato').value;
+            const tipo = document.getElementById('tipo').value;
+            const descricao = document.getElementById('descricao').value;
+            const urgencia = document.getElementById('urgencia').value;
+
+            const conteudo = `
+                Memorando - Cadastro de Demanda
+                ----------------------------------------
+                Data: ${dataAtual}
+
+                Condomínio: ${condominio}
+                Origem: ${origem}
+                Forma de Recebimento: ${recebimento}
+                Contato: ${contato}
+
+                Tipo de Demanda: ${tipo}
+                Descrição:
+                ${descricao}
+
+                Urgência: ${urgencia}
+            `;
+
+            const blob = new Blob([conteudo], { type: 'application/pdf' });
+            const link = document.createElement('a');
+            link.href = window.URL.createObjectURL(blob);
+            link.download = `demanda_${dataAtual.replace(/\//g, '-')}.pdf`;
+            link.click();
         }
-    </style>
-</head>
-<body>
-    <p>${numeroTermo}º TERMO DE APOSTILAMENTO AO CONTRATO Nº ${numeroContrato}/${anoContrato}</p>
-
-    <p>ENTRE O CONSÓRCIO INTERMUNICIPAL DE SAÚDE 
-    CENTRO LESTE (CISCEL) E A EMPRESA ${empresa}.</p>
-
-    <p>O Consórcio Intermunicipal de Saúde Centro Leste - CISCEL, com sede à Avenida Duque de Caxias, 850, Bairro Esplanada da Estação, em Itabira-MG, inscrito no CNPJ sob o nº 01.921.228/0001-87, neste ato representado pelo Secretário Executivo, Sr. Maurício Guimarães Mendes, portador do CPF nº 140.072.406-63, resolve modificar o Contrato nº ${numeroContrato}/${anoContrato}, conforme Processo nº 077/2022, que se regerá pela legislação pertinente, Lei Federal nº 14.133/21 e Portaria Ciscel nº 006/2020, com as alterações introduzidas posteriormente e pelas cláusulas e condições seguintes:</p>
-
-    <p><strong>CLÁUSULA PRIMEIRA - DO OBJETO</strong><br>
-    O presente Instrumento contratual tem como objetivo a modificação do contrato registrado e publicado através do nº ${numeroContrato}/${anoContrato}, por parte do CISCEL e da Empresa ${empresa}, visando os seguintes exames: ${objetoContrato}</p>
-
-    <p><strong>CLÁUSULA SEGUNDA – DA RETIFICAÇÃO</strong><br>
-    Ratificam-se todas as demais cláusulas e condições anteriormente acordadas do Contrato nº ${numeroContrato}/${anoContrato}, permanecendo válidas e inalteradas as não expressamente modificadas.</p>
-
-    <p><strong>CLÁUSULA TERCEIRA – DA PUBLICAÇÃO</strong><br>
-    O CISCEL providenciará a publicação resumida do presente Termo, que é condição indispensável para sua eficácia.</p>
-
-    <p>Itabira/MG, ${dataAssinatura}</p>
-
-    <p>CISCEL - Consórcio Intermunicipal de Saúde Centro Leste</p>
-
-    <p>Maurício Guimarães Mendes - CPF nº 140.072.406-63</p>
-
-    <p><strong>CONTRATANTE</strong></p>
-</body>
-</html>`;
-
-        const blob = new Blob([contratoTexto], { type: 'application/msword' });
-        const link = document.createElement('a');
-        link.href = URL.createObjectURL(blob);
-        link.download = `Termo_Apostilamento_${numeroContrato}_${anoContrato}.doc`;
-        link.click();
-    }
-</script>
-
+    </script>
 </body>
 </html>
