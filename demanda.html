@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de Demandas</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -52,7 +53,7 @@
 <body>
     <div class="form-container">
         <h2>Cadastro de Demandas</h2>
-        <form action="/submit" method="POST" onsubmit="gerarPDF(event)">
+        <form onsubmit="gerarPDF(event)">
             <!-- Condomínio -->
             <div class="form-group">
                 <label for="condominio">Condomínio:</label>
@@ -125,9 +126,10 @@
     </div>
 
     <script>
-        function gerarPDF(event) {
+        async function gerarPDF(event) {
             event.preventDefault();
 
+            // Capturar os dados do formulário
             const dataAtual = new Date().toLocaleDateString('pt-BR');
             const condominio = document.getElementById('condominio').value;
             const origem = document.getElementById('origem').value;
@@ -137,28 +139,28 @@
             const descricao = document.getElementById('descricao').value;
             const urgencia = document.getElementById('urgencia').value;
 
-            const conteudo = `
-                Memorando - Cadastro de Demanda
-                ----------------------------------------
-                Data: ${dataAtual}
+            // Criar o documento PDF
+            const { jsPDF } = window.jspdf;
+            const pdf = new jsPDF();
 
-                Condomínio: ${condominio}
-                Origem: ${origem}
-                Forma de Recebimento: ${recebimento}
-                Contato: ${contato}
+            // Adicionar conteúdo ao PDF
+            pdf.setFont("Helvetica", "normal");
+            pdf.setFontSize(12);
+            pdf.text("Memorando - Cadastro de Demanda", 10, 10);
+            pdf.text("-------------------------------------------------", 10, 15);
+            pdf.text(`Data: ${dataAtual}`, 10, 25);
+            pdf.text(`Condomínio: ${condominio}`, 10, 35);
+            pdf.text(`Origem: ${origem}`, 10, 45);
+            pdf.text(`Forma de Recebimento: ${recebimento}`, 10, 55);
+            pdf.text(`Contato: ${contato}`, 10, 65);
+            pdf.text(`Tipo de Demanda: ${tipo}`, 10, 75);
+            pdf.text("Descrição:", 10, 85);
+            pdf.text(descricao, 10, 95, { maxWidth: 180 });
+            pdf.text(`Urgência: ${urgencia}`, 10, 125);
 
-                Tipo de Demanda: ${tipo}
-                Descrição:
-                ${descricao}
-
-                Urgência: ${urgencia}
-            `;
-
-            const blob = new Blob([conteudo], { type: 'application/pdf' });
-            const link = document.createElement('a');
-            link.href = window.URL.createObjectURL(blob);
-            link.download = `demanda_${dataAtual.replace(/\//g, '-')}.pdf`;
-            link.click();
+            // Fazer o download do PDF
+            const nomeArquivo = `demanda_${dataAtual.replace(/\//g, '-')}.pdf`;
+            pdf.save(nomeArquivo);
         }
     </script>
 </body>
