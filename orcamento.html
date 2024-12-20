@@ -3,19 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulário de Orçamento</title>
+    <title>Solicitação de Orçamento</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 <body>
     <h1>Solicitação de Orçamento</h1>
 
-    <form action="/enviar-orcamento" method="POST">
+    <form id="orcamentoForm">
         <!-- Nome da Empresa -->
         <label for="empresa">Nome da Empresa:</label>
         <input type="text" id="empresa" name="empresa" required><br><br>
 
         <!-- Data Atual -->
         <label for="data_atual">Data Atual:</label>
-        <input type="date" id="data_atual" name="data_atual" value="<?php echo date('Y-m-d'); ?>" readonly><br><br>
+        <input type="date" id="data_atual" name="data_atual" value="" readonly><br><br>
 
         <!-- Prazo para Resposta -->
         <label for="prazo_resposta">Prazo para Resposta do Orçamento:</label>
@@ -25,7 +26,39 @@
         <label for="descricao">O que você precisa no orçamento:</label><br>
         <textarea id="descricao" name="descricao" rows="4" cols="50" required></textarea><br><br>
 
-        <button type="submit">Enviar Solicitação</button>
+        <button type="button" onclick="gerarPDF()">Gerar Orçamento em PDF</button>
     </form>
+
+    <script>
+        // Preenche a data atual no formulário
+        document.getElementById("data_atual").valueAsDate = new Date();
+
+        function gerarPDF() {
+            // Obtém os valores do formulário
+            const empresa = document.getElementById("empresa").value;
+            const dataAtual = document.getElementById("data_atual").value;
+            const prazoResposta = document.getElementById("prazo_resposta").value;
+            const descricao = document.getElementById("descricao").value;
+
+            // Cria uma nova instância do jsPDF
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            // Adiciona conteúdo no PDF
+            doc.setFont("Arial", "B");
+            doc.text("Solicitação de Orçamento", 105, 10, { align: "center" });
+            doc.setFont("Arial", "normal");
+            
+            // Adiciona os dados do formulário
+            doc.text("Nome da Empresa: " + empresa, 10, 30);
+            doc.text("Data Atual: " + dataAtual, 10, 40);
+            doc.text("Prazo para Resposta: " + prazoResposta, 10, 50);
+            doc.text("Descrição do Orçamento:", 10, 60);
+            doc.text(descricao, 10, 70);
+
+            // Gera o PDF e abre o arquivo no navegador
+            doc.save("orcamento_" + empresa + ".pdf");
+        }
+    </script>
 </body>
 </html>
