@@ -5,29 +5,112 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Solicitação de Orçamento</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        /* Estilos gerais da página */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Caixa principal do formulário */
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            text-align: center;
+            color: #4CAF50;
+        }
+
+        /* Estilo dos labels e inputs */
+        label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: block;
+            color: #333;
+        }
+
+        input[type="text"], input[type="date"], textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        /* Estilo do botão */
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        /* Estilo do textarea */
+        textarea {
+            resize: vertical;
+            height: 100px;
+        }
+
+        /* Responsividade para telas menores */
+        @media (max-width: 500px) {
+            .container {
+                width: 100%;
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 22px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>Solicitação de Orçamento</h1>
+    <div class="container">
+        <h1>Solicitação de Orçamento</h1>
 
-    <form id="orcamentoForm">
-        <!-- Nome da Empresa -->
-        <label for="empresa">Nome da Empresa:</label>
-        <input type="text" id="empresa" name="empresa" required><br><br>
+        <form id="orcamentoForm">
+            <!-- Nome da Empresa -->
+            <label for="empresa">Nome da Empresa:</label>
+            <input type="text" id="empresa" name="empresa" required placeholder="Digite o nome da empresa"><br>
 
-        <!-- Data Atual -->
-        <label for="data_atual">Data Atual:</label>
-        <input type="date" id="data_atual" name="data_atual" value="" readonly><br><br>
+            <!-- Data Atual -->
+            <label for="data_atual">Data Atual:</label>
+            <input type="date" id="data_atual" name="data_atual" value="" readonly><br>
 
-        <!-- Prazo para Resposta -->
-        <label for="prazo_resposta">Prazo para Resposta do Orçamento:</label>
-        <input type="text" id="prazo_resposta" name="prazo_resposta" value="3 dias úteis" readonly><br><br>
+            <!-- Prazo para Resposta -->
+            <label for="prazo_resposta">Prazo para Resposta do Orçamento:</label>
+            <input type="text" id="prazo_resposta" name="prazo_resposta" value="3 dias úteis" readonly><br>
 
-        <!-- Descrição do Orçamento -->
-        <label for="descricao">O que você precisa no orçamento:</label><br>
-        <textarea id="descricao" name="descricao" rows="4" cols="50" required></textarea><br><br>
+            <!-- Descrição do Orçamento -->
+            <label for="descricao">O que você precisa no orçamento:</label><br>
+            <textarea id="descricao" name="descricao" rows="4" required placeholder="Descreva o que precisa no orçamento"></textarea><br>
 
-        <button type="button" onclick="gerarPDF()">Gerar Orçamento em PDF</button>
-    </form>
+            <button type="button" onclick="gerarPDF()">Gerar Orçamento em PDF</button>
+        </form>
+    </div>
 
     <script>
         // Preenche a data atual no formulário
