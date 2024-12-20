@@ -1,260 +1,27 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulário de Aviso de Dispensa Eletrônica</title>
-    <link href="https://fonts.googleapis.com/css2?family=Calibri&display=swap" rel="stylesheet">
-    <style>
-        /* Estilos Gerais */
-        body {
-            font-family: 'Calibri', Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            background-color: #f5f7fa;
-            margin: 0;
-            padding: 0;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 500px;
-            background-color: #fff;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
-        }
-
-        h2 {
-            text-align: center;
-            color: #007bff;
-            font-weight: 700;
-            margin-bottom: 20px;
-        }
-
-        label {
-            font-weight: bold;
-            color: #555;
-            margin-bottom: 5px;
-            display: block;
-            font-size: 14px;
-        }
-
-        input[type="text"],
-        input[type="date"],
-        textarea {
-            width: 100%;
-            padding: 12px 15px;
-            font-size: 15px;
-            margin-bottom: 20px;
-            border-radius: 8px;
-            border: 1px solid #ddd;
-            background-color: #fafafa;
-            transition: border-color 0.3s, background-color 0.3s;
-        }
-
-        textarea {
-            resize: vertical;
-        }
-
-        input:focus,
-        textarea:focus {
-            border-color: #007bff;
-            background-color: #f1f9ff;
-        }
-
-        .btn-container {
-            display: flex;
-            justify-content: center;
-        }
-
-        .btn {
-            padding: 12px 20px;
-            font-size: 16px;
-            font-weight: bold;
-            color: #fff;
-            background-color: #007bff;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.3s, transform 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-
-        .btn:hover {
-            background-color: #0056b3;
-            transform: translateY(-2px);
-        }
-
-        .btn:active {
-            transform: translateY(0);
-        }
-
-        .btn i {
-            font-size: 18px;
-        }
-    </style>
+    <title>Formulário de Orçamento</title>
 </head>
 <body>
-    <div class="container">
-        <h2>Formulário de Aviso de Dispensa Eletrônica</h2>
-        <form id="dispensaForm">
-            <label for="numeroDispensa">Número da Dispensa (3 dígitos):</label>
-            <input type="text" id="numeroDispensa" maxlength="3" placeholder="Ex.: 012" required>
+    <h1>Solicitação de Orçamento</h1>
 
-            <label for="numeroProcesso">Número do Processo Administrativo (3 dígitos):</label>
-            <input type="text" id="numeroProcesso" maxlength="3" placeholder="Ex.: 878" required>
+    <form action="/enviar-orcamento" method="POST">
+        <!-- Nome da Empresa -->
+        <label for="empresa">Nome da Empresa:</label>
+        <input type="text" id="empresa" name="empresa" required><br><br>
 
-            <label for="dataDispensa">Data da Dispensa:</label>
-            <input type="date" id="dataDispensa" required>
+        <!-- Data Atual -->
+        <label for="data_atual">Data Atual:</label>
+        <input type="date" id="data_atual" name="data_atual" value="<?php echo date('Y-m-d'); ?>" readonly><br><br>
 
-            <label for="objeto">Objeto da Licitação:</label>
-            <textarea id="objeto" rows="4" placeholder="Descreva o objeto da licitação" required></textarea>
+        <!-- Prazo para Resposta -->
+        <label for="prazo_resposta">Prazo para Resposta do Orçamento:</label>
+        <input type="text" id="prazo_resposta" name="prazo_resposta" value="3 dias úteis" readonly><br><br>
 
-            <div class="btn-container">
-                <button type="button" class="btn" onclick="gerarDocumentos()">
-                    <i class="fas fa-file-download"></i> Gerar PDF e DOC
-                </button>
-            </div>
-        </form>
-    </div>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/docx/7.1.3/docx.min.js"></script>
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-
-    <script>
-        function gerarDocumentos() {
-            gerarPDF();
-            gerarDOCX();
-        }
-
-        function gerarPDF() {
-            const numeroDispensa = document.getElementById("numeroDispensa").value;
-            const numeroProcesso = document.getElementById("numeroProcesso").value;
-            const dataDispensa = new Date(document.getElementById("dataDispensa").value).toLocaleDateString('pt-BR');
-            const objeto = document.getElementById("objeto").value;
-            const dataAtual = new Date().toLocaleDateString('pt-BR');
-
-            const docDefinition = {
-                content: [
-                    { text: `DISPENSA ELETRÔNICA Nº ${numeroDispensa}/2024`, style: 'header', alignment: 'center' },
-                    { text: `PROCESSO ADMINISTRATIVO Nº ${numeroProcesso}`, style: 'header', alignment: 'center' },
-                    {
-                        text: `O Consórcio Intermunicipal de Saúde Centro Leste – CISCEL, torna público para conhecimento dos interessados que fará realizar DISPENSA ELETRÔNICA DE LICITAÇÃO Nº ${numeroDispensa}/2024, no dia ${dataDispensa}, através da plataforma www.licitardigital.com.br, para ${objeto}.`,
-                        margin: [0, 20],
-                        alignment: 'justify'
-                    },
-                    {
-                        text: `Mais informações poderão ser obtidas na sede do CISCEL, situado na Av. Duque de Caxias, nº 850, Esplanada da Estação, Itabira, MG, ou pelo telefone (31) 3831-3555. E-mail: licitacao@ciscel.mg.gov.br ou pelo site www.ciscel.mg.br.`,
-                        alignment: 'justify'
-                    },
-                    { text: `Itabira, ${dataAtual}.`, margin: [0, 20], alignment: 'right' },
-                    { text: `Dayane C. R. de Paulo\nPresidente da CPL`, alignment: 'right' }
-                ],
-                styles: {
-                    header: {
-                        fontSize: 12,
-                        bold: true,
-                        font: 'Calibri',
-                        lineHeight: 1.5
-                    }
-                },
-                defaultStyle: {
-                    font: 'Calibri',
-                    fontSize: 12,
-                    lineHeight: 1.5
-                }
-            };
-
-            pdfMake.createPdf(docDefinition).download(`dispensa_${numeroDispensa}_2024.pdf`);
-        }
-
-        function gerarDOCX() {
-            const numeroDispensa = document.getElementById("numeroDispensa").value;
-            const numeroProcesso = document.getElementById("numeroProcesso").value;
-            const dataDispensa = new Date(document.getElementById("dataDispensa").value).toLocaleDateString('pt-BR');
-            const objeto = document.getElementById("objeto").value;
-            const dataAtual = new Date().toLocaleDateString('pt-BR');
-
-            const { Document, Packer, Paragraph, TextRun } = docx;
-
-            const doc = new Document({
-                sections: [{
-                    properties: {},
-                    children: [
-                        new Paragraph({
-                            children: [
-                                new TextRun(`DISPENSA ELETRÔNICA Nº ${numeroDispensa}/2024`),
-                            ],
-                            alignment: docx.AlignmentType.CENTER,
-                            spacing: {
-                                after: 300,
-                            },
-                        }),
-                        new Paragraph({
-                            children: [
-                                new TextRun(`PROCESSO ADMINISTRATIVO Nº ${numeroProcesso}`),
-                            ],
-                            alignment: docx.AlignmentType.CENTER,
-                            spacing: {
-                                after: 300,
-                            },
-                        }),
-                        new Paragraph({
-                            children: [
-                                new TextRun(`O Consórcio Intermunicipal de Saúde Centro Leste – CISCEL, torna público para conhecimento dos interessados que fará realizar DISPENSA ELETRÔNICA DE LICITAÇÃO Nº ${numeroDispensa}/2024, no dia ${dataDispensa}, através da plataforma www.licitardigital.com.br, para ${objeto}.`),
-                            ],
-                            spacing: {
-                                after: 300,
-                            },
-                        }),
-                        new Paragraph({
-                            children: [
-                                new TextRun(`Mais informações poderão ser obtidas na sede do CISCEL, situado na Av. Duque de Caxias, nº 850, Esplanada da Estação, Itabira, MG, ou pelo telefone (31) 3831-3555. E-mail: licitacao@ciscel.mg.gov.br ou pelo site www.ciscel.mg.br.`),
-                            ],
-                            spacing: {
-                                after: 300,
-                            },
-                        }),
-                        new Paragraph({
-                            children: [
-                                new TextRun(`Itabira, ${dataAtual}.`),
-                            ],
-                            alignment: docx.AlignmentType.RIGHT,
-                            spacing: {
-                                after: 300,
-                            },
-                        }),
-                        new Paragraph({
-                            children: [
-                                new TextRun(`Dayane C. R. de Paulo\nPresidente da CPL`),
-                            ],
-                            alignment: docx.AlignmentType.RIGHT,
-                        }),
-                    ],
-                }],
-            });
-
-            Packer.toBlob(doc).then(blob => {
-                const fileName = `dispensa_${numeroDispensa}_2024.docx`;
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = fileName;
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-            });
-        }
-    </script>
+        <button type="submit">Enviar Solicitação</button>
+    </form>
 </body>
 </html>
