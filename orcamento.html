@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Solicitação de Orçamento</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
     <style>
-        /* Estilos gerais da página */
         body {
             font-family: 'Arial', sans-serif;
             background-color: #f4f4f9;
@@ -18,7 +18,6 @@
             height: 100vh;
         }
 
-        /* Caixa principal do formulário */
         .container {
             background-color: white;
             padding: 30px;
@@ -33,7 +32,6 @@
             color: #4CAF50;
         }
 
-        /* Estilo dos labels e inputs */
         label {
             font-weight: bold;
             margin-bottom: 5px;
@@ -41,7 +39,7 @@
             color: #333;
         }
 
-        input[type="text"], input[type="date"], input[type="email"], textarea {
+        input[type="text"], input[type="email"], input[type="date"], textarea {
             width: 100%;
             padding: 10px;
             margin-bottom: 15px;
@@ -51,7 +49,6 @@
             box-sizing: border-box;
         }
 
-        /* Estilo do botão */
         button {
             width: 100%;
             padding: 12px;
@@ -68,22 +65,9 @@
             background-color: #45a049;
         }
 
-        /* Estilo do textarea */
         textarea {
             resize: vertical;
             height: 100px;
-        }
-
-        /* Responsividade para telas menores */
-        @media (max-width: 500px) {
-            .container {
-                width: 100%;
-                padding: 20px;
-            }
-
-            h1 {
-                font-size: 22px;
-            }
         }
     </style>
 </head>
@@ -92,35 +76,42 @@
         <h1>Solicitação de Orçamento</h1>
 
         <form id="orcamentoForm">
-            <!-- Nome da Empresa -->
             <label for="empresa">Nome da Empresa:</label>
             <input type="text" id="empresa" name="empresa" required placeholder="Digite o nome da empresa"><br>
 
-            <!-- E-mail -->
             <label for="email">E-mail para Contato:</label>
             <input type="email" id="email" name="email" required placeholder="Digite o e-mail"><br>
 
-            <!-- Data Atual -->
             <label for="data_atual">Data Atual:</label>
             <input type="date" id="data_atual" name="data_atual" value="" readonly><br>
 
-            <!-- Prazo para Resposta -->
             <label for="prazo_resposta">Prazo para Resposta do Orçamento:</label>
             <input type="text" id="prazo_resposta" name="prazo_resposta" value="3 dias úteis" readonly><br>
 
-            <!-- Descrição do Orçamento -->
             <label for="descricao">O que você precisa no orçamento:</label><br>
             <textarea id="descricao" name="descricao" rows="4" required placeholder="Descreva o que precisa no orçamento"></textarea><br>
 
-            <button type="button" onclick="gerarPDF()">Gerar Orçamento em PDF</button>
+            <button type="button" onclick="gerarEEnviarPDF()">Gerar e Enviar Orçamento por E-mail</button>
         </form>
     </div>
 
     <script>
+        // Inicialize o EmailJS
+        emailjs.init("YOUR_USER_ID");
+
         // Preenche a data atual no formulário
         document.getElementById("data_atual").valueAsDate = new Date();
 
-        function gerarPDF() {
+        // Função para formatar a data no formato brasileiro (DD/MM/AAAA)
+        function formatarDataBr(data) {
+            const dia = String(data.getDate()).padStart(2, '0');
+            const mes = String(data.getMonth() + 1).padStart(2, '0');
+            const ano = data.getFullYear();
+            return dia + '/' + mes + '/' + ano;
+        }
+
+        // Função para gerar o PDF e enviá-lo por e-mail
+        function gerarEEnviarPDF() {
             // Obtém os valores do formulário
             const empresa = document.getElementById("empresa").value;
             const email = document.getElementById("email").value;
@@ -128,37 +119,56 @@
             const prazoResposta = document.getElementById("prazo_resposta").value;
             const descricao = document.getElementById("descricao").value;
 
-            // Valida os campos
+            // Verifica se todos os campos obrigatórios foram preenchidos
             if (!empresa || !email || !descricao) {
                 alert("Por favor, preencha todos os campos obrigatórios!");
                 return;
             }
 
-            // Cria uma nova instância do jsPDF
+            // Formata a data no formato brasileiro
+            const dataFormatada = formatarDataBr(new Date(dataAtual));
+
+            // Adicione o logo da empresa (em Base64) no canto superior esquerdo
+            const logoBase64 = 'data:image/jpeg;base64,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'; // Substitua pelo seu Base64
+
+            // Cria o PDF
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
+            
+            // Adiciona o logo da empresa no PDF
+            doc.addImage(logoBase64, 'JPG', 10, 10, 30, 30);
 
-            // Adiciona conteúdo no PDF
             doc.setFont("Arial", "B");
             doc.text("Solicitação de Orçamento", 105, 10, { align: "center" });
+
             doc.setFont("Arial", "normal");
-            
-            // Adiciona os dados do formulário
-            doc.text("Nome da Empresa: " + empresa, 10, 30);
-            doc.text("E-mail para Contato: " + email, 10, 40);
-            doc.text("Data Atual: " + dataAtual, 10, 50);
-            doc.text("Prazo para Resposta: " + prazoResposta, 10, 60);
-            doc.text("Descrição do Orçamento:", 10, 70);
+            doc.text("Nome da Empresa: " + empresa, 10, 50);
+            doc.text("E-mail para Contato: " + email, 10, 60);
+            doc.text("Data do Orçamento: " + dataFormatada, 10, 70);
+            doc.text("Prazo para Resposta: " + prazoResposta, 10, 80);
+            doc.text("Descrição do Orçamento:", 10, 100);
 
-            // Quebra a linha para a descrição, ajustando automaticamente
-            let y = 80;
-            const maxHeight = 270; // altura máxima para a descrição
-            const lineHeight = 10;
-            const descriptionLines = doc.splitTextToSize(descricao, 180); // 180 é a largura do texto
-            doc.text(descriptionLines, 10, y);
+            // Adiciona a descrição (corta o texto caso ultrapasse a largura)
+            const descriptionLines = doc.splitTextToSize(descricao, 180);
+            doc.text(descriptionLines, 10, 110);
 
-            // Gera o PDF e abre o arquivo no navegador
-            doc.save("orcamento_" + empresa + ".pdf");
+            // Converte o PDF para um Blob (para ser anexado no e-mail)
+            const pdfData = doc.output('blob');
+
+            // Envia o orçamento por e-mail com o PDF anexado
+            emailjs.sendForm('service_u3wyn0l', 'template_icjz8ft', {
+                empresa: empresa,
+                email: email,
+                data_atual: dataFormatada,
+                prazo_resposta: prazoResposta,
+                descricao: descricao,
+                attachment: pdfData
+            })
+            .then(function(response) {
+                alert('Orçamento enviado com sucesso!');
+            }, function(error) {
+                alert('Erro ao enviar o orçamento: ' + error);
+            });
         }
     </script>
 </body>
