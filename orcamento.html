@@ -85,8 +85,8 @@
         <!-- Tipo de Serviço -->
         <label for="serviceType">Tipo de Serviço:</label>
         <select id="serviceType" name="serviceType" required>
-            <option value="eletrica">Elétrica</option>
-            <option value="hidraulica">Hidráulica</option>
+            <option value="elétrica">Elétrica</option>
+            <option value="hidráulica">Hidráulica</option>
             <option value="pintura">Pintura</option>
             <option value="limpeza">Limpeza e Conservação</option>
             <option value="jardinagem">Jardinagem</option>
@@ -131,8 +131,8 @@
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF();
 
+        // Coletando os dados do formulário
         const formData = new FormData(document.getElementById('budgetForm'));
-
         let content = `
             <h2>Solicitação de Orçamento para Serviço de Manutenção</h2>
             <strong>Nome do Condomínio:</strong> ${formData.get('condominiumName')}<br>
@@ -146,13 +146,13 @@
             <strong>Como deseja receber o orçamento:</strong> ${formData.get('contactMethod')}<br>
             <strong>Observações Gerais:</strong> ${formData.get('additionalNotes')}<br>
         `;
+        
+        // Adicionando os dados no PDF
+        doc.setFontSize(12);
+        doc.text(content, 10, 10);
 
-        doc.html(content, {
-            callback: function (doc) {
-                doc.save('orçamento-manutenção.pdf');
-            },
-            margin: [20, 20, 20, 20],
-        });
+        // Gerar o PDF e salvar
+        doc.save('orcamento_manutencao.pdf');
     }
 </script>
 
