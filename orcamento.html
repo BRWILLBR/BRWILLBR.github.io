@@ -79,8 +79,8 @@
         <label for="contactPhone">Telefone para Contato:</label>
         <input type="tel" id="contactPhone" name="contactPhone" required>
 
-        <label for="contactEmail">E-mail para Contato:</label>
-        <input type="email" id="contactEmail" name="contactEmail" required>
+        <label for="contactWhatsApp">WhatsApp para Contato:</label>
+        <input type="tel" id="contactWhatsApp" name="contactWhatsApp" required>
 
         <!-- Tipo de Serviço -->
         <label for="serviceType">Tipo de Serviço:</label>
@@ -131,6 +131,12 @@
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF();
 
+        // Base64 Image (substitua esta string pela sua própria imagem base64)
+        const logoBase64 = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAoAAAAMACAIAAAD07Z2dAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90bGliIHZlcnNpb24zLjQuMCwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/M8sVKAAAA+0lEQVR4nOzdy3d0WBQF0avSlIwnUlTqlbcRynbQL5mQQh/JhKlQWlgVVbDAqjR7vd8EoNwF3OHtFCkql29IuBFO8/n9+zfsCZFYgY0r1d68nmjlgTtHceph31x9OxR/89duvc45lTfg==';
+
+        // Inserir a logo no canto superior esquerdo
+        doc.addImage(logoBase64, 'PNG', 10, 10, 40, 40);
+
         // Coletando os dados do formulário
         const formData = new FormData(document.getElementById('budgetForm'));
         let content = `
@@ -138,7 +144,7 @@
             <strong>Nome do Condomínio:</strong> ${formData.get('condominiumName')}<br>
             <strong>Endereço:</strong> ${formData.get('address')}<br>
             <strong>Telefone para Contato:</strong> ${formData.get('contactPhone')}<br>
-            <strong>E-mail para Contato:</strong> ${formData.get('contactEmail')}<br>
+            <strong>WhatsApp para Contato:</strong> ${formData.get('contactWhatsApp')}<br>
             <strong>Tipo de Serviço:</strong> ${formData.get('serviceType')}<br>
             <strong>Descrição do Problema:</strong> ${formData.get('problemDescription')}<br>
             <strong>Urgência:</strong> ${formData.get('urgency')}<br>
@@ -146,10 +152,11 @@
             <strong>Como deseja receber o orçamento:</strong> ${formData.get('contactMethod')}<br>
             <strong>Observações Gerais:</strong> ${formData.get('additionalNotes')}<br>
         `;
-        
-        // Adicionando os dados no PDF
+
+        // Melhorando a formatação do conteúdo no PDF
         doc.setFontSize(12);
-        doc.text(content, 10, 10);
+        doc.setTextColor(0, 0, 0); // Cor preta para o texto
+        doc.text(content, 10, 60); // Começar a escrever a partir da posição (10, 60)
 
         // Gerar o PDF e salvar
         doc.save('orcamento_manutencao.pdf');
