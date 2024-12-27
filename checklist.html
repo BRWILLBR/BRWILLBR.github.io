@@ -8,7 +8,21 @@
     <style>
         body {
             font-family: Arial, sans-serif;
+            padding: 10px;
+            margin: 0;
+            background-color: #f4f4f9;
+        }
+        .form-container {
+            max-width: 900px;
+            margin: auto;
             padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        h1, h2 {
+            color: #333;
+            text-align: center;
         }
         table {
             width: 100%;
@@ -26,12 +40,45 @@
         input[type="checkbox"] {
             margin-right: 5px;
         }
-        .form-container {
-            max-width: 900px;
-            margin: auto;
+        input[type="text"] {
+            width: 100%;
+            padding: 6px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
         }
         textarea {
             width: 100%;
+            padding: 6px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            display: block;
+            margin: 20px auto;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 5px;
+            }
+            .form-container {
+                padding: 10px;
+            }
+            table {
+                font-size: 14px;
+            }
+            h1, h2 {
+                font-size: 18px;
+            }
         }
     </style>
 </head>
@@ -169,126 +216,8 @@
                 <td><input type="checkbox" name="bombas_agua_nao"></td>
                 <td><input type="text" name="bombas_agua_obs"></td>
             </tr>
-            <tr>
-                <td>Boia elétrica (funcionamento)</td>
-                <td><input type="checkbox" name="boia_eletrica_sim"></td>
-                <td><input type="checkbox" name="boia_eletrica_nao"></td>
-                <td><input type="text" name="boia_eletrica_obs"></td>
-            </tr>
-            <tr>
-                <td>Sistema de esgoto (condição e funcionamento)</td>
-                <td><input type="checkbox" name="sistema_esgoto_sim"></td>
-                <td><input type="checkbox" name="sistema_esgoto_nao"></td>
-                <td><input type="text" name="sistema_esgoto_obs"></td>
-            </tr>
-            <tr>
-                <td>Sistema de gás (individual ou geral, segurança)</td>
-                <td><input type="checkbox" name="sistema_gas_sim"></td>
-                <td><input type="checkbox" name="sistema_gas_nao"></td>
-                <td><input type="text" name="sistema_gas_obs"></td>
-            </tr>
-            <tr>
-                <td>Sistema elétrico (quadros de distribuição e fiação)</td>
-                <td><input type="checkbox" name="sistema_eletrico_sim"></td>
-                <td><input type="checkbox" name="sistema_eletrico_nao"></td>
-                <td><input type="text" name="sistema_eletrico_obs"></td>
-            </tr>
-            <tr>
-                <td>Rede de internet (qualidade e disponibilidade)</td>
-                <td><input type="checkbox" name="rede_internet_sim"></td>
-                <td><input type="checkbox" name="rede_internet_nao"></td>
-                <td><input type="text" name="rede_internet_obs"></td>
-            </tr>
-            <tr>
-                <td>Placas solares (se houver)</td>
-                <td><input type="checkbox" name="placas_solares_sim"></td>
-                <td><input type="checkbox" name="placas_solares_nao"></td>
-                <td><input type="text" name="placas_solares_obs"></td>
-            </tr>
         </table>
 
-        <h2>SEGURANÇA E PREVENÇÃO DE RISCOS</h2>
-        <table>
-            <tr>
-                <td>Sistema de alarme de segurança (funcionamento)</td>
-                <td><input type="checkbox" name="alarme_segurança_sim"></td>
-                <td><input type="checkbox" name="alarme_segurança_nao"></td>
-                <td><input type="text" name="alarme_segurança_obs"></td>
-            </tr>
-            <tr>
-                <td>Extintores de incêndio (localização e validade)</td>
-                <td><input type="checkbox" name="extintores_segurança_sim"></td>
-                <td><input type="checkbox" name="extintores_segurança_nao"></td>
-                <td><input type="text" name="extintores_segurança_obs"></td>
-            </tr>
-            <tr>
-                <td>Câmeras de segurança (quantidade e posicionamento)</td>
-                <td><input type="checkbox" name="cameras_segurança_sim"></td>
-                <td><input type="checkbox" name="cameras_segurança_nao"></td>
-                <td><input type="text" name="cameras_segurança_obs"></td>
-            </tr>
-            <tr>
-                <td>Saídas de emergência (acessibilidade e sinalização)</td>
-                <td><input type="checkbox" name="saidas_emergencia_sim"></td>
-                <td><input type="checkbox" name="saidas_emergencia_nao"></td>
-                <td><input type="text" name="saidas_emergencia_obs"></td>
-            </tr>
-        </table>
-
-        <h2>FERRAMENTAS E REGISTROS</h2>
-        <table>
-            <tr>
-                <td>Certificado de AVCB (Autorização de Funcionamento)</td>
-                <td><input type="checkbox" name="avcb_sim"></td>
-                <td><input type="checkbox" name="avcb_nao"></td>
-                <td><input type="text" name="avcb_obs"></td>
-            </tr>
-            <tr>
-                <td>Registro do seguro condominial (seguradora e vencimento)</td>
-                <td><input type="checkbox" name="seguro_sim"></td>
-                <td><input type="checkbox" name="seguro_nao"></td>
-                <td><input type="text" name="seguro_obs"></td>
-            </tr>
-            <tr>
-                <td>Fichas de manutenção (registro das manutenções realizadas)</td>
-                <td><input type="checkbox" name="fichas_manutencao_sim"></td>
-                <td><input type="checkbox" name="fichas_manutencao_nao"></td>
-                <td><input type="text" name="fichas_manutencao_obs"></td>
-            </tr>
-            <tr>
-                <td>Certificados de dedetização (data e empresa)</td>
-                <td><input type="checkbox" name="dedetizacao_sim"></td>
-                <td><input type="checkbox" name="dedetizacao_nao"></td>
-                <td><input type="text" name="dedetizacao_obs"></td>
-            </tr>
-        </table>
-
-        <h2>DOCUMENTAÇÃO E REGULAMENTAÇÃO</h2>
-        <table>
-            <tr>
-                <td>Regimento interno (disponibilidade e leitura)</td>
-                <td><input type="checkbox" name="regimento_interno_sim"></td>
-                <td><input type="checkbox" name="regimento_interno_nao"></td>
-                <td><input type="text" name="regimento_interno_obs"></td>
-            </tr>
-            <tr>
-                <td>Livro de ocorrências (disponibilidade e uso)</td>
-                <td><input type="checkbox" name="livro_ocorrencias_sim"></td>
-                <td><input type="checkbox" name="livro_ocorrencias_nao"></td>
-                <td><input type="text" name="livro_ocorrencias_obs"></td>
-            </tr>
-            <tr>
-                <td>Documentos legais do condomínio (registro e licenciamento)</td>
-                <td><input type="checkbox" name="documentos_legais_sim"></td>
-                <td><input type="checkbox" name="documentos_legais_nao"></td>
-                <td><input type="text" name="documentos_legais_obs"></td>
-            </tr>
-        </table>
-
-        <h2>OUTRAS OBSERVAÇÕES IMPORTANTES</h2>
-        <textarea name="outras_observacoes" rows="4" cols="50"></textarea>
-
-        <br><br>
         <button type="button" onclick="generatePDF()">Gerar PDF</button>
     </form>
 </div>
@@ -298,59 +227,21 @@
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF();
         
-        // Get form values
-        const form = document.getElementById('inspectionForm');
-        const formData = new FormData(form);
-
+        doc.setFontSize(20);
+        doc.text('Relatório de Inspeção do Condomínio', 10, 10);
         doc.setFontSize(12);
-        doc.text("Inspeção de Condomínio", 14, 20);
+
+        const formData = new FormData(document.getElementById('inspectionForm'));
+        let y = 20;
         
-        // Process each section
-        let yOffset = 30;
-
-        const sections = [
-            {
-                title: "ÁREA EXTERNA E DE ACESSO",
-                items: [
-                    { label: "Portão social (funcionamento e segurança)", field: "portao_social" },
-                    { label: "Portão de garagem (funcionamento e segurança)", field: "portao_garagem" },
-                    { label: "Acessibilidade para pessoas com deficiência", field: "acessibilidade" },
-                    { label: "Placas de sinalização (indicação de saídas, etc.)", field: "placas_sinalizacao" },
-                    { label: "Área de estacionamento externo (marcação e sinalização)", field: "area_estacionamento" },
-                    { label: "Iluminação externa (tipo e funcionamento)", field: "iluminacao_externa" },
-                    { label: "Calçadas e acessos (estado de conservação)", field: "calcadas_acessos" }
-                ]
-            },
-            {
-                title: "ÁREA COMUM E INTERNAS",
-                items: [
-                    { label: "Hall de entrada (acessibilidade, segurança e limpeza)", field: "hall_entrada" },
-                    { label: "Elevadores (quantidade, funcionamento e segurança)", field: "elevadores" },
-                    { label: "Escadas (segurança, iluminação, corrimãos)", field: "escadas" },
-                    { label: "Sistema de ventilação ou ar-condicionado (funcionamento)", field: "ventilacao" },
-                    { label: "Sinalização de emergência (saídas de emergência, etc.)", field: "sinalizacao_emergencia" },
-                    { label: "Sistema de monitoramento (câmeras e alarmes)", field: "monitoramento" },
-                    { label: "Extintores de incêndio (localização e validade)", field: "extintores" },
-                    { label: "Hidrantes (localização e funcionamento)", field: "hidrantes" }
-                ]
-            },
-            // Add other sections similarly...
-        ];
-
-        sections.forEach(section => {
-            doc.text(section.title, 14, yOffset);
-            yOffset += 10;
-            section.items.forEach(item => {
-                const isSim = formData.has(item.field + "_sim") ? "SIM" : "NÃO";
-                const obs = formData.get(item.field + "_obs") || "Nenhuma observação.";
-                doc.text(`${item.label}: ${isSim}`, 14, yOffset);
-                doc.text(`Observação: ${obs}`, 14, yOffset + 6);
-                yOffset += 12;
-            });
-            yOffset += 10;
+        formData.forEach((value, key) => {
+            if (key.includes("obs")) {
+                doc.text(`${key.replace('_', ' ').toUpperCase()}: ${value}`, 10, y);
+                y += 10;
+            }
         });
 
-        doc.save("inspecao_condominio.pdf");
+        doc.save('relatorio_inspecao.pdf');
     }
 </script>
 
