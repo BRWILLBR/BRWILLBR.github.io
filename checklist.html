@@ -8,228 +8,316 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-        }
-        .container {
-            width: 80%;
-            margin: 0 auto;
+            padding: 20px;
         }
         h1 {
             text-align: center;
         }
-        .btn {
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"], input[type="date"], input[type="checkbox"], textarea {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+        }
+        textarea {
+            height: 100px;
+        }
+        button {
             background-color: #4CAF50;
             color: white;
             padding: 10px 20px;
             border: none;
             cursor: pointer;
-            margin: 20px 0;
-            display: block;
-            width: 200px;
-            margin: 0 auto;
+            width: 100%;
+            font-size: 16px;
         }
-        .btn:hover {
+        button:hover {
             background-color: #45a049;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Checklist de Inspeção Inicial de Condomínio Novo</h1>
-        <button class="btn" onclick="generatePDF()">Gerar PDF</button>
-    </div>
+
+    <h1>Checklist de Inspeção Inicial de Condomínio Novo</h1>
+
+    <form id="formulario-inspecao">
+        <div class="form-group">
+            <label for="nome-condominio">Nome do Condomínio:</label>
+            <input type="text" id="nome-condominio" name="nome-condominio" required>
+        </div>
+        <div class="form-group">
+            <label for="endereco-condominio">Endereço:</label>
+            <input type="text" id="endereco-condominio" name="endereco-condominio" required>
+        </div>
+        <div class="form-group">
+            <label for="responsavel-inspecao">Responsável pela Inspeção:</label>
+            <input type="text" id="responsavel-inspecao" name="responsavel-inspecao" required>
+        </div>
+        <div class="form-group">
+            <label for="data-inspecao">Data da Inspeção:</label>
+            <input type="date" id="data-inspecao" name="data-inspecao" required>
+        </div>
+
+        <h2>ÁREA EXTERNA E DE ACESSO</h2>
+        <div class="form-group">
+            <label for="portao-social">Portão social (funcionamento e segurança):</label>
+            <input type="checkbox" id="portao-social" name="portao-social">
+        </div>
+        <div class="form-group">
+            <label for="portao-garagem">Portão de garagem (funcionamento e segurança):</label>
+            <input type="checkbox" id="portao-garagem" name="portao-garagem">
+        </div>
+        <div class="form-group">
+            <label for="acessibilidade">Acessibilidade para pessoas com deficiência:</label>
+            <input type="checkbox" id="acessibilidade" name="acessibilidade">
+        </div>
+        <div class="form-group">
+            <label for="placas-sinalizacao">Placas de sinalização (indicação de saídas, etc.):</label>
+            <input type="checkbox" id="placas-sinalizacao" name="placas-sinalizacao">
+        </div>
+        <div class="form-group">
+            <label for="estacionamento">Área de estacionamento externo (marcação e sinalização):</label>
+            <input type="checkbox" id="estacionamento" name="estacionamento">
+        </div>
+        <div class="form-group">
+            <label for="iluminacao-externa">Iluminação externa (tipo e funcionamento):</label>
+            <input type="checkbox" id="iluminacao-externa" name="iluminacao-externa">
+        </div>
+        <div class="form-group">
+            <label for="calcadas-acessos">Calçadas e acessos (estado de conservação):</label>
+            <input type="checkbox" id="calcadas-acessos" name="calcadas-acessos">
+        </div>
+        <div class="form-group">
+            <label for="observacoes-externas">Observações (Área Externa):</label>
+            <textarea id="observacoes-externas" name="observacoes-externas"></textarea>
+        </div>
+
+        <h2>ÁREA COMUM E INTERNAS</h2>
+        <div class="form-group">
+            <label for="hall-entrada">Hall de entrada (acessibilidade, segurança e limpeza):</label>
+            <input type="checkbox" id="hall-entrada" name="hall-entrada">
+        </div>
+        <div class="form-group">
+            <label for="elevadores">Elevadores (quantidade, funcionamento e segurança):</label>
+            <input type="checkbox" id="elevadores" name="elevadores">
+        </div>
+        <div class="form-group">
+            <label for="escadas">Escadas (segurança, iluminação, corrimãos):</label>
+            <input type="checkbox" id="escadas" name="escadas">
+        </div>
+        <div class="form-group">
+            <label for="ventilacao">Sistema de ventilação ou ar-condicionado (funcionamento):</label>
+            <input type="checkbox" id="ventilacao" name="ventilacao">
+        </div>
+        <div class="form-group">
+            <label for="sinalizacao-emergencia">Sinalização de emergência (saídas de emergência, etc.):</label>
+            <input type="checkbox" id="sinalizacao-emergencia" name="sinalizacao-emergencia">
+        </div>
+        <div class="form-group">
+            <label for="monitoramento">Sistema de monitoramento (câmeras e alarmes):</label>
+            <input type="checkbox" id="monitoramento" name="monitoramento">
+        </div>
+        <div class="form-group">
+            <label for="extintores">Extintores de incêndio (localização e validade):</label>
+            <input type="checkbox" id="extintores" name="extintores">
+        </div>
+        <div class="form-group">
+            <label for="hidrantes">Hidrantes (localização e funcionamento):</label>
+            <input type="checkbox" id="hidrantes" name="hidrantes">
+        </div>
+        <div class="form-group">
+            <label for="observacoes-comum">Observações (Área Comum):</label>
+            <textarea id="observacoes-comum" name="observacoes-comum"></textarea>
+        </div>
+
+        <h2>INFRAESTRUTURA E INSTALAÇÕES</h2>
+        <div class="form-group">
+            <label for="caixa-agua">Caixa d'água (estado de conservação e volume):</label>
+            <input type="checkbox" id="caixa-agua" name="caixa-agua">
+        </div>
+        <div class="form-group">
+            <label for="reservatorios">Reservatórios (estado de conservação e volume):</label>
+            <input type="checkbox" id="reservatorios" name="reservatorios">
+        </div>
+        <div class="form-group">
+            <label for="bombas-agua">Bombas de água (funcionamento e testes):</label>
+            <input type="checkbox" id="bombas-agua" name="bombas-agua">
+        </div>
+        <div class="form-group">
+            <label for="boia-eletrica">Boia elétrica (funcionamento):</label>
+            <input type="checkbox" id="boia-eletrica" name="boia-eletrica">
+        </div>
+        <div class="form-group">
+            <label for="sistema-esgoto">Sistema de esgoto (condição e funcionamento):</label>
+            <input type="checkbox" id="sistema-esgoto" name="sistema-esgoto">
+        </div>
+        <div class="form-group">
+            <label for="sistema-gas">Sistema de gás (individual ou geral, segurança):</label>
+            <input type="checkbox" id="sistema-gas" name="sistema-gas">
+        </div>
+        <div class="form-group">
+            <label for="sistema-eletrico">Sistema elétrico (quadros de distribuição e fiação):</label>
+            <input type="checkbox" id="sistema-eletrico" name="sistema-eletrico">
+        </div>
+        <div class="form-group">
+            <label for="rede-internet">Rede de internet (qualidade e disponibilidade):</label>
+            <input type="checkbox" id="rede-internet" name="rede-internet">
+        </div>
+        <div class="form-group">
+            <label for="placas-solares">Placas solares (se houver):</label>
+            <input type="checkbox" id="placas-solares" name="placas-solares">
+        </div>
+        <div class="form-group">
+            <label for="observacoes-infraestrutura">Observações (Infraestrutura e Instalações):</label>
+            <textarea id="observacoes-infraestrutura" name="observacoes-infraestrutura"></textarea>
+        </div>
+
+        <h2>SEGURANÇA E PREVENÇÃO DE RISCOS</h2>
+        <div class="form-group">
+            <label for="alarme-seguranca">Sistema de alarme de segurança (funcionamento):</label>
+            <input type="checkbox" id="alarme-seguranca" name="alarme-seguranca">
+        </div>
+        <div class="form-group">
+            <label for="extintores-incendio">Extintores de incêndio (localização e validade):</label>
+            <input type="checkbox" id="extintores-incendio" name="extintores-incendio">
+        </div>
+        <div class="form-group">
+            <label for="camere-seguranca">Câmeras de segurança (quantidade e posicionamento):</label>
+            <input type="checkbox" id="camere-seguranca" name="camere-seguranca">
+        </div>
+        <div class="form-group">
+            <label for="saidas-emergencia">Saídas de emergência (acessibilidade e sinalização):</label>
+            <input type="checkbox" id="saidas-emergencia" name="saidas-emergencia">
+        </div>
+        <div class="form-group">
+            <label for="observacoes-seguranca">Observações (Segurança e Prevenção):</label>
+            <textarea id="observacoes-seguranca" name="observacoes-seguranca"></textarea>
+        </div>
+
+        <h2>FERRAMENTAS E REGISTROS</h2>
+        <div class="form-group">
+            <label for="avcb">Certificado de AVCB (Autorização de Funcionamento):</label>
+            <input type="checkbox" id="avcb" name="avcb">
+        </div>
+        <div class="form-group">
+            <label for="manutencao-equipamentos">Registros de manutenção dos equipamentos de segurança:</label>
+            <input type="checkbox" id="manutencao-equipamentos" name="manutencao-equipamentos">
+        </div>
+        <div class="form-group">
+            <label for="observacoes-ferramentas">Observações (Ferramentas e Registros):</label>
+            <textarea id="observacoes-ferramentas" name="observacoes-ferramentas"></textarea>
+        </div>
+
+        <button type="button" onclick="generatePDF()">Gerar PDF</button>
+    </form>
 
     <script>
         function generatePDF() {
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
+            
+            // Coleta os dados do formulário
+            const nomeCondominio = document.getElementById('nome-condominio').value;
+            const enderecoCondominio = document.getElementById('endereco-condominio').value;
+            const responsavelInspecao = document.getElementById('responsavel-inspecao').value;
+            const dataInspecao = document.getElementById('data-inspecao').value;
 
-            // Página 1 - Cabeçalho
+            // Cabeçalho
             doc.setFont("Arial", "B", 16);
             doc.text("CHECKLIST DE INSPEÇÃO INICIAL DE CONDOMÍNIO NOVO", 20, 20);
             doc.setFont("Arial", "", 12);
+            doc.text(`Nome do Condomínio: ${nomeCondominio}`, 20, 30);
+            doc.text(`Endereço: ${enderecoCondominio}`, 20, 40);
+            doc.text(`Responsável pela Inspeção: ${responsavelInspecao}`, 20, 50);
+            doc.text(`Data da Inspeção: ${dataInspecao}`, 20, 60);
 
-            doc.text("Nome do Condomínio: ____________________________________________", 20, 30);
-            doc.text("Endereço: ____________________________________________", 20, 40);
-            doc.text("Responsável pela Inspeção: ___________________________________", 20, 50);
-            doc.text("Data da Inspeção: //__________", 20, 60);
+            // Função para gerar as seções de cada área
+            const generateSection = (title, checkboxes, observacoesId) => {
+                doc.addPage();
+                doc.setFont("Arial", "B", 14);
+                doc.text(title, 20, 20);
+                doc.setFont("Arial", "", 12);
+                checkboxes.forEach((checkbox, index) => {
+                    doc.text(`${checkbox.label}: ${checkbox.checked ? "SIM" : "NÃO"}`, 20, 30 + (index * 10));
+                });
+                doc.text(`Observações: ${document.getElementById(observacoesId).value}`, 20, 50 + (checkboxes.length * 10));
+            };
 
-            // Adicionar quebra de página
-            doc.addPage();
+            // Gerar todas as seções do checklist
+            generateSection(
+                "ÁREA EXTERNA E DE ACESSO", 
+                [
+                    { label: "Portão social", checked: document.getElementById('portao-social').checked },
+                    { label: "Portão de garagem", checked: document.getElementById('portao-garagem').checked },
+                    { label: "Acessibilidade", checked: document.getElementById('acessibilidade').checked },
+                    { label: "Placas de sinalização", checked: document.getElementById('placas-sinalizacao').checked },
+                    { label: "Estacionamento", checked: document.getElementById('estacionamento').checked },
+                    { label: "Iluminação externa", checked: document.getElementById('iluminacao-externa').checked },
+                    { label: "Calcadas e acessos", checked: document.getElementById('calcadas-acessos').checked }
+                ], 
+                'observacoes-externas'
+            );
 
-            // Página 2 - ÁREA EXTERNA E DE ACESSO
-            doc.setFont("Arial", "B", 14);
-            doc.text("ÁREA EXTERNA E DE ACESSO", 20, 20);
-            doc.setFont("Arial", "", 12);
+            generateSection(
+                "ÁREA COMUM E INTERNAS", 
+                [
+                    { label: "Hall de entrada", checked: document.getElementById('hall-entrada').checked },
+                    { label: "Elevadores", checked: document.getElementById('elevadores').checked },
+                    { label: "Escadas", checked: document.getElementById('escadas').checked },
+                    { label: "Ventilação", checked: document.getElementById('ventilacao').checked },
+                    { label: "Sinalização de emergência", checked: document.getElementById('sinalizacao-emergencia').checked },
+                    { label: "Monitoramento", checked: document.getElementById('monitoramento').checked },
+                    { label: "Extintores", checked: document.getElementById('extintores').checked },
+                    { label: "Hidrantes", checked: document.getElementById('hidrantes').checked }
+                ], 
+                'observacoes-comum'
+            );
 
-            const areaExternaItems = [
-                "Portão social (funcionamento e segurança)",
-                "Portão de garagem (funcionamento e segurança)",
-                "Acessibilidade para pessoas com deficiência",
-                "Placas de sinalização (indicação de saídas, etc.)",
-                "Área de estacionamento externo (marcação e sinalização)",
-                "Iluminação externa (tipo e funcionamento)",
-                "Calçadas e acessos (estado de conservação)"
-            ];
+            generateSection(
+                "INFRAESTRUTURA E INSTALAÇÕES", 
+                [
+                    { label: "Caixa d'água", checked: document.getElementById('caixa-agua').checked },
+                    { label: "Reservatórios", checked: document.getElementById('reservatorios').checked },
+                    { label: "Bombas de água", checked: document.getElementById('bombas-agua').checked },
+                    { label: "Boia elétrica", checked: document.getElementById('boia-eletrica').checked },
+                    { label: "Sistema de esgoto", checked: document.getElementById('sistema-esgoto').checked },
+                    { label: "Sistema de gás", checked: document.getElementById('sistema-gas').checked },
+                    { label: "Sistema elétrico", checked: document.getElementById('sistema-eletrico').checked },
+                    { label: "Rede de internet", checked: document.getElementById('rede-internet').checked },
+                    { label: "Placas solares", checked: document.getElementById('placas-solares').checked }
+                ], 
+                'observacoes-infraestrutura'
+            );
 
-            let y = 30;
-            areaExternaItems.forEach((item) => {
-                doc.text(item, 20, y);
-                doc.rect(170, y - 5, 10, 6); // Campo "SIM"
-                doc.rect(185, y - 5, 10, 6); // Campo "NÃO"
-                doc.rect(200, y - 5, 50, 6); // Campo "OBSERVAÇÕES"
-                y += 10;
-            });
+            generateSection(
+                "SEGURANÇA E PREVENÇÃO DE RISCOS", 
+                [
+                    { label: "Alarme de segurança", checked: document.getElementById('alarme-seguranca').checked },
+                    { label: "Extintores de incêndio", checked: document.getElementById('extintores-incendio').checked },
+                    { label: "Câmeras de segurança", checked: document.getElementById('camere-seguranca').checked },
+                    { label: "Saídas de emergência", checked: document.getElementById('saidas-emergencia').checked }
+                ], 
+                'observacoes-seguranca'
+            );
 
-            // Adicionar quebra de página
-            doc.addPage();
-
-            // Página 3 - ÁREA COMUM E INTERNAS
-            doc.setFont("Arial", "B", 14);
-            doc.text("ÁREA COMUM E INTERNAS", 20, 20);
-            doc.setFont("Arial", "", 12);
-
-            const areaComumItems = [
-                "Hall de entrada (acessibilidade, segurança e limpeza)",
-                "Elevadores (quantidade, funcionamento e segurança)",
-                "Escadas (segurança, iluminação, corrimãos)",
-                "Sistema de ventilação ou ar-condicionado (funcionamento)",
-                "Sinalização de emergência (saídas de emergência, etc.)",
-                "Sistema de monitoramento (câmeras e alarmes)",
-                "Extintores de incêndio (localização e validade)",
-                "Hidrantes (localização e funcionamento)"
-            ];
-
-            y = 30;
-            areaComumItems.forEach((item) => {
-                doc.text(item, 20, y);
-                doc.rect(170, y - 5, 10, 6); // Campo "SIM"
-                doc.rect(185, y - 5, 10, 6); // Campo "NÃO"
-                doc.rect(200, y - 5, 50, 6); // Campo "OBSERVAÇÕES"
-                y += 10;
-            });
-
-            // Adicionar quebra de página
-            doc.addPage();
-
-            // Página 4 - INFRAESTRUTURA E INSTALAÇÕES
-            doc.setFont("Arial", "B", 14);
-            doc.text("INFRAESTRUTURA E INSTALAÇÕES", 20, 20);
-            doc.setFont("Arial", "", 12);
-
-            const infraestruturaItems = [
-                "Caixa d'água (estado de conservação e volume)",
-                "Reservatórios (estado de conservação e volume)",
-                "Bombas de água (funcionamento e testes)",
-                "Boia elétrica (funcionamento)",
-                "Sistema de esgoto (condição e funcionamento)",
-                "Sistema de gás (individual ou geral, segurança)",
-                "Sistema elétrico (quadros de distribuição e fiação)",
-                "Rede de internet (qualidade e disponibilidade)",
-                "Placas solares (se houver)"
-            ];
-
-            y = 30;
-            infraestruturaItems.forEach((item) => {
-                doc.text(item, 20, y);
-                doc.rect(170, y - 5, 10, 6); // Campo "SIM"
-                doc.rect(185, y - 5, 10, 6); // Campo "NÃO"
-                doc.rect(200, y - 5, 50, 6); // Campo "OBSERVAÇÕES"
-                y += 10;
-            });
-
-            // Adicionar quebra de página
-            doc.addPage();
-
-            // Página 5 - SEGURANÇA E PREVENÇÃO DE RISCOS
-            doc.setFont("Arial", "B", 14);
-            doc.text("SEGURANÇA E PREVENÇÃO DE RISCOS", 20, 20);
-            doc.setFont("Arial", "", 12);
-
-            const segurancaItems = [
-                "Sistema de alarme de segurança (funcionamento)",
-                "Extintores de incêndio (localização e validade)",
-                "Câmeras de segurança (quantidade e posicionamento)",
-                "Saídas de emergência (acessibilidade e sinalização)"
-            ];
-
-            y = 30;
-            segurancaItems.forEach((item) => {
-                doc.text(item, 20, y);
-                doc.rect(170, y - 5, 10, 6); // Campo "SIM"
-                doc.rect(185, y - 5, 10, 6); // Campo "NÃO"
-                doc.rect(200, y - 5, 50, 6); // Campo "OBSERVAÇÕES"
-                y += 10;
-            });
-
-            // Adicionar quebra de página
-            doc.addPage();
-
-            // Página 6 - FERRAMENTAS E REGISTROS
-            doc.setFont("Arial", "B", 14);
-            doc.text("FERRAMENTAS E REGISTROS", 20, 20);
-            doc.setFont("Arial", "", 12);
-
-            const ferramentasItems = [
-                "Certificado de AVCB (Autorização de Funcionamento)",
-                "Registro do seguro condominial (seguradora e vencimento)",
-                "Fichas de manutenção (registro das manutenções realizadas)",
-                "Certificados de dedetização (data e empresa)"
-            ];
-
-            y = 30;
-            ferramentasItems.forEach((item) => {
-                doc.text(item, 20, y);
-                doc.rect(170, y - 5, 10, 6); // Campo "SIM"
-                doc.rect(185, y - 5, 10, 6); // Campo "NÃO"
-                doc.rect(200, y - 5, 50, 6); // Campo "OBSERVAÇÕES"
-                y += 10;
-            });
-
-            // Adicionar quebra de página
-            doc.addPage();
-
-            // Página 7 - DOCUMENTAÇÃO E REGULAMENTAÇÃO
-            doc.setFont("Arial", "B", 14);
-            doc.text("DOCUMENTAÇÃO E REGULAMENTAÇÃO", 20, 20);
-            doc.setFont("Arial", "", 12);
-
-            const documentacaoItems = [
-                "Regimento interno (disponibilidade e leitura)",
-                "Livro de ocorrências (disponibilidade e uso)",
-                "Documentos legais do condomínio (registro e licenciamento)"
-            ];
-
-            y = 30;
-            documentacaoItems.forEach((item) => {
-                doc.text(item, 20, y);
-                doc.rect(170, y - 5, 10, 6); // Campo "SIM"
-                doc.rect(185, y - 5, 10, 6); // Campo "NÃO"
-                doc.rect(200, y - 5, 50, 6); // Campo "OBSERVAÇÕES"
-                y += 10;
-            });
-
-            // Adicionar página final com observações
-            doc.addPage();
-
-            // Página 8 - OUTRAS OBSERVAÇÕES IMPORTANTES
-            doc.setFont("Arial", "B", 14);
-            doc.text("OUTRAS OBSERVAÇÕES IMPORTANTES", 20, 20);
-            doc.setFont("Arial", "", 12);
-
-            doc.rect(20, 30, 180, 30); // Campo de observações
-            doc.text("____________________________________________________________________", 20, 35);
-
-            // Finalização da Inspeção
-            doc.setFont("Arial", "B", 14);
-            doc.text("FINALIZAÇÃO DA INSPEÇÃO", 20, 80);
-            doc.setFont("Arial", "", 12);
-
-            doc.text("Responsável pela Inspeção: ___________________________", 20, 90);
-            doc.text("Assinatura: ___________________________", 20, 100);
-            doc.text("Data: //__________", 20, 110);
+            generateSection(
+                "FERRAMENTAS E REGISTROS", 
+                [
+                    { label: "Certificado de AVCB", checked: document.getElementById('avcb').checked },
+                    { label: "Registros de manutenção dos equipamentos", checked: document.getElementById('manutencao-equipamentos').checked }
+                ], 
+                'observacoes-ferramentas'
+            );
 
             // Salva o PDF
-            doc.save('checklist_inspecao_condominio.pdf');
+            doc.save(`${nomeCondominio}_checklist_inspecao.pdf`);
         }
     </script>
 </body>
