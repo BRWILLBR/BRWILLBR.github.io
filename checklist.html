@@ -3,225 +3,163 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Checklist de Inspeção de Condomínio</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <title>Checklist de Inspeção Inicial</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
-            padding: 20px;
+            margin: 20px;
         }
-        h1 {
+        h1, h2 {
             text-align: center;
         }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-        }
-        select, input[type="text"], input[type="date"], textarea {
+        table {
             width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #000;
             padding: 8px;
-            margin: 5px 0;
-            border: 1px solid #ccc;
+            text-align: left;
         }
-        textarea {
-            height: 100px;
+        th {
+            background-color: #f2f2f2;
         }
-        .radio-group {
-            display: flex;
-            justify-content: space-around;
-        }
-        .radio-group input {
-            margin-right: 10px;
-        }
-        button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            cursor: pointer;
+        .obs {
             width: 100%;
-            font-size: 16px;
-        }
-        button:hover {
-            background-color: #45a049;
+            height: 60px;
         }
     </style>
 </head>
 <body>
-
     <h1>Checklist de Inspeção Inicial de Condomínio Novo</h1>
+    <form id="checklistForm">
+        <label for="nomeCondominio">Nome do Condomínio:</label>
+        <input type="text" id="nomeCondominio" name="nomeCondominio" style="width: 100%;"><br><br>
 
-    <form id="formulario-inspecao">
-        <!-- Dados Gerais -->
-        <div class="form-group">
-            <label for="nome-condominio">Nome do Condomínio:</label>
-            <input type="text" id="nome-condominio" name="nome-condominio" required>
-        </div>
-        <div class="form-group">
-            <label for="endereco-condominio">Endereço:</label>
-            <input type="text" id="endereco-condominio" name="endereco-condominio" required>
-        </div>
-        <div class="form-group">
-            <label for="responsavel-inspecao">Responsável pela Inspeção:</label>
-            <input type="text" id="responsavel-inspecao" name="responsavel-inspecao" required>
-        </div>
-        <div class="form-group">
-            <label for="data-inspecao">Data da Inspeção:</label>
-            <input type="date" id="data-inspecao" name="data-inspecao" required>
-        </div>
+        <label for="endereco">Endereço:</label>
+        <input type="text" id="endereco" name="endereco" style="width: 100%;"><br><br>
 
-        <!-- Seção: ÁREA EXTERNA E DE ACESSO -->
-        <h2>ÁREA EXTERNA E DE ACESSO</h2>
-        <div class="form-group">
-            <label>Portão social (funcionamento e segurança):</label>
-            <div class="radio-group">
-                <label><input type="radio" name="portao-social" value="SIM"> SIM</label>
-                <label><input type="radio" name="portao-social" value="NÃO"> NÃO</label>
-                <label><input type="radio" name="portao-social" value="QUAL MODELO"> QUAL MODELO?</label>
-            </div>
-        </div>
-        <div class="form-group">
-            <label>Portão de garagem (funcionamento e segurança):</label>
-            <div class="radio-group">
-                <label><input type="radio" name="portao-garagem" value="SIM"> SIM</label>
-                <label><input type="radio" name="portao-garagem" value="NÃO"> NÃO</label>
-                <label><input type="radio" name="portao-garagem" value="QUAL MODELO"> QUAL MODELO?</label>
-            </div>
-        </div>
-        <div class="form-group">
-            <label>Acessibilidade para pessoas com deficiência:</label>
-            <div class="radio-group">
-                <label><input type="radio" name="acessibilidade" value="SIM"> SIM</label>
-                <label><input type="radio" name="acessibilidade" value="NÃO"> NÃO</label>
-                <label><input type="radio" name="acessibilidade" value="QUAL MODELO"> QUAL MODELO?</label>
-            </div>
-        </div>
-        <div class="form-group">
-            <label>Placas de sinalização (indicação de saídas, etc.):</label>
-            <div class="radio-group">
-                <label><input type="radio" name="placas-sinalizacao" value="SIM"> SIM</label>
-                <label><input type="radio" name="placas-sinalizacao" value="NÃO"> NÃO</label>
-                <label><input type="radio" name="placas-sinalizacao" value="QUAL MODELO"> QUAL MODELO?</label>
-            </div>
-        </div>
-        <div class="form-group">
-            <label>Área de estacionamento externo (marcação e sinalização):</label>
-            <div class="radio-group">
-                <label><input type="radio" name="estacionamento" value="SIM"> SIM</label>
-                <label><input type="radio" name="estacionamento" value="NÃO"> NÃO</label>
-                <label><input type="radio" name="estacionamento" value="QUAL MODELO"> QUAL MODELO?</label>
-            </div>
-        </div>
-        <div class="form-group">
-            <label>Iluminação externa (tipo e funcionamento):</label>
-            <div class="radio-group">
-                <label><input type="radio" name="iluminacao-externa" value="SIM"> SIM</label>
-                <label><input type="radio" name="iluminacao-externa" value="NÃO"> NÃO</label>
-                <label><input type="radio" name="iluminacao-externa" value="QUAL MODELO"> QUAL MODELO?</label>
-            </div>
-        </div>
-        <div class="form-group">
-            <label>Calçadas e acessos (estado de conservação):</label>
-            <div class="radio-group">
-                <label><input type="radio" name="calcadas-acessos" value="SIM"> SIM</label>
-                <label><input type="radio" name="calcadas-acessos" value="NÃO"> NÃO</label>
-                <label><input type="radio" name="calcadas-acessos" value="QUAL MODELO"> QUAL MODELO?</label>
-            </div>
-        </div>
-        <div class="form-group">
-            <label>Observações (Área Externa):</label>
-            <textarea id="observacoes-externas" name="observacoes-externas"></textarea>
-        </div>
+        <label for="responsavel">Responsável pela Inspeção:</label>
+        <input type="text" id="responsavel" name="responsavel" style="width: 100%;"><br><br>
 
-        <!-- Seção: ÁREA COMUM E INTERNAS -->
-        <h2>ÁREA COMUM E INTERNAS</h2>
-        <!-- Itens para essa seção aqui -->
-        <!-- Exemplo: -->
-        <div class="form-group">
-            <label>Hall de entrada (acessibilidade, segurança e limpeza):</label>
-            <div class="radio-group">
-                <label><input type="radio" name="hall-entrada" value="SIM"> SIM</label>
-                <label><input type="radio" name="hall-entrada" value="NÃO"> NÃO</label>
-                <label><input type="radio" name="hall-entrada" value="QUAL MODELO"> QUAL MODELO?</label>
-            </div>
-        </div>
-        <div class="form-group">
-            <label>Elevadores (quantidade, funcionamento e segurança):</label>
-            <div class="radio-group">
-                <label><input type="radio" name="elevadores" value="SIM"> SIM</label>
-                <label><input type="radio" name="elevadores" value="NÃO"> NÃO</label>
-                <label><input type="radio" name="elevadores" value="QUAL MODELO"> QUAL MODELO?</label>
-            </div>
-        </div>
-        <div class="form-group">
-            <label>Escadas (segurança, iluminação, corrimãos):</label>
-            <div class="radio-group">
-                <label><input type="radio" name="escadas" value="SIM"> SIM</label>
-                <label><input type="radio" name="escadas" value="NÃO"> NÃO</label>
-                <label><input type="radio" name="escadas" value="QUAL MODELO"> QUAL MODELO?</label>
-            </div>
-        </div>
-        <!-- Continue com todos os outros itens dessa seção e subsequentes. -->
+        <label for="data">Data da Inspeção:</label>
+        <input type="date" id="data" name="data" style="width: 100%;"><br><br>
 
-        <!-- Adicione todas as outras seções (Infraestrutura, Segurança, Documentação, etc.) -->
+        <h2>Área Externa e de Acesso</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Itens de Inspeção</th>
+                    <th>Sim</th>
+                    <th>Não</th>
+                    <th>Observações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Portão social (funcionamento e segurança)</td>
+                    <td><input type="radio" name="portaoSocial" value="sim"></td>
+                    <td><input type="radio" name="portaoSocial" value="nao"></td>
+                    <td><textarea class="obs" name="obsPortaoSocial"></textarea></td>
+                </tr>
+                <tr>
+                    <td>Portão de garagem (funcionamento e segurança)</td>
+                    <td><input type="radio" name="portaoGaragem" value="sim"></td>
+                    <td><input type="radio" name="portaoGaragem" value="nao"></td>
+                    <td><textarea class="obs" name="obsPortaoGaragem"></textarea></td>
+                </tr>
+                <tr>
+                    <td>Acessibilidade para pessoas com deficiência (rampas, corrimãos, elevadores)</td>
+                    <td><input type="radio" name="acessibilidade" value="sim"></td>
+                    <td><input type="radio" name="acessibilidade" value="nao"></td>
+                    <td><textarea class="obs" name="obsAcessibilidade"></textarea></td>
+                </tr>
+                <tr>
+                    <td>Placas de sinalização (indicação de saídas, etc.)</td>
+                    <td><input type="radio" name="placasSinalizacao" value="sim"></td>
+                    <td><input type="radio" name="placasSinalizacao" value="nao"></td>
+                    <td><textarea class="obs" name="obsPlacasSinalizacao"></textarea></td>
+                </tr>
+                <tr>
+                    <td>Área de estacionamento externo (marcação e sinalização)</td>
+                    <td><input type="radio" name="estacionamentoExterno" value="sim"></td>
+                    <td><input type="radio" name="estacionamentoExterno" value="nao"></td>
+                    <td><textarea class="obs" name="obsEstacionamentoExterno"></textarea></td>
+                </tr>
+                <tr>
+                    <td>Iluminação externa (tipo e funcionamento)</td>
+                    <td><input type="radio" name="iluminacaoExterna" value="sim"></td>
+                    <td><input type="radio" name="iluminacaoExterna" value="nao"></td>
+                    <td><textarea class="obs" name="obsIluminacaoExterna"></textarea></td>
+                </tr>
+                <tr>
+                    <td>Calçadas e acessos (estado de conservação)</td>
+                    <td><input type="radio" name="calcadas" value="sim"></td>
+                    <td><input type="radio" name="calcadas" value="nao"></td>
+                    <td><textarea class="obs" name="obsCalcadas"></textarea></td>
+                </tr>
+            </tbody>
+        </table>
 
-        <!-- Botão para gerar PDF -->
-        <button type="button" onclick="generatePDF()">Gerar PDF</button>
-    </form>
+        <h2>Ferramentas e Registros</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Itens de Inspeção</th>
+                    <th>Sim</th>
+                    <th>Não</th>
+                    <th>Observações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Certificado de AVCB (Autorização de Funcionamento)</td>
+                    <td><input type="radio" name="certificadoAVCB" value="sim"></td>
+                    <td><input type="radio" name="certificadoAVCB" value="nao"></td>
+                    <td><textarea class="obs" name="obsCertificadoAVCB"></textarea></td>
+                </tr>
+                <tr>
+                    <td>Registro do seguro condominial (seguradora e vencimento)</td>
+                    <td><input type="radio" name="seguroCondominial" value="sim"></td>
+                    <td><input type="radio" name="seguroCondominial" value="nao"></td>
+                    <td><textarea class="obs" name="obsSeguroCondominial"></textarea></td>
+                </tr>
+                <tr>
+                    <td>Fichas de manutenção (registro das manutenções realizadas)</td>
+                    <td><input type="radio" name="fichasManutencao" value="sim"></td>
+                    <td><input type="radio" name="fichasManutencao" value="nao"></td>
+                    <td><textarea class="obs" name="obsFichasManutencao"></textarea></td>
+                </tr>
+                <tr>
+                    <td>Certificados de dedetização (data e empresa)</td>
+                    <td><input type="radio" name="certificadosDedetizacao" value="sim"></td>
+                    <td><input type="radio" name="certificadosDedetizacao" value="nao"></td>
+                    <td><textarea class="obs" name="obsCertificadosDedetizacao"></textarea></td>
+                </tr>
+            </tbody>
+        </table>
 
-    <script>
-        function generatePDF() {
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
-            
-            // Coleta os dados do formulário
-            const nomeCondominio = document.getElementById('nome-condominio').value;
-            const enderecoCondominio = document.getElementById('endereco-condominio').value;
-            const responsavelInspecao = document.getElementById('responsavel-inspecao').value;
-            const dataInspecao = document.getElementById('data-inspecao').value;
-
-            // Cabeçalho
-            doc.setFont("Arial", "B", 16);
-            doc.text("CHECKLIST DE INSPEÇÃO INICIAL DE CONDOMÍNIO NOVO", 20, 20);
-            doc.setFont("Arial", "", 12);
-            doc.text(`Nome do Condomínio: ${nomeCondominio}`, 20, 30);
-            doc.text(`Endereço: ${enderecoCondominio}`, 20, 40);
-            doc.text(`Responsável pela Inspeção: ${responsavelInspecao}`, 20, 50);
-            doc.text(`Data da Inspeção: ${dataInspecao}`, 20, 60);
-
-            // Função para gerar as seções de cada área
-            const generateSection = (title, checkboxes, observacoesId) => {
-                doc.addPage();
-                doc.setFont("Arial", "B", 14);
-                doc.text(title, 20, 20);
-                doc.setFont("Arial", "", 12);
-                checkboxes.forEach((checkbox, index) => {
-                    const yPos = 30 + (index * 10);
-                    doc.text(`${checkbox}  [ ] SIM  [ ] NÃO  [ ] QUAL MODELO?`, 20, yPos);
-                });
-                doc.text(`Observações: ${document.getElementById(observacoesId).value}`, 20, 100);
-            };
-
-            // Gerando a seção: Área Externa e de Acesso
-            generateSection("ÁREA EXTERNA E DE ACESSO", [
-                "Portão social",
-                "Portão de garagem",
-                "Acessibilidade para pessoas com deficiência",
-                "Placas de sinalização",
-                "Área de estacionamento externo",
-                "Iluminação externa",
-                "Calçadas e acessos"
-            ], "observacoes-externas");
-
-            // Adicione mais seções aqui (ÁREA COMUM, SEGURANÇA, INFRAESTRUTURA, etc.)
-
-            // Gerando o PDF
-            doc.save("checklist_inspecao_condominio.pdf");
-        }
-    </script>
-
-</body>
-</html>
+        <h2>Documentação e Regulamentação</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Itens de Inspeção</th>
+                    <th>Sim</th>
+                    <th>Não</th>
+                    <th>Observações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Regimento interno (disponibilidade e leitura)</td>
+                    <td><input type="radio" name="regimentoInterno" value="sim"></td>
+                    <td><input type="radio" name="regimentoInterno" value="nao"></td>
+                    <td><textarea class="obs" name="obsRegimentoInterno"></textarea></td>
+                </tr>
+                <tr>
+                    <td>Livro de ocorrências (disponibilidade e uso)</td>
+                    <td><input type="radio" name="livroOcorrencias" value="sim"></td>
+                    <td><input type="radio" name="livroOcorrencias" value="nao"></td>
+                    <td><textarea class="obs" name="obsLivroOcorrencias"></textarea></td>
