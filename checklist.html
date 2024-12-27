@@ -35,7 +35,6 @@
 <body>
     <div class="container">
         <h1>Checklist de Inspeção Inicial de Condomínio Novo</h1>
-        
         <button class="btn" onclick="generatePDF()">Gerar PDF</button>
     </div>
 
@@ -44,82 +43,192 @@
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
 
-            // Definindo o título do PDF
+            // Página 1 - Cabeçalho
             doc.setFont("Arial", "B", 16);
             doc.text("CHECKLIST DE INSPEÇÃO INICIAL DE CONDOMÍNIO NOVO", 20, 20);
-
-            // Definindo os campos para serem preenchidos no PDF
             doc.setFont("Arial", "", 12);
-            doc.text("Nome do Condomínio:", 20, 30);
-            doc.rect(80, 25, 120, 10);
-            doc.text("Endereço:", 20, 45);
-            doc.rect(80, 40, 120, 10);
-            doc.text("Responsável pela Inspeção:", 20, 60);
-            doc.rect(80, 55, 120, 10);
-            doc.text("Data da Inspeção:", 20, 75);
-            doc.rect(80, 70, 120, 10);
 
-            // Criando a seção ÁREA EXTERNA E DE ACESSO
-            doc.setFont("Arial", "B", 12);
-            doc.text("ÁREA EXTERNA E DE ACESSO", 20, 90);
+            doc.text("Nome do Condomínio: ____________________________________________", 20, 30);
+            doc.text("Endereço: ____________________________________________", 20, 40);
+            doc.text("Responsável pela Inspeção: ___________________________________", 20, 50);
+            doc.text("Data da Inspeção: //__________", 20, 60);
+
+            // Adicionar quebra de página
+            doc.addPage();
+
+            // Página 2 - ÁREA EXTERNA E DE ACESSO
+            doc.setFont("Arial", "B", 14);
+            doc.text("ÁREA EXTERNA E DE ACESSO", 20, 20);
             doc.setFont("Arial", "", 12);
-            
-            // Tabela de itens com campos para preencher
-            const headers = ['ITENS DE INSPEÇÃO', 'SIM', 'NÃO', 'OBSERVAÇÕES'];
-            const items = [
-                ["Portão social (funcionamento e segurança)", "", "", ""],
-                ["Portão de garagem (funcionamento e segurança)", "", "", ""],
-                ["Acessibilidade para pessoas com deficiência", "", "", ""],
-                ["Placas de sinalização (indicação de saídas, etc.)", "", "", ""],
-                ["Área de estacionamento externo (marcação e sinalização)", "", "", ""],
-                ["Iluminação externa (tipo e funcionamento)", "", "", ""],
-                ["Calçadas e acessos (estado de conservação)", "", "", ""]
+
+            const areaExternaItems = [
+                "Portão social (funcionamento e segurança)",
+                "Portão de garagem (funcionamento e segurança)",
+                "Acessibilidade para pessoas com deficiência",
+                "Placas de sinalização (indicação de saídas, etc.)",
+                "Área de estacionamento externo (marcação e sinalização)",
+                "Iluminação externa (tipo e funcionamento)",
+                "Calçadas e acessos (estado de conservação)"
             ];
 
-            // Desenhando a tabela
-            let y = 100;
-            doc.setFont("Arial", "B", 10);
-            for (let i = 0; i < headers.length; i++) {
-                doc.text(headers[i], 20 + (i * 40), y);
-            }
-            y += 10;
-
-            doc.setFont("Arial", "", 10);
-            items.forEach(item => {
-                doc.text(item[0], 20, y);
-                doc.rect(80, y - 4, 10, 6);
-                doc.rect(110, y - 4, 10, 6);
-                doc.rect(140, y - 4, 50, 6);
+            let y = 30;
+            areaExternaItems.forEach((item) => {
+                doc.text(item, 20, y);
+                doc.rect(170, y - 5, 10, 6); // Campo "SIM"
+                doc.rect(185, y - 5, 10, 6); // Campo "NÃO"
+                doc.rect(200, y - 5, 50, 6); // Campo "OBSERVAÇÕES"
                 y += 10;
             });
 
-            // Criando a seção ÁREA COMUM E INTERNAS
-            doc.setFont("Arial", "B", 12);
-            doc.text("ÁREA COMUM E INTERNAS", 20, y + 10);
+            // Adicionar quebra de página
+            doc.addPage();
+
+            // Página 3 - ÁREA COMUM E INTERNAS
+            doc.setFont("Arial", "B", 14);
+            doc.text("ÁREA COMUM E INTERNAS", 20, 20);
             doc.setFont("Arial", "", 12);
 
-            // Tabela de itens com campos para preencher
-            const commonItems = [
-                ["Hall de entrada (acessibilidade, segurança e limpeza)", "", "", ""],
-                ["Elevadores (quantidade, funcionamento e segurança)", "", "", ""],
-                ["Escadas (segurança, iluminação, corrimãos)", "", "", ""],
-                ["Sistema de ventilação ou ar-condicionado (funcionamento)", "", "", ""],
-                ["Sinalização de emergência (saídas de emergência, etc.)", "", "", ""],
-                ["Sistema de monitoramento (câmeras e alarmes)", "", "", ""],
-                ["Extintores de incêndio (localização e validade)", "", "", ""],
-                ["Hidrantes (localização e funcionamento)", "", "", ""]
+            const areaComumItems = [
+                "Hall de entrada (acessibilidade, segurança e limpeza)",
+                "Elevadores (quantidade, funcionamento e segurança)",
+                "Escadas (segurança, iluminação, corrimãos)",
+                "Sistema de ventilação ou ar-condicionado (funcionamento)",
+                "Sinalização de emergência (saídas de emergência, etc.)",
+                "Sistema de monitoramento (câmeras e alarmes)",
+                "Extintores de incêndio (localização e validade)",
+                "Hidrantes (localização e funcionamento)"
             ];
 
-            // Desenhando a tabela
-            for (let i = 0; i < commonItems.length; i++) {
-                doc.text(commonItems[i][0], 20, y + 10);
-                doc.rect(80, y + 5, 10, 6);
-                doc.rect(110, y + 5, 10, 6);
-                doc.rect(140, y + 5, 50, 6);
+            y = 30;
+            areaComumItems.forEach((item) => {
+                doc.text(item, 20, y);
+                doc.rect(170, y - 5, 10, 6); // Campo "SIM"
+                doc.rect(185, y - 5, 10, 6); // Campo "NÃO"
+                doc.rect(200, y - 5, 50, 6); // Campo "OBSERVAÇÕES"
                 y += 10;
-            }
+            });
 
-            // Gerando o PDF
+            // Adicionar quebra de página
+            doc.addPage();
+
+            // Página 4 - INFRAESTRUTURA E INSTALAÇÕES
+            doc.setFont("Arial", "B", 14);
+            doc.text("INFRAESTRUTURA E INSTALAÇÕES", 20, 20);
+            doc.setFont("Arial", "", 12);
+
+            const infraestruturaItems = [
+                "Caixa d'água (estado de conservação e volume)",
+                "Reservatórios (estado de conservação e volume)",
+                "Bombas de água (funcionamento e testes)",
+                "Boia elétrica (funcionamento)",
+                "Sistema de esgoto (condição e funcionamento)",
+                "Sistema de gás (individual ou geral, segurança)",
+                "Sistema elétrico (quadros de distribuição e fiação)",
+                "Rede de internet (qualidade e disponibilidade)",
+                "Placas solares (se houver)"
+            ];
+
+            y = 30;
+            infraestruturaItems.forEach((item) => {
+                doc.text(item, 20, y);
+                doc.rect(170, y - 5, 10, 6); // Campo "SIM"
+                doc.rect(185, y - 5, 10, 6); // Campo "NÃO"
+                doc.rect(200, y - 5, 50, 6); // Campo "OBSERVAÇÕES"
+                y += 10;
+            });
+
+            // Adicionar quebra de página
+            doc.addPage();
+
+            // Página 5 - SEGURANÇA E PREVENÇÃO DE RISCOS
+            doc.setFont("Arial", "B", 14);
+            doc.text("SEGURANÇA E PREVENÇÃO DE RISCOS", 20, 20);
+            doc.setFont("Arial", "", 12);
+
+            const segurancaItems = [
+                "Sistema de alarme de segurança (funcionamento)",
+                "Extintores de incêndio (localização e validade)",
+                "Câmeras de segurança (quantidade e posicionamento)",
+                "Saídas de emergência (acessibilidade e sinalização)"
+            ];
+
+            y = 30;
+            segurancaItems.forEach((item) => {
+                doc.text(item, 20, y);
+                doc.rect(170, y - 5, 10, 6); // Campo "SIM"
+                doc.rect(185, y - 5, 10, 6); // Campo "NÃO"
+                doc.rect(200, y - 5, 50, 6); // Campo "OBSERVAÇÕES"
+                y += 10;
+            });
+
+            // Adicionar quebra de página
+            doc.addPage();
+
+            // Página 6 - FERRAMENTAS E REGISTROS
+            doc.setFont("Arial", "B", 14);
+            doc.text("FERRAMENTAS E REGISTROS", 20, 20);
+            doc.setFont("Arial", "", 12);
+
+            const ferramentasItems = [
+                "Certificado de AVCB (Autorização de Funcionamento)",
+                "Registro do seguro condominial (seguradora e vencimento)",
+                "Fichas de manutenção (registro das manutenções realizadas)",
+                "Certificados de dedetização (data e empresa)"
+            ];
+
+            y = 30;
+            ferramentasItems.forEach((item) => {
+                doc.text(item, 20, y);
+                doc.rect(170, y - 5, 10, 6); // Campo "SIM"
+                doc.rect(185, y - 5, 10, 6); // Campo "NÃO"
+                doc.rect(200, y - 5, 50, 6); // Campo "OBSERVAÇÕES"
+                y += 10;
+            });
+
+            // Adicionar quebra de página
+            doc.addPage();
+
+            // Página 7 - DOCUMENTAÇÃO E REGULAMENTAÇÃO
+            doc.setFont("Arial", "B", 14);
+            doc.text("DOCUMENTAÇÃO E REGULAMENTAÇÃO", 20, 20);
+            doc.setFont("Arial", "", 12);
+
+            const documentacaoItems = [
+                "Regimento interno (disponibilidade e leitura)",
+                "Livro de ocorrências (disponibilidade e uso)",
+                "Documentos legais do condomínio (registro e licenciamento)"
+            ];
+
+            y = 30;
+            documentacaoItems.forEach((item) => {
+                doc.text(item, 20, y);
+                doc.rect(170, y - 5, 10, 6); // Campo "SIM"
+                doc.rect(185, y - 5, 10, 6); // Campo "NÃO"
+                doc.rect(200, y - 5, 50, 6); // Campo "OBSERVAÇÕES"
+                y += 10;
+            });
+
+            // Adicionar página final com observações
+            doc.addPage();
+
+            // Página 8 - OUTRAS OBSERVAÇÕES IMPORTANTES
+            doc.setFont("Arial", "B", 14);
+            doc.text("OUTRAS OBSERVAÇÕES IMPORTANTES", 20, 20);
+            doc.setFont("Arial", "", 12);
+
+            doc.rect(20, 30, 180, 30); // Campo de observações
+            doc.text("____________________________________________________________________", 20, 35);
+
+            // Finalização da Inspeção
+            doc.setFont("Arial", "B", 14);
+            doc.text("FINALIZAÇÃO DA INSPEÇÃO", 20, 80);
+            doc.setFont("Arial", "", 12);
+
+            doc.text("Responsável pela Inspeção: ___________________________", 20, 90);
+            doc.text("Assinatura: ___________________________", 20, 100);
+            doc.text("Data: //__________", 20, 110);
+
+            // Salva o PDF
             doc.save('checklist_inspecao_condominio.pdf');
         }
     </script>
