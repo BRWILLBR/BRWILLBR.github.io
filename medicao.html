@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medição de Gás</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+        }
+        .medidor {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: #f3f3f3;
+            padding: 20px;
+            border-radius: 5px;
+        }
+        .digitos {
+            display: flex;
+            gap: 5px;
+        }
+        .digito-preto, .digito-vermelho {
+            font-weight: bold;
+            font-size: 2em;
+            border: 2px solid;
+            padding: 5px;
+            background: white;
+            text-align: center;
+            width: 40px;
+        }
+        .digito-preto {
+            color: black;
+            border-color: black;
+        }
+        .digito-vermelho {
+            color: red;
+            border-color: red;
+        }
+        select, input, button {
+            margin: 10px;
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 1em;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Registro de Medição de Gás</h1>
+        
+        <h2>Exemplo de Medição</h2>
+        <div class="medidor">
+            <div class="digitos">
+                <span class="digito-preto">5</span>
+                <span class="digito-preto">2</span>
+                <span class="digito-preto">8</span>
+                <span class="digito-preto">4</span>
+                <span class="digito-preto">7</span>
+                <span class="digito-vermelho">2</span>
+                <span class="digito-vermelho">5</span>
+                <span class="digito-vermelho">9</span>
+            </div>
+        </div>
+        
+        <label for="condominio">Condomínio:</label>
+        <select id="condominio">
+            <option value="job residencial">job residencial</option>
+            <option value="Condomínio B">Condomínio B</option>
+        </select>
+        
+        <label for="apartamento">Apartamento:</label>
+        <input type="number" id="apartamento" placeholder="Número do apto">
+        
+        <h2>Leitura do Medidor</h2>
+        <input type="text" id="leitura" placeholder="Digite 5 pretos e 3 vermelhos" maxlength="8" oninput="formatarLeitura(this)">
+        <button onclick="adicionarMedicao()">Adicionar Medição</button>
+        <button onclick="gerarPDF()">Gerar Relatório PDF</button>
+        
+        <div id="medicoes"></div>
+    </div>
+    
+    <script>
+        let medicoes = [];
+        
+        function formatarLeitura(input) {
+            let valor = input.value.replace(/[^0-9]/g, '').slice(0, 8);
+            input.value = valor;
+        }
+        
+        function adicionarMedicao() {
+            const condominio = document.getElementById("condominio").value;
+            const apartamento = document.getElementById("apartamento").value;
+            const leitura = document.getElementById("leitura").value;
+            
+            if (apartamento === "" || leitura.length !== 8) {
+                alert("Por favor, insira o número do apartamento e uma leitura válida de 8 dígitos.");
+                return;
+            }
+            
+            const numerosPretos = leitura.slice(0, 5);
+            const numerosVermelhos = leitura.slice(5, 8);
+            
+            medicoes.push({ condominio, apartamento, numerosPretos, numerosVermelhos });
+            
+            const lista = document.getElementById("medicoes");
+            const item = document.createElement("p");
+            item.textContent = `Condomínio: ${condominio}, Apto: ${apartamento}, Leitura: ${numerosPretos} | ${numerosVermelhos}`;
+            lista.appendChild(item);
+        }
+        
+        function gerarPDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            
+            doc.setFontSize(16);
+            doc.text("Relatório de Medição de Gás", 10, 10);
+            doc.setFontSize(12);
+            
+            let y = 20;
+            medicoes.forEach((medicao, index) => {
+                doc.text(`Medição ${index + 1}`, 10, y);
+                doc.text(`Condomínio: ${medicao.condominio}`, 10, y + 10);
+                doc.text(`Apartamento: ${medicao.apartamento}`, 10, y + 20);
+                doc.text(`Leitura - Pretos: ${medicao.numerosPretos}`, 10, y + 30);
+                doc.text(`Leitura - Vermelhos: ${medicao.numerosVermelhos}`, 10, y + 40);
+                y += 50;
+            });
+            
+            doc.save("relatorio_gas.pdf");
+        }
+    </script>
+</body>
+</html>
