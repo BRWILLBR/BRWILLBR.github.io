@@ -1,0 +1,241 @@
+/* Estilos gerais do sistema */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f8f9fa;
+}
+
+.wrapper {
+    display: flex;
+    width: 100%;
+    align-items: stretch;
+}
+
+/* Estilos do sidebar */
+#sidebar {
+    min-width: 250px;
+    max-width: 250px;
+    background: #343a40;
+    color: #fff;
+    transition: all 0.3s;
+}
+
+#sidebar.active {
+    margin-left: -250px;
+}
+
+#sidebar .sidebar-header {
+    padding: 20px;
+    background: #212529;
+    text-align: center;
+}
+
+#sidebar .sidebar-header .logo {
+    max-width: 100px;
+    margin-top: 10px;
+}
+
+#sidebar ul.components {
+    padding: 20px 0;
+    border-bottom: 1px solid #4b545c;
+}
+
+#sidebar ul p {
+    color: #fff;
+    padding: 10px;
+}
+
+#sidebar ul li a {
+    padding: 10px 15px;
+    font-size: 1.1em;
+    display: block;
+    color: #adb5bd;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+#sidebar ul li a:hover {
+    color: #fff;
+    background: #495057;
+}
+
+#sidebar ul li.active > a, #sidebar a[aria-expanded="true"] {
+    color: #fff;
+    background: #007bff;
+}
+
+/* Estilos do conteúdo */
+#content {
+    width: 100%;
+    padding: 20px;
+    min-height: 100vh;
+    transition: all 0.3s;
+}
+
+/* Estilos dos cards */
+.card {
+    margin-bottom: 20px;
+    border: none;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+
+.card-header {
+    background-color: #f8f9fa;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+/* Estilos para tabelas */
+.table th {
+    border-top: none;
+    background-color: #f8f9fa;
+}
+
+/* Estilos para formulários */
+.form-control:focus {
+    border-color: #80bdff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* Estilos para botões */
+.btn-info {
+    color: #fff;
+    background-color: #17a2b8;
+    border-color: #17a2b8;
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+    #sidebar {
+        margin-left: -250px;
+    }
+    #sidebar.active {
+        margin-left: 0;
+    }
+    #sidebarCollapse span {
+        display: none;
+    }
+}
+
+/* Estilos para QR Code */
+.qr-code-container {
+    text-align: center;
+    padding: 20px;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.qr-code-image {
+    max-width: 200px;
+    margin: 0 auto;
+}
+
+/* Estilos para Check-list */
+.checklist-item {
+    padding: 10px;
+    border-left: 3px solid #007bff;
+    margin-bottom: 10px;
+    background-color: #f8f9fa;
+}
+
+.checklist-item.completed {
+    border-left-color: #28a745;
+    background-color: #f0fff0;
+}
+
+.checklist-item.failed {
+    border-left-color: #dc3545;
+    background-color: #fff0f0;
+}
+
+/* Estilos para Workflow */
+.workflow-steps {
+    position: relative;
+    padding: 20px 0;
+}
+
+.workflow-step {
+    display: flex;
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.workflow-step:not(:last-child):after {
+    content: '';
+    position: absolute;
+    left: 20px;
+    top: 40px;
+    height: calc(100% - 20px);
+    width: 2px;
+    background-color: #dee2e6;
+}
+
+.step-number {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    margin-right: 15px;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+}
+
+.step-content {
+    flex-grow: 1;
+}
+
+.step-meta {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px;
+    color: #6c757d;
+}
+
+.step-comment {
+    background-color: #f8f9fa;
+    border-left: 3px solid #0d6efd;
+    padding: 10px;
+    margin-top: 10px;
+    font-style: italic;
+}
+
+.current-step .step-content {
+    font-weight: 500;
+}
+
+/* Estilos para anexos */
+.attachment-thumbnail {
+    height: 150px;
+    object-fit: cover;
+}
+
+/* Estilos para dashboard */
+.stat-card {
+    border-left: 4px solid;
+    border-radius: 4px;
+}
+
+.stat-card.primary {
+    border-left-color: #007bff;
+}
+
+.stat-card.success {
+    border-left-color: #28a745;
+}
+
+.stat-card.warning {
+    border-left-color: #ffc107;
+}
+
+.stat-card.danger {
+    border-left-color: #dc3545;
+}
+
+.stat-card .stat-icon {
+    font-size: 3rem;
+    opacity: 0.3;
+}
