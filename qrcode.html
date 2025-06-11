@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Manutenção de Condomínios - QR Codes</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="wrapper">
+        <!-- Sidebar -->
+        <nav id="sidebar" class="active">
+            <div class="sidebar-header">
+                <h3>Manutenção</h3>
+                <img src="img/logo.png" alt="Logo" class="logo">
+            </div>
+
+            <ul class="list-unstyled components">
+                <li>
+                    <a href="dashboard_consolidado.html"><i class="bi bi-speedometer2"></i> Dashboard</a>
+                </li>
+                <li>
+                    <a href="listar_condominios.html"><i class="bi bi-buildings"></i> Condomínios</a>
+                </li>
+                <li>
+                    <a href="manutencoes.html"><i class="bi bi-tools"></i> Manutenções</a>
+                </li>
+                <li>
+                    <a href="calendario.html"><i class="bi bi-calendar3"></i> Calendário</a>
+                </li>
+                <li>
+                    <a href="relatorios.html"><i class="bi bi-file-earmark-text"></i> Relatórios</a>
+                </li>
+                <li>
+                    <a href="modelos.html"><i class="bi bi-file-earmark-ruled"></i> Modelos</a>
+                </li>
+                <li>
+                    <a href="notificacoes.html"><i class="bi bi-bell"></i> Notificações</a>
+                </li>
+                <li>
+                    <a href="inteligencia_dados.html"><i class="bi bi-graph-up"></i> Inteligência de Dados</a>
+                </li>
+                <li>
+                    <a href="fornecedores.html"><i class="bi bi-briefcase"></i> Fornecedores</a>
+                </li>
+                <li>
+                    <a href="financeiro.html"><i class="bi bi-cash-coin"></i> Financeiro</a>
+                </li>
+                <li class="active">
+                    <a href="qrcode.html"><i class="bi bi-qr-code"></i> QR Codes</a>
+                </li>
+                <li>
+                    <a href="checklist.html"><i class="bi bi-list-check"></i> Check-lists</a>
+                </li>
+                <li>
+                    <a href="workflow.html"><i class="bi bi-diagram-3"></i> Workflows</a>
+                </li>
+                <li>
+                    <a href="configuracoes.html"><i class="bi bi-gear"></i> Configurações</a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Page Content -->
+        <div id="content">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container-fluid">
+                    <button type="button" id="sidebarCollapse" class="btn btn-info">
+                        <i class="bi bi-list"></i>
+                        <span>Menu</span>
+                    </button>
+                    <div class="ms-auto">
+                        <div class="dropdown">
+                            <button class="btn dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-person-circle"></i> Admin
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                                <li><a class="dropdown-item" href="#"><i class="bi bi-person"></i> Perfil</a></li>
+                                <li><a class="dropdown-item" href="#"><i class="bi bi-gear"></i> Configurações</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="index.html"><i class="bi bi-box-arrow-right"></i> Sair</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="container-fluid">
+                <h2 class="mb-4">Sistema de QR Code</h2>
+                
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Gerar QR Code</h5>
+                                <p class="card-text">Crie códigos QR para equipamentos e áreas do condomínio.</p>
+                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#gerarQRCodeModal">
+                                    <i class="bi bi-plus-circle"></i> Gerar Novo QR Code
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Escanear QR Code</h5>
+                                <p class="card-text">Use a câmera para escanear um QR Code existente.</p>
+                                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#escanearQRCodeModal">
+                                    <i class="bi bi-camera"></i> Escanear QR Code
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">QR Codes Gerados</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <select class="form-select" id="filtroCondominio">
+                                    <option value="">Todos os Condomínios</option>
+                                    <option value="1">Condomínio Residencial Parque das Flores</option>
+                                    <option value="2">Edifício Comercial Central Office</option>
+                                    <option value="3">Condomínio Residencial Vista Mar</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <select class="form-select" id="filtroTipo">
+                                    <option value="">Todos os Tipos</option>
+                                    <option value="equipamento">Equipamento</option>
+                                    <option value="area">Área</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Buscar..." id="buscarQRCode">
+                                    <button class="btn btn-outline-secondary" type="button">
+                                        <i class="bi bi-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Nome</th>
+                                        <th>Tipo</th>
+                                        <th>Condomínio</th>
+                                        <th>Localização</th>
+                                        <th>Data de Criação</th>
+                                        <th>Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>QR001</td>
+                                        <td>Elevador Social - Torre A</td>
+                                        <td>Equipamento</td>
+                                        <td>Condomínio Residencial Parque das Flores</td>
+                                        <td>Torre A - Térreo</td>
+                                        <td>01/06/2025</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#visualizarQRCodeModal">
+                                                <i class="bi bi-eye"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#editarQRCodeModal">
+                                                <i class="bi bi-pencil"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-success">
+                                                <i class="bi bi-printer"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-danger">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>QR002</td>
+                                        <td>Bomba d'água Principal</td>
+                                        <td>Equipamento</td>
+                                        <td>Condomínio Residencial Parque das Flores</td>
+                                        <td>Subsolo - Casa de Máquinas</td>
+                                        <td>02/06/2025</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#visualizarQRCodeModal">
+                                                <i class="bi bi-eye"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#editarQRCodeModal">
+                                                <i class="bi bi-pencil"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-success">
+                                                <i class="bi bi-printer"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-danger">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>QR003</td>
+                                        <td>Piscina</td>
+                                        <td>Área</td>
+                                        <td>Condomínio Residencial Vista Mar</td>
+                                        <td>Área de Lazer - Térreo</td>
+                                        <td>03/06/2025</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#visualizarQRCodeModal">
+                                                <i class="bi bi-eye"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#editarQRCodeModal">
+                                                <i class="bi bi-pencil"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-success">
+                                                <i class="bi bi-printer"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-danger">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <nav aria-label="Paginação">
+                            <ul class="pagination justify-content-center">
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Anterior</a>
+                                </li>
+                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">Próximo</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Gerar QR Code -->
+    <div class="modal fade" id="gerarQRCodeModal" tabindex="-1" aria-labelledby="gerarQRCodeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="gerarQRCodeModalLabel">Gerar Novo QR Code</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formGerarQRCode">
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="tipoItem" class="form-label">Tipo</label>
+                                <select class="form-select" id="tipoItem" required>
+                                    <option value="">Selecione...</option>
+                                    <option value="equipamento">Equipamento</option>
+                                    <option value="area">Área</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="condominio" class="form-label">Condomínio</label>
+                                <select class="form-select" id="condominio" required>
+                                    <option value="">Selecione...</option>
+                                    <option value="1">Condomínio Residencial Parque das Flores</option>
+                                    <option value="2">Edifício Comercial Central Office</option>
+                                    <option value="3">Condomínio Residencial Vista Mar</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="nomeItem" class="form-label">Nome</label>
+                            <input type="text" class="form-control" id="nomeItem" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="localizacao" class="form-label">Localização</label>
+                            <input type="text" class="form-control" id="localizacao" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="descricao" class="form-label">Descrição</label>
+                            <textarea class="form-control" id="descricao" rows="3"></textarea>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="dataInstalacao" class="form-label">Data de Instalação/Criação</label>
+                                <input type="date" class="form-control" id="dataInstalacao">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="proximaManutencao" class="form-label">Próxima Manutenção Programada</label>
+                                <input type="date" class="form-control" id="proximaManutencao">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="infoTecnicas" class="form-label">Informações Técnicas</label>
+                            <textarea class="form-control" id="infoTecnicas" rows="3"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="btnGerarQRCode">Gerar QR Code</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Escanear QR Code -->
+    <div class="modal fade" id="escanearQRCodeModal" tabindex="-1" aria-labelledby="escanearQRCodeModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="escanearQRCodeModalLabel">Escanear QR Code</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="text-center mb-3">
+                        <div id="qr-reader" style="width: 100%; max-width: 400px; margin: 0 auto;"></div>
+                    </div>
+                    <div class="alert alert-info">
+                        Posicione o QR Code no centro da câmera para escaneá-lo.
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Visualizar QR Code -->
+    <div class="modal fade" id="visualizarQRCodeModal" tabindex="-1" aria-labelledby="visualizarQRCodeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="visualizarQRCodeModalLabel">Elevador Social - Torre A</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-4 text-center">
+                            <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=QR001" alt="QR Code" class="img-fluid mb-3">
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-sm btn-success">
+                                    <i class="bi bi-printer"></i> Imprimir
+                                </button>
+                                <button class="btn btn-sm btn-primary">
+                                    <i class="bi bi-download"></i> Baixar
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <h6>Informações</h6>
+                            <table class="table table-sm">
+                                <tbody>
+                                    <tr>
+                                        <th width="30%">ID:</th>
+                                        <td>QR001</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Tipo:</th>
+                                        <td>Equipamento</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Condomínio:</th>
+                                        <td>Condomínio Residencial Parque das Flores</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Localização:</th>
+                                        <td>Torre A - Térreo</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Data de Instalação:</th>
+                                        <td>15/01/2020</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Próxima Manutenção:</th>
+                                        <td>15/07/2025</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            
+                            <h6>Informações Técnicas</h6>
+                            <p>Elevador marca Otis, capacidade 8 pessoas/600kg, 12 paradas. Modelo XYZ-2000.</p>
+                            
+                            <h6>Histórico de Manutenções</h6>
+                            <div class="table-responsive">
+                                <table class="table table-sm table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Data</th>
+                                            <th>Tipo</th>
+                                            <th>Descrição</th>
+                                            <th>Responsável</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>15/01/2025</td>
+                                            <td>Preventiva</td>
+                                            <td>Manutenção semestral</td>
+                                            <td>Elevadores ABC</td>
+                                        </tr>
+                                        <tr>
+                                            <td>03/03/2025</td>
+                                            <td>Corretiva</td>
+                                            <td>Reparo no sensor de porta</td>
+                                            <td>Elevadores ABC</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#novaManutencaoModal">
+                        <i class="bi bi-plus-circle"></i> Nova Manutenção
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Editar QR Code -->
+    <div class="modal fade" id="editarQRCodeModal" tabindex="-1" aria-labelledby="editarQRCodeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editarQRCodeModalLabel">Editar QR Code</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formEditarQRCode">
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="editTipoItem" class="form-label">Tipo</label>
+                                <select class="form-select" id="editTipoItem" required>
+                                    <option value="equipamento" selected>Equipamento</option>
+                                    <option value="area">Área</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="editCondominio" class="form-label">Condomínio</label>
+                                <select class="form-select" id="editCondominio" required>
+                                    <option value="1" selected>Condomínio Residencial Parque das Flores</option>
+                                    <option value="2">Edifício Comercial Central Office</option>
+                                    <option value="3">Condomínio Residencial Vista Mar</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editNomeItem" class="form-label">Nome</label>
+                            <input type="text" class="form-control" id="editNomeItem" value="Elevador Social - Torre A" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editLocalizacao" class="form-label">Localização</label>
+                            <input type="text" class="form-control" id="editLocalizacao" value="Torre A - Térreo" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editDescricao" class="form-label">Descrição</label>
+                            <textarea class="form-control" id="editDescricao" rows="3">Elevador principal da Torre A, atende do térreo ao 12º andar.</textarea>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="editDataInstalacao" class="form-label">Data de Instalação/Criação</label>
+                                <input type="date" class="form-control" id="editDataInstalacao" value="2020-01-15">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="editProximaManutencao" class="form-label">Próxima Manutenção Programada</label>
+                                <input type="date" class="form-control" id="editProximaManutencao" value="2025-07-15">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editInfoTecnicas" class="form-label">Informações Técnicas</label>
+                            <textarea class="form-control" id="editInfoTecnicas" rows="3">Elevador marca Otis, capacidade 8 pessoas/600kg, 12 paradas. Modelo XYZ-2000.</textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary">Salvar Alterações</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Nova Manutenção -->
+    <div class="modal fade" id="novaManutencaoModal" tabindex="-1" aria-labelledby="novaManutencaoModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="novaManutencaoModalLabel">Nova Manutenção - Elevador Social - Torre A</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formNovaManutencao">
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="tipoManutencao" class="form-label">Tipo de Manutenção</label>
+                                <select class="form-select" id="tipoManutencao" required>
+                                    <option value="">Selecione...</option>
+                                    <option value="preventiva">Preventiva</option>
+                                    <option value="corretiva">Corretiva</option>
+                                    <option value="preditiva">Preditiva</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="prioridade" class="form-label">Prioridade</label>
+                                <select class="form-select" id="prioridade" required>
+                                    <option value="">Selecione...</option>
+                                    <option value="baixa">Baixa</option>
+                                    <option value="media">Média</option>
+                                    <option value="alta">Alta</option>
+                                    <option value="urgente">Urgente</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="descricaoManutencao" class="form-label">Descrição do Problema/Serviço</label>
+                            <textarea class="form-control" id="descricaoManutencao" rows="3" required></textarea>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="dataDesejada" class="form-label">Data Desejada</label>
+                                <input type="date" class="form-control" id="dataDesejada" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="fornecedor" class="form-label">Fornecedor</label>
+                                <select class="form-select" id="fornecedor">
+                                    <option value="">Selecione...</option>
+                                    <option value="1">Elevadores ABC</option>
+                                    <option value="2">Manutenção Express</option>
+                                    <option value="3">Técnicos Associados</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="anexos" class="form-label">Anexos</label>
+                            <input class="form-control" type="file" id="anexos" multiple>
+                        </div>
+                        <div class="mb-3">
+                            <label for="observacoes" class="form-label">Observações</label>
+                            <textarea class="form-control" id="observacoes" rows="2"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary">Registrar Manutenção</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+    <script src="js/funcionalidades_avancadas/qrcode.js"></script>
+    <script>
+        // Toggle sidebar
+        document.getElementById('sidebarCollapse').addEventListener('click', function() {
+            document.getElementById('sidebar').classList.toggle('active');
+        });
+
+        // Inicializar QR Code Scanner quando o modal for aberto
+        document.getElementById('escanearQRCodeModal').addEventListener('shown.bs.modal', function() {
+            const html5QrCode = new Html5Qrcode("qr-reader");
+            const qrCodeSuccessCallback = (decodedText, decodedResult) => {
+                console.log(`QR Code detectado: ${decodedText}`);
+                html5QrCode.stop();
+                
+                // Simular abertura do modal de visualização após escanear
+                const escanearModal = bootstrap.Modal.getInstance(document.getElementById('escanearQRCodeModal'));
+                escanearModal.hide();
+                
+                setTimeout(() => {
+                    const visualizarModal = new bootstrap.Modal(document.getElementById('visualizarQRCodeModal'));
+                    visualizarModal.show();
+                }, 500);
+            };
+            
+            const config = { fps: 10, qrbox: { width: 250, height: 250 } };
+            
+            html5QrCode.start({ facingMode: "environment" }, config, qrCodeSuccessCallback);
+        });
+
+        // Parar scanner quando o modal for fechado
+        document.getElementById('escanearQRCodeModal').addEventListener('hidden.bs.modal', function() {
+            const html5QrCode = Html5Qrcode.instance("qr-reader");
+            if (html5QrCode) {
+                html5QrCode.stop().catch(err => console.error(err));
+            }
+        });
+
+        // Gerar QR Code
+        document.getElementById('btnGerarQRCode').addEventListener('click', function() {
+            const form = document.getElementById('formGerarQRCode');
+            if (form.checkValidity()) {
+                // Simular geração bem-sucedida
+                const gerarModal = bootstrap.Modal.getInstance(document.getElementById('gerarQRCodeModal'));
+                gerarModal.hide();
+                
+                // Mostrar alerta de sucesso
+                alert('QR Code gerado com sucesso!');
+                
+                // Recarregar a tabela (simulação)
+                setTimeout(() => {
+                    location.reload();
+                }, 1000);
+            } else {
+                form.reportValidity();
+            }
+        });
+    </script>
+</body>
+</html>

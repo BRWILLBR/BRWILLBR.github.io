@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manutenções | Sistema de Manutenções</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        
+        .sidebar {
+            background-color: var(--secondary-color);
+            color: white;
+            height: 100vh;
+            position: fixed;
+            padding-top: 20px;
+        }
+        
+        .sidebar .nav-link {
+            color: rgba(255, 255, 255, 0.8);
+            padding: 10px 20px;
+            margin-bottom: 5px;
+            border-radius: 5px;
+        }
+        
+        .sidebar .nav-link:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+        
+        .sidebar .nav-link.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .sidebar .nav-link i {
+            margin-right: 10px;
+        }
+        
+        .content {
+            padding: 20px;
+        }
+        
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            margin-bottom: 20px;
+        }
+        
+        .card-header {
+            background-color: white;
+            border-bottom: 1px solid #eee;
+            padding: 15px 20px;
+            font-weight: 600;
+        }
+        
+        .card-body {
+            padding: 20px;
+        }
+        
+        .status-badge {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .status-badge.pendente {
+            background-color: #f39c12;
+            color: white;
+        }
+        
+        .status-badge.em-andamento {
+            background-color: #3498db;
+            color: white;
+        }
+        
+        .status-badge.atrasada {
+            background-color: #e74c3c;
+            color: white;
+        }
+        
+        .status-badge.concluida {
+            background-color: #2ecc71;
+            color: white;
+        }
+        
+        .status-badge.programada {
+            background-color: #9b59b6;
+            color: white;
+        }
+        
+        .priority-badge {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 5px;
+        }
+        
+        .priority-badge.alta {
+            background-color: #e74c3c;
+        }
+        
+        .priority-badge.media {
+            background-color: #f39c12;
+        }
+        
+        .priority-badge.baixa {
+            background-color: #3498db;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 40px 0;
+        }
+        
+        .empty-state i {
+            font-size: 4rem;
+            color: #ccc;
+            margin-bottom: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .sidebar {
+                position: static;
+                height: auto;
+                margin-bottom: 20px;
+            }
+            
+            .content {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Menu Lateral Padronizado -->
+            <div class="col-md-2 sidebar d-none d-md-block">
+                <div class="text-center mb-4">
+                    <h4>Sistema de Manutenções</h4>
+                </div>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link" href="dashboard_consolidado.html">
+                            <i class="bi bi-speedometer2"></i> Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="listar_condominios.html" style="background-color: rgba(52, 152, 219, 0.3);">
+                            <i class="bi bi-buildings"></i> <strong>Condomínios</strong>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="manutencoes.html">
+                            <i class="bi bi-tools"></i> Manutenções
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="calendario.html">
+                            <i class="bi bi-calendar-check"></i> Calendário
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="notificacoes.html">
+                            <i class="bi bi-bell"></i> Notificações
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="fornecedores.html">
+                            <i class="bi bi-people"></i> Fornecedores
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="financeiro.html">
+                            <i class="bi bi-cash-coin"></i> Financeiro
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="inteligencia_dados.html">
+                            <i class="bi bi-graph-up"></i> Inteligência de Dados
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="relatorios.html">
+                            <i class="bi bi-file-earmark-text"></i> Relatórios
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="modelos.html">
+                            <i class="bi bi-file-earmark-text"></i> Modelos
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="configuracoes.html">
+                            <i class="bi bi-gear"></i> Configurações
+                        </a>
+                    </li>
+                    <li class="nav-item mt-5">
+                        <a class="nav-link" href="index.html">
+                            <i class="bi bi-box-arrow-left"></i> Sair
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col-md-10 content">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2><i class="bi bi-tools"></i> Manutenções</h2>
+                    <a href="nova-manutencao.html" class="btn btn-primary">
+                        <i class="bi bi-plus-circle"></i> Nova Manutenção
+                    </a>
+                </div>
+
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="row g-3">
+                            <div class="col-md-3">
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bi bi-search"></i></span>
+                                    <input type="text" class="form-control" placeholder="Buscar manutenção...">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <select class="form-select">
+                                    <option value="">Todos os condomínios</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <select class="form-select">
+                                    <option value="">Todos os status</option>
+                                    <option value="pendente">Pendente</option>
+                                    <option value="em-andamento">Em andamento</option>
+                                    <option value="atrasada">Atrasada</option>
+                                    <option value="concluida">Concluída</option>
+                                    <option value="programada">Programada</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <select class="form-select">
+                                    <option value="">Todas as prioridades</option>
+                                    <option value="alta">Alta</option>
+                                    <option value="media">Média</option>
+                                    <option value="baixa">Baixa</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <button class="btn btn-outline-secondary w-100">
+                                    <i class="bi bi-funnel"></i> Filtrar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Estado vazio - Nenhuma manutenção -->
+                <div class="empty-state">
+                    <i class="bi bi-tools"></i>
+                    <h4>Nenhuma manutenção cadastrada</h4>
+                    <p class="text-muted">Cadastre manutenções para gerenciar seus serviços.</p>
+                    <a href="nova-manutencao.html" class="btn btn-primary mt-3">
+                        <i class="bi bi-plus-circle"></i> Cadastrar Manutenção
+                    </a>
+                </div>
+
+                <!-- Tabela de Manutenções (vazia) -->
+                <div class="card" style="display: none;">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Título</th>
+                                        <th>Condomínio</th>
+                                        <th>Data</th>
+                                        <th>Prioridade</th>
+                                        <th>Status</th>
+                                        <th>Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Tabela vazia -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Script para filtrar dados de condomínios excluídos -->
+    <script src="js/exclusao_cascata_global.js"></script>
+</body>
+</html>

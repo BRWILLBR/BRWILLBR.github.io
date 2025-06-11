@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Manutenção de Condomínios - Workflow de Aprovação</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="wrapper">
+        <!-- Sidebar -->
+        <nav id="sidebar" class="active">
+            <div class="sidebar-header">
+                <h3>Manutenção</h3>
+                <img src="img/logo.png" alt="Logo" class="logo">
+            </div>
+
+            <ul class="list-unstyled components">
+                <li>
+                    <a href="dashboard_consolidado.html"><i class="bi bi-speedometer2"></i> Dashboard</a>
+                </li>
+                <li>
+                    <a href="listar_condominios.html"><i class="bi bi-buildings"></i> Condomínios</a>
+                </li>
+                <li>
+                    <a href="manutencoes.html"><i class="bi bi-tools"></i> Manutenções</a>
+                </li>
+                <li>
+                    <a href="calendario.html"><i class="bi bi-calendar3"></i> Calendário</a>
+                </li>
+                <li>
+                    <a href="relatorios.html"><i class="bi bi-file-earmark-text"></i> Relatórios</a>
+                </li>
+                <li>
+                    <a href="modelos.html"><i class="bi bi-file-earmark-ruled"></i> Modelos</a>
+                </li>
+                <li>
+                    <a href="notificacoes.html"><i class="bi bi-bell"></i> Notificações</a>
+                </li>
+                <li>
+                    <a href="inteligencia_dados.html"><i class="bi bi-graph-up"></i> Inteligência de Dados</a>
+                </li>
+                <li>
+                    <a href="fornecedores.html"><i class="bi bi-briefcase"></i> Fornecedores</a>
+                </li>
+                <li>
+                    <a href="financeiro.html"><i class="bi bi-cash-coin"></i> Financeiro</a>
+                </li>
+                <li>
+                    <a href="qrcode.html"><i class="bi bi-qr-code"></i> QR Codes</a>
+                </li>
+                <li>
+                    <a href="checklist.html"><i class="bi bi-list-check"></i> Check-lists</a>
+                </li>
+                <li class="active">
+                    <a href="workflow.html"><i class="bi bi-diagram-3"></i> Workflows</a>
+                </li>
+                <li>
+                    <a href="configuracoes.html"><i class="bi bi-gear"></i> Configurações</a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Page Content -->
+        <div id="content">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container-fluid">
+                    <button type="button" id="sidebarCollapse" class="btn btn-info">
+                        <i class="bi bi-list"></i>
+                        <span>Menu</span>
+                    </button>
+                    <div class="ms-auto">
+                        <div class="dropdown">
+                            <button class="btn dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-person-circle"></i> Admin
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                                <li><a class="dropdown-item" href="#"><i class="bi bi-person"></i> Perfil</a></li>
+                                <li><a class="dropdown-item" href="#"><i class="bi bi-gear"></i> Configurações</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="index.html"><i class="bi bi-box-arrow-right"></i> Sair</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="container-fluid">
+                <h2 class="mb-4">Workflow de Aprovação</h2>
+
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Configurar Modelos de Workflow</h5>
+                                <p class="card-text">Configure fluxos de aprovação para diferentes tipos de manutenção.</p>
+                                <button class="btn btn-primary" id="config-workflow-btn" data-bs-toggle="modal" data-bs-target="#configWorkflowModal">
+                                    <i class="bi bi-gear-fill"></i> Configurar Modelo
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Criar Novo Workflow</h5>
+                                <p class="card-text">Inicie um novo fluxo de aprovação para uma manutenção existente.</p>
+                                <button class="btn btn-success" id="new-workflow-btn" data-bs-toggle="modal" data-bs-target="#novoWorkflowModal">
+                                    <i class="bi bi-plus-circle"></i> Novo Workflow
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mb-4">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">Aprovações Pendentes</h5>
+                        <span class="badge bg-warning">3 pendentes</span>
+                    </div>
+                    <div class="card-body">
+                        <div id="pending-approvals-container">
+                            <div class="list-group">
+                                <a href="#" class="list-group-item list-group-item-action" onclick="loadWorkflowDetails(1); return false;">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h5 class="mb-1">Manutenção Corretiva - Elevador Torre A</h5>
+                                        <small class="text-warning">Vence em 2 dias</small>
+                                    </div>
+                                    <p class="mb-1">Substituição do motor da porta do elevador social da Torre A</p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <small>Condomínio: Residencial Parque das Flores</small>
+                                        <small>Solicitado por: Ana Cláudia</small>
+                                    </div>
+                                    <div class="progress mt-2" style="height: 5px;">
+                                        <div class="progress-bar bg-warning" role="progressbar" style="width: 50%"></div>
+                                    </div>
+                                </a>
+                                <a href="#" class="list-group-item list-group-item-action" onclick="loadWorkflowDetails(2); return false;">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h5 class="mb-1">Manutenção Preventiva - Sistema de Incêndio</h5>
+                                        <small class="text-success">Vence em 5 dias</small>
+                                    </div>
+                                    <p class="mb-1">Revisão anual do sistema de detecção e combate a incêndio</p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <small>Condomínio: Edifício Comercial Central Office</small>
+                                        <small>Solicitado por: William</small>
+                                    </div>
+                                    <div class="progress mt-2" style="height: 5px;">
+                                        <div class="progress-bar bg-success" role="progressbar" style="width: 75%"></div>
+                                    </div>
+                                </a>
+                                <a href="#" class="list-group-item list-group-item-action" onclick="loadWorkflowDetails(3); return false;">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h5 class="mb-1">Manutenção Corretiva - Bomba da Piscina</h5>
+                                        <small class="text-danger">Atrasado há 1 dia</small>
+                                    </div>
+                                    <p class="mb-1">Substituição da bomba principal da piscina que apresentou vazamento</p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <small>Condomínio: Residencial Vista Mar</small>
+                                        <small>Solicitado por: Walisson</small>
+                                    </div>
+                                    <div class="progress mt-2" style="height: 5px;">
+                                        <div class="progress-bar bg-danger" role="progressbar" style="width: 25%"></div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">Histórico de Workflows</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <select class="form-select" id="filtroCondominio">
+                                    <option value="">Todos os Condomínios</option>
+                                    <option value="1">Condomínio Residencial Parque das Flores</option>
+                                    <option value="2">Edifício Comercial Central Office</option>
+                                    <option value="3">Condomínio Residencial Vista Mar</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <select class="form-select" id="filtroStatus">
+                                    <option value="">Todos os Status</option>
+                                    <option value="aprovado">Aprovado</option>
+                                    <option value="rejeitado">Rejeitado</option>
+                                    <option value="pendente">Pendente</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Buscar..." id="buscarWorkflow">
+                                    <button class="btn btn-outline-secondary" type="button">
+                                        <i class="bi bi-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Manutenção</th>
+                                        <th>Condomínio</th>
+                                        <th>Data Solicitação</th>
+                                        <th>Status</th>
+                                        <th>Última Atualização</th>
+                                        <th>Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>WF001</td>
+                                        <td>Manutenção Corretiva - Portão Eletrônico</td>
+                                        <td>Condomínio Residencial Parque das Flores</td>
+                                        <td>01/06/2025</td>
+                                        <td><span class="badge bg-success">Aprovado</span></td>
+                                        <td>03/06/2025</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-info" onclick="loadWorkflowDetails(4)">
+                                                <i class="bi bi-eye"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>WF002</td>
+                                        <td>Manutenção Preventiva - Ar Condicionado</td>
+                                        <td>Edifício Comercial Central Office</td>
+                                        <td>28/05/2025</td>
+                                        <td><span class="badge bg-danger">Rejeitado</span></td>
+                                        <td>30/05/2025</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-info" onclick="loadWorkflowDetails(5)">
+                                                <i class="bi bi-eye"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>WF003</td>
+                                        <td>Manutenção Corretiva - Iluminação Garagem</td>
+                                        <td>Condomínio Residencial Vista Mar</td>
+                                        <td>25/05/2025</td>
+                                        <td><span class="badge bg-success">Aprovado</span></td>
+                                        <td>27/05/2025</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-info" onclick="loadWorkflowDetails(6)">
+                                                <i class="bi bi-eye"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <nav aria-label="Paginação">
+                            <ul class="pagination justify-content-center">
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Anterior</a>
+                                </li>
+                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">Próximo</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Workflow -->
+    <div class="modal fade" id="workflow-modal" tabindex="-1" aria-labelledby="workflow-modal-title" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="workflow-modal-title">Aprovação: Manutenção Corretiva - Elevador Torre A</h5>
+                    <button type="button" class="btn-close" id="close-workflow-modal" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="workflow-details-container">
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">Detalhes da Manutenção</h5>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <p><strong>Condomínio:</strong> Residencial Parque das Flores</p>
+                                        <p><strong>Local:</strong> Elevador Social - Torre A</p>
+                                        <p><strong>Solicitante:</strong> Ana Cláudia</p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p><strong>Data Solicitação:</strong> 05/06/2025</p>
+                                        <p><strong>Prazo:</strong> 11/06/2025</p>
+                                        <p><strong>Prioridade:</strong> <span class="badge bg-warning">Média</span></p>
+                                    </div>
+                                </div>
+                                <p><strong>Descrição:</strong> Substituição do motor da porta do elevador social da Torre A que está apresentando falhas na abertura e fechamento.</p>
+                                <div class="attachments mt-3">
+                                    <h6>Anexos:</h6>
+                                    <div class="row">
+                                        <div class="col-md-4 col-sm-6 mb-3">
+                                            <div class="card h-100">
+                                                <img src="https://via.placeholder.com/300x200?text=Foto+do+Motor" class="card-img-top attachment-thumbnail" alt="Foto do Motor">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">foto_motor.jpg</h5>
+                                                    <p class="card-text"><small>1.2 MB</small></p>
+                                                    <a href="#" class="btn btn-sm btn-primary" target="_blank">Visualizar</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 col-sm-6 mb-3">
+                                            <div class="card h-100">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">orcamento.pdf</h5>
+                                                    <p class="card-text"><small>450 KB</small></p>
+                                                    <a href="#" class="btn btn-sm btn-primary" target="_blank">Visualizar</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">Fluxo de Aprovação</h5>
+                                <div class="workflow-steps">
+                                    <div class="workflow-step">
+                                        <div class="step-number bg-success">1</div>
+                                        <div class="step-content">
+                                            <h5>Aprovação do Gestor de Manutenção</h5>
+                                            <p>Verificação inicial da necessidade e urgência da manutenção</p>
+                                            <div class="step-meta">
+                                                <span>Responsável: William</span>
+                                                <span class="badge bg-success">Aprovado</span>
+                                            </div>
+                                            <div class="step-comment">Aprovado. Motor realmente precisa ser substituído conforme relatório técnico.</div>
+                                        </div>
+                                    </div>
+                                    <div class="workflow-step current-step">
+                                        <div class="step-number bg-warning">2</div>
+                                        <div class="step-content">
+                                            <h5>Aprovação Financeira</h5>
+                                            <p>Verificação da disponibilidade orçamentária e aprovação do valor</p>
+                                            <div class="step-meta">
+                                                <span>Responsável: Walisson</span>
+                                                <span class="badge bg-warning">Pendente</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="workflow-step">
+                                        <div class="step-number bg-info">3</div>
+                                        <div class="step-content">
+                                            <h5>Aprovação Final</h5>
+                                            <p>Autorização final para execução do serviço</p>
+                                            <div class="step-meta">
+                                                <span>Responsável: Ana Cláudia</span>
+                                                <span class="badge bg-info">Aguardando</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">Sua Aprovação</h5>
+                                <div class="form-group mb-3">
+                                    <label for="approval-comment">Comentário (opcional):</label>
+                                    <textarea class="form-control" id="approval-comment" rows="3"></textarea>
+                                </div>
+                                <div class="d-flex justify-content-end">
+                                    <button class="btn btn-danger me-2" onclick="rejectWorkflow()">Rejeitar</button>
+                                    <button class="btn btn-success" onclick="approveWorkflow()">Aprovar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Configurar Modelo de Workflow -->
+    <div class="modal fade" id="configWorkflowModal" tabindex="-1" aria-labelledby="configWorkflowModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="configWorkflowModalLabel">Configurar Modelo de Workflow</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formConfigWorkflow">
+                        <div class="mb-3">
+                            <label for="nomeModelo" class="form-label">Nome do Modelo</label>
+                            <input type="text" class="form-control" id="nomeModelo" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="descricaoModelo" class="form-label">Descrição</label>
+                            <textarea class="form-control" id="descricaoModelo" rows="2"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="tipoManutencao" class="form-label">Aplicável a</label>
+                            <select class="form-select" id="tipoManutencao">
+                                <option value="todos">Todos os tipos de manutenção</option>
+                                <option value="preventiva">Apenas manutenções preventivas</option>
+                                <option value="corretiva">Apenas manutenções corretivas</option>
+                                <option value="preditiva">Apenas manutenções preditivas</option>
+                            </select>
+                        </div>
+                        
+                        <hr>
+                        <h6>Níveis de Aprovação</h6>
+                        <div id="niveisAprovacaoContainer">
+                            <!-- Níveis de aprovação serão adicionados aqui -->
+                            <div class="card mb-3 nivel-aprovacao">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <h6 class="mb-0">Nível 1</h6>
+                                        <button type="button" class="btn btn-sm btn-outline-danger remover-nivel">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Título</label>
+                                        <input type="text" class="form-control" value="Aprovação do Gestor de Manutenção">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Aprovadores</label>
+                                        <select class="form-select" multiple>
+                                            <option value="1" selected>William</option>
+                                            <option value="2">Walisson</option>
+                                            <option value="3">Ana Cláudia</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Regra de Aprovação</label>
+                                        <select class="form-select">
+                                            <option value="qualquer">Qualquer um pode aprovar</option>
+                                            <option value="todos" selected>Todos devem aprovar</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Prazo para Aprovação (dias)</label>
+                                        <input type="number" class="form-control" value="2" min="1">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-outline-primary mt-2" id="adicionarNivelAprovacao">
+                            <i class="bi bi-plus-circle"></i> Adicionar Nível
+                        </button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="btnSalvarModelo">Salvar Modelo</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Novo Workflow -->
+    <div class="modal fade" id="novoWorkflowModal" tabindex="-1" aria-labelledby="novoWorkflowModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="novoWorkflowModalLabel">Criar Novo Workflow</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formNovoWorkflow">
+                        <div class="mb-3">
+                            <label for="manutencaoId" class="form-label">Manutenção</label>
+                            <select class="form-select" id="manutencaoId" required>
+                                <option value="">Selecione...</option>
+                                <option value="1">Manutenção Preventiva - Gerador</option>
+                                <option value="2">Manutenção Corretiva - Interfone Bloco B</option>
+                                <option value="3">Manutenção Corretiva - Vazamento Cobertura</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="modeloWorkflow" class="form-label">Modelo de Workflow</label>
+                            <select class="form-select" id="modeloWorkflow">
+                                <option value="">Selecione...</option>
+                                <option value="1">Workflow Padrão - 3 níveis</option>
+                                <option value="2">Workflow Simplificado - 2 níveis</option>
+                                <option value="3">Workflow Emergencial - 1 nível</option>
+                                <option value="custom">Personalizado</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="justificativa" class="form-label">Justificativa</label>
+                            <textarea class="form-control" id="justificativa" rows="3" required></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="btnIniciarWorkflow">Iniciar Workflow</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/funcionalidades_avancadas/workflow.js"></script>
+    <script>
+        // Toggle sidebar
+        document.getElementById("sidebarCollapse").addEventListener("click", function () {
+            document.getElementById("sidebar").classList.toggle("active");
+        });
+
+        // Simulação de funções do workflow.js
+        function loadWorkflowDetails(workflowId) {
+            console.log("Carregando detalhes do workflow:", workflowId);
+            // Aqui você carregaria os detalhes reais do workflow
+            // Por enquanto, apenas exibimos o modal com dados simulados
+            const modal = new bootstrap.Modal(document.getElementById('workflow-modal'));
+            modal.show();
+        }
+
+        function approveWorkflow() {
+            const comentario = document.getElementById('approval-comment').value;
+            console.log("Aprovando workflow com comentário:", comentario);
+            alert("Workflow aprovado com sucesso!");
+            const modal = bootstrap.Modal.getInstance(document.getElementById('workflow-modal'));
+            modal.hide();
+        }
+
+        function rejectWorkflow() {
+            const comentario = document.getElementById('approval-comment').value;
+            if (!comentario || comentario.trim() === '') {
+                alert("É necessário fornecer um comentário ao rejeitar uma aprovação.");
+                return;
+            }
+            console.log("Rejeitando workflow com comentário:", comentario);
+            alert("Workflow rejeitado com sucesso!");
+            const modal = bootstrap.Modal.getInstance(document.getElementById('workflow-modal'));
+            modal.hide();
+        }
+
+        // Adicionar nível de aprovação
+        document.getElementById('adicionarNivelAprovacao').addEventListener('click', function() {
+            const container = document.getElementById('niveisAprovacaoContainer');
+            const nivelCount = container.querySelectorAll('.nivel-aprovacao').length + 1;
+            
+            const nivelHtml = `
+                <div class="card mb-3 nivel-aprovacao">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <h6 class="mb-0">Nível ${nivelCount}</h6>
+                            <button type="button" class="btn btn-sm btn-outline-danger remover-nivel">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Título</label>
+                            <input type="text" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Aprovadores</label>
+                            <select class="form-select" multiple>
+                                <option value="1">William</option>
+                                <option value="2">Walisson</option>
+                                <option value="3">Ana Cláudia</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Regra de Aprovação</label>
+                            <select class="form-select">
+                                <option value="qualquer">Qualquer um pode aprovar</option>
+                                <option value="todos">Todos devem aprovar</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Prazo para Aprovação (dias)</label>
+                            <input type="number" class="form-control" value="2" min="1">
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            container.insertAdjacentHTML('beforeend', nivelHtml);
+            
+            // Adicionar evento para remover nível
+            const botoesRemover = container.querySelectorAll('.remover-nivel');
+            botoesRemover.forEach(botao => {
+                botao.addEventListener('click', function() {
+                    this.closest('.nivel-aprovacao').remove();
+                });
+            });
+        });
+
+        // Salvar modelo de workflow
+        document.getElementById('btnSalvarModelo').addEventListener('click', function() {
+            const form = document.getElementById('formConfigWorkflow');
+            if (form.checkValidity()) {
+                alert("Modelo de workflow salvo com sucesso!");
+                const modal = bootstrap.Modal.getInstance(document.getElementById('configWorkflowModal'));
+                modal.hide();
+            } else {
+                form.reportValidity();
+            }
+        });
+
+        // Iniciar workflow
+        document.getElementById('btnIniciarWorkflow').addEventListener('click', function() {
+            const form = document.getElementById('formNovoWorkflow');
+            if (form.checkValidity()) {
+                alert("Workflow iniciado com sucesso!");
+                const modal = bootstrap.Modal.getInstance(document.getElementById('novoWorkflowModal'));
+                modal.hide();
+            } else {
+                form.reportValidity();
+            }
+        });
+    </script>
+
+    <style>
+        /* Estilos específicos para o workflow */
+        .workflow-steps {
+            position: relative;
+            padding: 20px 0;
+        }
+        
+        .workflow-step {
+            display: flex;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .workflow-step:not(:last-child):after {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 40px;
+            height: calc(100% - 20px);
+            width: 2px;
+            background-color: #dee2e6;
+        }
+        
+        .step-number {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            margin-right: 15px;
+            flex-shrink: 0;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .step-content {
+            flex-grow: 1;
+        }
+        
+        .step-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 5px;
+            color: #6c757d;
+        }
+        
+        .step-comment {
+            background-color: #f8f9fa;
+            border-left: 3px solid #0d6efd;
+            padding: 10px;
+            margin-top: 10px;
+            font-style: italic;
+        }
+        
+        .current-step .step-content {
+            font-weight: 500;
+        }
+    </style>
+</body>
+</html>

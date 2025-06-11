@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendário | Sistema de Manutenções</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        
+        .sidebar {
+            background-color: var(--secondary-color);
+            color: white;
+            height: 100vh;
+            position: fixed;
+            padding-top: 20px;
+        }
+        
+        .sidebar .nav-link {
+            color: rgba(255, 255, 255, 0.8);
+            padding: 10px 20px;
+            margin-bottom: 5px;
+            border-radius: 5px;
+        }
+        
+        .sidebar .nav-link:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+        
+        .sidebar .nav-link.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .sidebar .nav-link i {
+            margin-right: 10px;
+        }
+        
+        .content {
+            padding: 20px;
+        }
+        
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            margin-bottom: 20px;
+        }
+        
+        .card-header {
+            background-color: white;
+            border-bottom: 1px solid #eee;
+            padding: 15px 20px;
+            font-weight: 600;
+        }
+        
+        .card-body {
+            padding: 20px;
+        }
+        
+        .calendar-container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .calendar-header h4 {
+            margin: 0;
+        }
+        
+        .calendar-nav {
+            display: flex;
+            align-items: center;
+        }
+        
+        .calendar-nav button {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            color: #6c757d;
+            cursor: pointer;
+            padding: 5px 10px;
+        }
+        
+        .calendar-nav button:hover {
+            color: var(--primary-color);
+        }
+        
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 1px;
+            background-color: #f8f9fa;
+        }
+        
+        .calendar-day-header {
+            text-align: center;
+            padding: 10px;
+            font-weight: 600;
+            background-color: white;
+        }
+        
+        .calendar-day {
+            min-height: 120px;
+            padding: 10px;
+            background-color: white;
+            border: 1px solid #f8f9fa;
+            position: relative;
+        }
+        
+        .calendar-day.today {
+            background-color: rgba(52, 152, 219, 0.05);
+            border: 1px solid rgba(52, 152, 219, 0.2);
+        }
+        
+        .calendar-day.other-month {
+            background-color: #f8f9fa;
+            color: #adb5bd;
+        }
+        
+        .calendar-day-number {
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        
+        .calendar-event {
+            margin-top: 20px;
+            padding: 5px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            cursor: pointer;
+        }
+        
+        .calendar-event.maintenance {
+            background-color: rgba(52, 152, 219, 0.2);
+            border-left: 3px solid #3498db;
+        }
+        
+        .calendar-event.urgent {
+            background-color: rgba(231, 76, 60, 0.2);
+            border-left: 3px solid #e74c3c;
+        }
+        
+        .calendar-event.scheduled {
+            background-color: rgba(155, 89, 182, 0.2);
+            border-left: 3px solid #9b59b6;
+        }
+        
+        .calendar-event.completed {
+            background-color: rgba(46, 204, 113, 0.2);
+            border-left: 3px solid #2ecc71;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 40px 0;
+        }
+        
+        .empty-state i {
+            font-size: 4rem;
+            color: #ccc;
+            margin-bottom: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .sidebar {
+                position: static;
+                height: auto;
+                margin-bottom: 20px;
+            }
+            
+            .content {
+                margin-left: 0;
+            }
+            
+            .calendar-grid {
+                grid-template-columns: repeat(1, 1fr);
+            }
+            
+            .calendar-day-header {
+                display: none;
+            }
+            
+            .calendar-day {
+                min-height: auto;
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Menu Lateral Padronizado -->
+            <div class="col-md-2 sidebar d-none d-md-block">
+                <div class="text-center mb-4">
+                    <h4>Sistema de Manutenções</h4>
+                </div>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link" href="dashboard_consolidado.html">
+                            <i class="bi bi-speedometer2"></i> Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="listar_condominios.html" style="background-color: rgba(52, 152, 219, 0.3);">
+                            <i class="bi bi-buildings"></i> <strong>Condomínios</strong>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="manutencoes.html">
+                            <i class="bi bi-tools"></i> Manutenções
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="calendario.html">
+                            <i class="bi bi-calendar-check"></i> Calendário
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="notificacoes.html">
+                            <i class="bi bi-bell"></i> Notificações
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="fornecedores.html">
+                            <i class="bi bi-people"></i> Fornecedores
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="financeiro.html">
+                            <i class="bi bi-cash-coin"></i> Financeiro
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="inteligencia_dados.html">
+                            <i class="bi bi-graph-up"></i> Inteligência de Dados
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="relatorios.html">
+                            <i class="bi bi-file-earmark-text"></i> Relatórios
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="modelos.html">
+                            <i class="bi bi-file-earmark-text"></i> Modelos
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="configuracoes.html">
+                            <i class="bi bi-gear"></i> Configurações
+                        </a>
+                    </li>
+                    <li class="nav-item mt-5">
+                        <a class="nav-link" href="index.html">
+                            <i class="bi bi-box-arrow-left"></i> Sair
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col-md-10 content">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2><i class="bi bi-calendar-check"></i> Calendário de Manutenções</h2>
+                    <div>
+                        <button class="btn btn-outline-primary me-2">
+                            <i class="bi bi-list-check"></i> Visualizar Lista
+                        </button>
+                        <a href="nova-manutencao.html" class="btn btn-primary">
+                            <i class="bi bi-plus-circle"></i> Nova Manutenção
+                        </a>
+                    </div>
+                </div>
+
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <select class="form-select" id="condominio-filtro">
+                                    <option value="">Todos os condomínios</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <select class="form-select" id="tipo-filtro">
+                                    <option value="">Todos os tipos</option>
+                                    <option value="preventiva">Preventiva</option>
+                                    <option value="corretiva">Corretiva</option>
+                                    <option value="emergencial">Emergencial</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <select class="form-select" id="status-filtro">
+                                    <option value="">Todos os status</option>
+                                    <option value="pendente">Pendente</option>
+                                    <option value="em-andamento">Em andamento</option>
+                                    <option value="concluida">Concluída</option>
+                                    <option value="atrasada">Atrasada</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Estado vazio - Nenhuma manutenção agendada -->
+                <div class="empty-state">
+                    <i class="bi bi-calendar-check"></i>
+                    <h4>Nenhuma manutenção agendada</h4>
+                    <p class="text-muted">Agende manutenções para visualizá-las no calendário.</p>
+                    <a href="nova-manutencao.html" class="btn btn-primary mt-3">
+                        <i class="bi bi-plus-circle"></i> Agendar Manutenção
+                    </a>
+                </div>
+
+                <!-- Calendário (vazio) -->
+                <div class="calendar-container" style="display: none;">
+                    <div class="calendar-header">
+                        <div class="calendar-nav">
+                            <button class="btn-prev"><i class="bi bi-chevron-left"></i></button>
+                            <h4 class="mx-3">Junho 2025</h4>
+                            <button class="btn-next"><i class="bi bi-chevron-right"></i></button>
+                        </div>
+                        <div>
+                            <button class="btn btn-sm btn-outline-secondary me-2">Hoje</button>
+                            <div class="btn-group">
+                                <button class="btn btn-sm btn-outline-secondary active">Mês</button>
+                                <button class="btn btn-sm btn-outline-secondary">Semana</button>
+                                <button class="btn btn-sm btn-outline-secondary">Dia</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="calendar-grid">
+                        <div class="calendar-day-header">Dom</div>
+                        <div class="calendar-day-header">Seg</div>
+                        <div class="calendar-day-header">Ter</div>
+                        <div class="calendar-day-header">Qua</div>
+                        <div class="calendar-day-header">Qui</div>
+                        <div class="calendar-day-header">Sex</div>
+                        <div class="calendar-day-header">Sáb</div>
+                        
+                        <!-- Dias do calendário (vazios) -->
+                        <!-- Os dias e eventos serão inseridos aqui via JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Detalhes do Evento -->
+    <div class="modal fade" id="eventoModal" tabindex="-1" aria-labelledby="eventoModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="eventoModalLabel">Detalhes da Manutenção</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h5 id="evento-titulo">Título da Manutenção</h5>
+                    <p class="text-muted" id="evento-data">Data: 00/00/0000</p>
+                    <p id="evento-descricao">Descrição da manutenção...</p>
+                    <div class="mb-3">
+                        <strong>Condomínio:</strong> <span id="evento-condominio">Nome do Condomínio</span>
+                    </div>
+                    <div class="mb-3">
+                        <strong>Responsável:</strong> <span id="evento-responsavel">Nome do Responsável</span>
+                    </div>
+                    <div class="mb-3">
+                        <strong>Status:</strong> <span id="evento-status" class="badge bg-primary">Status</span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                    <a href="#" class="btn btn-primary" id="btn-ver-detalhes">Ver Detalhes</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Script para filtrar dados de condomínios excluídos -->
+    <script src="js/exclusao_cascata_global.js"></script>
+</body>
+</html>

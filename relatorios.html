@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatórios | Sistema de Manutenções</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        
+        .sidebar {
+            background-color: var(--secondary-color);
+            color: white;
+            height: 100vh;
+            position: fixed;
+            padding-top: 20px;
+        }
+        
+        .sidebar .nav-link {
+            color: rgba(255, 255, 255, 0.8);
+            padding: 10px 20px;
+            margin-bottom: 5px;
+            border-radius: 5px;
+        }
+        
+        .sidebar .nav-link:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+        
+        .sidebar .nav-link.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .sidebar .nav-link i {
+            margin-right: 10px;
+        }
+        
+        .content {
+            padding: 20px;
+        }
+        
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            margin-bottom: 20px;
+            transition: transform 0.3s;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .card-header {
+            background-color: white;
+            border-bottom: 1px solid #eee;
+            padding: 15px 20px;
+            font-weight: 600;
+        }
+        
+        .card-body {
+            padding: 20px;
+        }
+        
+        .report-card {
+            height: 100%;
+        }
+        
+        .report-card .card-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .report-card .card-subtitle {
+            color: #6c757d;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+        
+        .report-card .card-text {
+            margin-bottom: 15px;
+        }
+        
+        .report-card .badge {
+            font-size: 0.8rem;
+            padding: 5px 10px;
+            margin-right: 5px;
+        }
+        
+        .report-card .card-footer {
+            background-color: white;
+            border-top: 1px solid #eee;
+            padding: 15px 20px;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 40px 0;
+        }
+        
+        .empty-state i {
+            font-size: 4rem;
+            color: #ccc;
+            margin-bottom: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .sidebar {
+                position: static;
+                height: auto;
+                margin-bottom: 20px;
+            }
+            
+            .content {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Menu Lateral Padronizado -->
+            <div class="col-md-2 sidebar d-none d-md-block">
+                <div class="text-center mb-4">
+                    <h4>Sistema de Manutenções</h4>
+                </div>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link" href="dashboard_consolidado.html">
+                            <i class="bi bi-speedometer2"></i> Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="listar_condominios.html" style="background-color: rgba(52, 152, 219, 0.3);">
+                            <i class="bi bi-buildings"></i> <strong>Condomínios</strong>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="manutencoes.html">
+                            <i class="bi bi-tools"></i> Manutenções
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="calendario.html">
+                            <i class="bi bi-calendar-check"></i> Calendário
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="notificacoes.html">
+                            <i class="bi bi-bell"></i> Notificações
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="fornecedores.html">
+                            <i class="bi bi-people"></i> Fornecedores
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="financeiro.html">
+                            <i class="bi bi-cash-coin"></i> Financeiro
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="inteligencia_dados.html">
+                            <i class="bi bi-graph-up"></i> Inteligência de Dados
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="relatorios.html">
+                            <i class="bi bi-file-earmark-text"></i> Relatórios
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="modelos.html">
+                            <i class="bi bi-file-earmark-text"></i> Modelos
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="configuracoes.html">
+                            <i class="bi bi-gear"></i> Configurações
+                        </a>
+                    </li>
+                    <li class="nav-item mt-5">
+                        <a class="nav-link" href="index.html">
+                            <i class="bi bi-box-arrow-left"></i> Sair
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col-md-10 content">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2><i class="bi bi-file-earmark-text"></i> Relatórios</h2>
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#novoRelatorioModal">
+                        <i class="bi bi-plus-circle"></i> Novo Relatório
+                    </button>
+                </div>
+
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bi bi-search"></i></span>
+                                    <input type="text" class="form-control" placeholder="Buscar relatório...">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <select class="form-select">
+                                    <option value="">Todos os tipos</option>
+                                    <option value="manutencao">Manutenção</option>
+                                    <option value="financeiro">Financeiro</option>
+                                    <option value="fornecedor">Fornecedor</option>
+                                    <option value="condominio">Condomínio</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <select class="form-select">
+                                    <option value="">Todos os períodos</option>
+                                    <option value="mensal">Mensal</option>
+                                    <option value="trimestral">Trimestral</option>
+                                    <option value="semestral">Semestral</option>
+                                    <option value="anual">Anual</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <button class="btn btn-outline-secondary w-100">
+                                    <i class="bi bi-funnel"></i> Filtrar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Estado vazio - Nenhum relatório -->
+                <div class="empty-state">
+                    <i class="bi bi-file-earmark-text"></i>
+                    <h4>Nenhum relatório gerado</h4>
+                    <p class="text-muted">Gere relatórios para analisar dados do sistema.</p>
+                    <button class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#novoRelatorioModal">
+                        <i class="bi bi-plus-circle"></i> Gerar Relatório
+                    </button>
+                </div>
+
+                <!-- Lista de Relatórios (vazia) -->
+                <div class="row" id="relatorios-container" style="display: none;">
+                    <!-- Os relatórios serão inseridos aqui via JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Novo Relatório -->
+    <div class="modal fade" id="novoRelatorioModal" tabindex="-1" aria-labelledby="novoRelatorioModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="novoRelatorioModalLabel">Gerar Novo Relatório</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="row mb-3">
+                            <div class="col-md-8">
+                                <label for="relatorio-nome" class="form-label">Nome do Relatório</label>
+                                <input type="text" class="form-control" id="relatorio-nome" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="relatorio-tipo" class="form-label">Tipo</label>
+                                <select class="form-select" id="relatorio-tipo" required>
+                                    <option value="">Selecione...</option>
+                                    <option value="manutencao">Manutenção</option>
+                                    <option value="financeiro">Financeiro</option>
+                                    <option value="fornecedor">Fornecedor</option>
+                                    <option value="condominio">Condomínio</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="relatorio-periodo" class="form-label">Período</label>
+                                <select class="form-select" id="relatorio-periodo" required>
+                                    <option value="">Selecione...</option>
+                                    <option value="mensal">Mensal</option>
+                                    <option value="trimestral">Trimestral</option>
+                                    <option value="semestral">Semestral</option>
+                                    <option value="anual">Anual</option>
+                                    <option value="personalizado">Personalizado</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="relatorio-condominio" class="form-label">Condomínio</label>
+                                <select class="form-select" id="relatorio-condominio">
+                                    <option value="">Todos os condomínios</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mb-3" id="periodo-personalizado" style="display: none;">
+                            <div class="col-md-6">
+                                <label for="relatorio-data-inicio" class="form-label">Data Início</label>
+                                <input type="date" class="form-control" id="relatorio-data-inicio">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="relatorio-data-fim" class="form-label">Data Fim</label>
+                                <input type="date" class="form-control" id="relatorio-data-fim">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="relatorio-descricao" class="form-label">Descrição</label>
+                            <textarea class="form-control" id="relatorio-descricao" rows="2"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Formato de Saída</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="pdf" id="formato-pdf" checked>
+                                <label class="form-check-label" for="formato-pdf">
+                                    PDF
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="excel" id="formato-excel">
+                                <label class="form-check-label" for="formato-excel">
+                                    Excel
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="csv" id="formato-csv">
+                                <label class="form-check-label" for="formato-csv">
+                                    CSV
+                                </label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary">Gerar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Script para filtrar dados de condomínios excluídos -->
+    <script src="js/exclusao_cascata_global.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mostrar/ocultar campos de período personalizado
+            const periodSelect = document.getElementById('relatorio-periodo');
+            const periodoPersonalizado = document.getElementById('periodo-personalizado');
+            
+            if (periodSelect && periodoPersonalizado) {
+                periodSelect.addEventListener('change', function() {
+                    if (this.value === 'personalizado') {
+                        periodoPersonalizado.style.display = 'flex';
+                    } else {
+                        periodoPersonalizado.style.display = 'none';
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

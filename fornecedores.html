@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fornecedores | Sistema de Manutenções</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        
+        .sidebar {
+            background-color: var(--secondary-color);
+            color: white;
+            height: 100vh;
+            position: fixed;
+            padding-top: 20px;
+        }
+        
+        .sidebar .nav-link {
+            color: rgba(255, 255, 255, 0.8);
+            padding: 10px 20px;
+            margin-bottom: 5px;
+            border-radius: 5px;
+        }
+        
+        .sidebar .nav-link:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+        
+        .sidebar .nav-link.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .sidebar .nav-link i {
+            margin-right: 10px;
+        }
+        
+        .content {
+            padding: 20px;
+        }
+        
+        .fornecedor-card {
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+            height: 100%;
+        }
+        
+        .fornecedor-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .fornecedor-logo {
+            width: 40px;
+            height: 40px;
+            background-color: var(--light-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+        
+        .badge-compartilhado {
+            background-color: #3498db;
+            color: white;
+            font-size: 0.7rem;
+            padding: 0.25rem 0.5rem;
+        }
+        
+        .badge-exclusivo {
+            background-color: #9b59b6;
+            color: white;
+            font-size: 0.7rem;
+            padding: 0.25rem 0.5rem;
+        }
+        
+        .badge-ativo {
+            background-color: #2ecc71;
+            color: white;
+            font-size: 0.7rem;
+            padding: 0.25rem 0.5rem;
+        }
+        
+        .badge-inativo {
+            background-color: #95a5a6;
+            color: white;
+            font-size: 0.7rem;
+            padding: 0.25rem 0.5rem;
+        }
+        
+        .rating {
+            color: #f39c12;
+        }
+        
+        .rating-empty {
+            color: #ddd;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 40px 0;
+        }
+        
+        .empty-state i {
+            font-size: 4rem;
+            color: #ccc;
+            margin-bottom: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .sidebar {
+                position: static;
+                height: auto;
+                margin-bottom: 20px;
+            }
+            
+            .content {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Menu Lateral Padronizado -->
+            <div class="col-md-2 sidebar d-none d-md-block">
+                <div class="text-center mb-4">
+                    <h4>Sistema de Manutenções</h4>
+                </div>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link" href="dashboard_consolidado.html">
+                            <i class="bi bi-speedometer2"></i> Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="listar_condominios.html" style="background-color: rgba(52, 152, 219, 0.3);">
+                            <i class="bi bi-buildings"></i> <strong>Condomínios</strong>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="manutencoes.html">
+                            <i class="bi bi-tools"></i> Manutenções
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="calendario.html">
+                            <i class="bi bi-calendar-check"></i> Calendário
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="fornecedores.html">
+                            <i class="bi bi-people"></i> Fornecedores
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="financeiro.html">
+                            <i class="bi bi-cash-coin"></i> Financeiro
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="relatorios.html">
+                            <i class="bi bi-file-earmark-text"></i> Relatórios
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="notificacoes.html">
+                            <i class="bi bi-bell"></i> Notificações
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="modelos.html">
+                            <i class="bi bi-file-earmark-text"></i> Modelos
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="inteligencia_dados.html">
+                            <i class="bi bi-graph-up"></i> Inteligência de Dados
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="configuracoes.html">
+                            <i class="bi bi-gear"></i> Configurações
+                        </a>
+                    </li>
+                    <li class="nav-item mt-5">
+                        <a class="nav-link" href="index.html">
+                            <i class="bi bi-box-arrow-left"></i> Sair
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col-md-10 content">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2><i class="bi bi-people"></i> Fornecedores</h2>
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#novoFornecedorModal">
+                        <i class="bi bi-plus-circle"></i> Novo Fornecedor
+                    </button>
+                </div>
+
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bi bi-search"></i></span>
+                                    <input type="text" class="form-control" placeholder="Buscar fornecedor...">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <select class="form-select">
+                                    <option value="">Todos os tipos</option>
+                                    <option value="eletrica">Elétrica</option>
+                                    <option value="hidraulica">Hidráulica</option>
+                                    <option value="jardinagem">Jardinagem</option>
+                                    <option value="limpeza">Limpeza</option>
+                                    <option value="seguranca">Segurança</option>
+                                    <option value="elevadores">Elevadores</option>
+                                    <option value="ar_condicionado">Ar Condicionado</option>
+                                    <option value="piscina">Piscina</option>
+                                    <option value="outros">Outros</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <ul class="nav nav-tabs mb-4">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#" data-view="cards">Cartões</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-view="table">Tabela</a>
+                    </li>
+                </ul>
+
+                <!-- Estado vazio - Nenhum fornecedor -->
+                <div class="empty-state">
+                    <i class="bi bi-people"></i>
+                    <h4>Nenhum fornecedor cadastrado</h4>
+                    <p class="text-muted">Cadastre fornecedores para gerenciar serviços de manutenção.</p>
+                    <button class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#novoFornecedorModal">
+                        <i class="bi bi-plus-circle"></i> Cadastrar Fornecedor
+                    </button>
+                </div>
+
+                <!-- Cards View (vazio) -->
+                <div id="cardsView" class="row" style="display: none;">
+                    <!-- Os fornecedores serão inseridos aqui via JavaScript -->
+                </div>
+
+                <!-- Table View (vazio) -->
+                <div id="tableView" class="mt-4" style="display: none;">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Tipo</th>
+                                    <th>Contato</th>
+                                    <th>Avaliação</th>
+                                    <th>Serviços</th>
+                                    <th>Status</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Os fornecedores serão inseridos aqui via JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Novo Fornecedor -->
+    <div class="modal fade" id="novoFornecedorModal" tabindex="-1" aria-labelledby="novoFornecedorModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="novoFornecedorModalLabel">Cadastrar Novo Fornecedor</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="row mb-3">
+                            <div class="col-md-8">
+                                <label for="fornecedor-nome" class="form-label">Nome da Empresa</label>
+                                <input type="text" class="form-control" id="fornecedor-nome" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="fornecedor-tipo" class="form-label">Tipo de Serviço</label>
+                                <select class="form-select" id="fornecedor-tipo" required>
+                                    <option value="">Selecione...</option>
+                                    <option value="eletrica">Elétrica</option>
+                                    <option value="hidraulica">Hidráulica</option>
+                                    <option value="jardinagem">Jardinagem</option>
+                                    <option value="limpeza">Limpeza</option>
+                                    <option value="seguranca">Segurança</option>
+                                    <option value="elevadores">Elevadores</option>
+                                    <option value="ar_condicionado">Ar Condicionado</option>
+                                    <option value="piscina">Piscina</option>
+                                    <option value="outros">Outros</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="fornecedor-contato" class="form-label">Nome do Contato</label>
+                                <input type="text" class="form-control" id="fornecedor-contato">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="fornecedor-telefone" class="form-label">Telefone</label>
+                                <input type="tel" class="form-control" id="fornecedor-telefone" required>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="fornecedor-email" class="form-label">E-mail</label>
+                            <input type="email" class="form-control" id="fornecedor-email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="fornecedor-descricao" class="form-label">Descrição dos Serviços</label>
+                            <textarea class="form-control" id="fornecedor-descricao" rows="3"></textarea>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="fornecedor-cnpj" class="form-label">CNPJ</label>
+                                <input type="text" class="form-control" id="fornecedor-cnpj">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="fornecedor-tipo-contrato" class="form-label">Tipo de Contrato</label>
+                                <select class="form-select" id="fornecedor-tipo-contrato">
+                                    <option value="compartilhado">Compartilhado</option>
+                                    <option value="exclusivo">Exclusivo</option>
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary">Salvar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Detalhe Fornecedor -->
+    <div class="modal fade" id="detalheFornecedorModal" tabindex="-1" aria-labelledby="detalheFornecedorModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="detalheFornecedorModalLabel">Detalhes do Fornecedor</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h4 id="detalhe-nome">Nome do Fornecedor</h4>
+                            <p id="detalhe-descricao" class="text-muted">Descrição dos serviços prestados pelo fornecedor.</p>
+                        </div>
+                        <div class="col-md-4 text-end">
+                            <span class="badge badge-ativo" id="detalhe-status">Ativo</span>
+                        </div>
+                    </div>
+                    
+                    <hr>
+                    
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <h5>Informações de Contato</h5>
+                            <p><strong>Contato:</strong> <span id="detalhe-contato">Nome do Contato</span></p>
+                            <p><strong>Telefone:</strong> <span id="detalhe-telefone">(00) 00000-0000</span></p>
+                            <p><strong>E-mail:</strong> <span id="detalhe-email">email@exemplo.com</span></p>
+                        </div>
+                        <div class="col-md-6">
+                            <h5>Informações Adicionais</h5>
+                            <p><strong>CNPJ:</strong> <span id="detalhe-cnpj">00.000.000/0000-00</span></p>
+                            <p><strong>Tipo de Contrato:</strong> <span id="detalhe-tipo-contrato">Compartilhado</span></p>
+                            <p><strong>Tipo de Serviço:</strong> <span id="detalhe-tipo">Tipo de Serviço</span></p>
+                        </div>
+                    </div>
+                    
+                    <h5>Histórico de Serviços</h5>
+                    <div class="table-responsive">
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Data</th>
+                                    <th>Condomínio</th>
+                                    <th>Serviço</th>
+                                    <th>Valor</th>
+                                    <th>Avaliação</th>
+                                </tr>
+                            </thead>
+                            <tbody id="detalhe-historico">
+                                <!-- O histórico será inserido aqui via JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                    <button type="button" class="btn btn-primary" id="btn-editar-fornecedor">Editar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Alternar entre visualizações de cartões e tabela
+            document.querySelectorAll('.nav-link[data-view]').forEach(tab => {
+                tab.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Remover classe active de todas as abas
+                    document.querySelectorAll('.nav-link[data-view]').forEach(t => {
+                        t.classList.remove('active');
+                    });
+                    
+                    // Adicionar classe active à aba clicada
+                    this.classList.add('active');
+                    
+                    // Ocultar todas as visualizações
+                    document.getElementById('cardsView').style.display = 'none';
+                    document.getElementById('tableView').style.display = 'none';
+                    
+                    // Mostrar a visualização selecionada
+                    const viewToShow = this.getAttribute('data-view');
+                    if (viewToShow === 'cards') {
+                        document.getElementById('cardsView').style.display = 'flex';
+                    } else if (viewToShow === 'table') {
+                        document.getElementById('tableView').style.display = 'block';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

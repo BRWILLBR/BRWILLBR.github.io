@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Manutenção de Condomínios - Check-lists</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="wrapper">
+        <!-- Sidebar -->
+        <nav id="sidebar" class="active">
+            <div class="sidebar-header">
+                <h3>Manutenção</h3>
+                <img src="img/logo.png" alt="Logo" class="logo">
+            </div>
+
+            <ul class="list-unstyled components">
+                <li>
+                    <a href="dashboard_consolidado.html"><i class="bi bi-speedometer2"></i> Dashboard</a>
+                </li>
+                <li>
+                    <a href="listar_condominios.html"><i class="bi bi-buildings"></i> Condomínios</a>
+                </li>
+                <li>
+                    <a href="manutencoes.html"><i class="bi bi-tools"></i> Manutenções</a>
+                </li>
+                <li>
+                    <a href="calendario.html"><i class="bi bi-calendar3"></i> Calendário</a>
+                </li>
+                <li>
+                    <a href="relatorios.html"><i class="bi bi-file-earmark-text"></i> Relatórios</a>
+                </li>
+                <li>
+                    <a href="modelos.html"><i class="bi bi-file-earmark-ruled"></i> Modelos</a>
+                </li>
+                <li>
+                    <a href="notificacoes.html"><i class="bi bi-bell"></i> Notificações</a>
+                </li>
+                <li>
+                    <a href="inteligencia_dados.html"><i class="bi bi-graph-up"></i> Inteligência de Dados</a>
+                </li>
+                <li>
+                    <a href="fornecedores.html"><i class="bi bi-briefcase"></i> Fornecedores</a>
+                </li>
+                <li>
+                    <a href="financeiro.html"><i class="bi bi-cash-coin"></i> Financeiro</a>
+                </li>
+                <li>
+                    <a href="qrcode.html"><i class="bi bi-qr-code"></i> QR Codes</a>
+                </li>
+                <li class="active">
+                    <a href="checklist.html"><i class="bi bi-list-check"></i> Check-lists</a>
+                </li>
+                <li>
+                    <a href="workflow.html"><i class="bi bi-diagram-3"></i> Workflows</a>
+                </li>
+                <li>
+                    <a href="configuracoes.html"><i class="bi bi-gear"></i> Configurações</a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Page Content -->
+        <div id="content">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container-fluid">
+                    <button type="button" id="sidebarCollapse" class="btn btn-info">
+                        <i class="bi bi-list"></i>
+                        <span>Menu</span>
+                    </button>
+                    <div class="ms-auto">
+                        <div class="dropdown">
+                            <button class="btn dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-person-circle"></i> Admin
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                                <li><a class="dropdown-item" href="#"><i class="bi bi-person"></i> Perfil</a></li>
+                                <li><a class="dropdown-item" href="#"><i class="bi bi-gear"></i> Configurações</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="index.html"><i class="bi bi-box-arrow-right"></i> Sair</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="container-fluid">
+                <h2 class="mb-4">Módulo de Check-list</h2>
+
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Criar Modelo de Check-list</h5>
+                                <p class="card-text">Crie modelos personalizados para diferentes tipos de inspeção.</p>
+                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#criarModeloModal">
+                                    <i class="bi bi-plus-circle"></i> Novo Modelo
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Programar Check-list</h5>
+                                <p class="card-text">Agende check-lists recorrentes com frequência personalizada.</p>
+                                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#programarChecklistModal">
+                                    <i class="bi bi-calendar-plus"></i> Programar Check-list
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5 class="mb-0">Meus Check-lists Pendentes</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Modelo</th>
+                                        <th>Condomínio</th>
+                                        <th>Local/Equipamento</th>
+                                        <th>Data Programada</th>
+                                        <th>Status</th>
+                                        <th>Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tabelaChecklistsPendentes">
+                                    <!-- Linhas de check-lists pendentes serão inseridas aqui via JS -->
+                                    <tr>
+                                        <td>CHK001</td>
+                                        <td>Inspeção Semanal Elevadores</td>
+                                        <td>Condomínio Residencial Parque das Flores</td>
+                                        <td>Elevador Social - Torre A</td>
+                                        <td>10/06/2025</td>
+                                        <td><span class="badge bg-warning">Pendente</span></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-primary" onclick="iniciarChecklist('CHK001')">
+                                                <i class="bi bi-play-circle"></i> Iniciar
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>CHK002</td>
+                                        <td>Verificação Mensal Bombas</td>
+                                        <td>Condomínio Residencial Parque das Flores</td>
+                                        <td>Bomba d'água Principal</td>
+                                        <td>15/06/2025</td>
+                                        <td><span class="badge bg-warning">Pendente</span></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-primary" onclick="iniciarChecklist('CHK002')">
+                                                <i class="bi bi-play-circle"></i> Iniciar
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">Relatórios de Check-lists</h5>
+                    </div>
+                    <div class="card-body">
+                        <p>Filtre e visualize relatórios de inspeções concluídas.</p>
+                        <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#relatoriosChecklistModal">
+                            <i class="bi bi-file-earmark-text"></i> Ver Relatórios
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Criar Modelo de Check-list -->
+    <div class="modal fade" id="criarModeloModal" tabindex="-1" aria-labelledby="criarModeloModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="criarModeloModalLabel">Criar Novo Modelo de Check-list</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formCriarModelo">
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="nomeModelo" class="form-label">Nome do Modelo</label>
+                                <input type="text" class="form-control" id="nomeModelo" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="categoriaModelo" class="form-label">Categoria</label>
+                                <select class="form-select" id="categoriaModelo">
+                                    <option value="">Selecione...</option>
+                                    <option value="eletrica">Elétrica</option>
+                                    <option value="hidraulica">Hidráulica</option>
+                                    <option value="estrutural">Estrutural</option>
+                                    <option value="seguranca">Segurança</option>
+                                    <option value="geral">Geral</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="descricaoModelo" class="form-label">Descrição</label>
+                            <textarea class="form-control" id="descricaoModelo" rows="2"></textarea>
+                        </div>
+                        
+                        <hr>
+                        <h6>Itens do Check-list</h6>
+                        <div id="itensChecklistContainer">
+                            <!-- Itens do check-list serão adicionados aqui -->
+                        </div>
+                        <button type="button" class="btn btn-outline-primary mt-2" id="adicionarItemChecklist">
+                            <i class="bi bi-plus-circle"></i> Adicionar Item
+                        </button>
+                        <button type="button" class="btn btn-outline-secondary mt-2" id="adicionarSecaoChecklist">
+                            <i class="bi bi-view-list"></i> Adicionar Seção
+                        </button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="btnSalvarModelo">Salvar Modelo</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Programar Check-list -->
+    <div class="modal fade" id="programarChecklistModal" tabindex="-1" aria-labelledby="programarChecklistModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="programarChecklistModalLabel">Programar Check-list</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formProgramarChecklist">
+                        <div class="mb-3">
+                            <label for="modeloProgramacao" class="form-label">Modelo de Check-list</label>
+                            <select class="form-select" id="modeloProgramacao" required>
+                                <option value="">Selecione...</option>
+                                <!-- Opções de modelos serão carregadas aqui -->
+                            </select>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="condominioProgramacao" class="form-label">Condomínio</label>
+                                <select class="form-select" id="condominioProgramacao" required>
+                                    <option value="">Selecione...</option>
+                                    <option value="1">Condomínio Residencial Parque das Flores</option>
+                                    <option value="2">Edifício Comercial Central Office</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="localEquipamentoProgramacao" class="form-label">Local/Equipamento</label>
+                                <input type="text" class="form-control" id="localEquipamentoProgramacao">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="dataInicioProgramacao" class="form-label">Data de Início</label>
+                                <input type="date" class="form-control" id="dataInicioProgramacao" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="frequenciaProgramacao" class="form-label">Frequência</label>
+                                <select class="form-select" id="frequenciaProgramacao" required>
+                                    <option value="diaria">Diária</option>
+                                    <option value="semanal">Semanal</option>
+                                    <option value="quinzenal">Quinzenal</option>
+                                    <option value="mensal">Mensal</option>
+                                    <option value="trimestral">Trimestral</option>
+                                    <option value="semestral">Semestral</option>
+                                    <option value="anual">Anual</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="responsavelProgramacao" class="form-label">Responsável</label>
+                            <select class="form-select" id="responsavelProgramacao" required>
+                                <option value="">Selecione...</option>
+                                <!-- Opções de usuários/equipes serão carregadas aqui -->
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="btnSalvarProgramacao">Salvar Programação</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Executar Check-list -->
+    <div class="modal fade" id="executarChecklistModal" tabindex="-1" aria-labelledby="executarChecklistModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="executarChecklistModalLabel">Executar Check-list: <span></span></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="checklistExecutionContainer">
+                        <!-- Conteúdo do check-list para execução será inserido aqui -->
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-success" id="btnConcluirChecklist">Concluir Inspeção</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal Relatórios de Check-list -->
+    <div class="modal fade" id="relatoriosChecklistModal" tabindex="-1" aria-labelledby="relatoriosChecklistModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="relatoriosChecklistModalLabel">Relatórios de Check-lists</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Conteúdo dos relatórios -->
+                    <p>Funcionalidade de relatórios em desenvolvimento.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/funcionalidades_avancadas/checklist.js"></script>
+    <script>
+        // Toggle sidebar
+        document.getElementById("sidebarCollapse").addEventListener("click", function () {
+            document.getElementById("sidebar").classList.toggle("active");
+        });
+
+        // Simulação de inicialização do checklist.js
+        if (typeof initChecklist === 'function') {
+            initChecklist();
+        } else {
+            console.warn('initChecklist function not found in checklist.js');
+        }
+
+        function iniciarChecklist(checklistId) {
+            // Simulação: Carregar dados do checklist e abrir modal de execução
+            console.log("Iniciando checklist: ", checklistId);
+            document.querySelector("#executarChecklistModalLabel span").textContent = checklistId;
+            // Aqui você carregaria os itens do checklist real
+            document.getElementById("checklistExecutionContainer").innerHTML = `<p>Itens do checklist ${checklistId} seriam carregados aqui.</p>`;
+            const executarModal = new bootstrap.Modal(document.getElementById('executarChecklistModal'));
+            executarModal.show();
+        }
+    </script>
+</body>
+</html>

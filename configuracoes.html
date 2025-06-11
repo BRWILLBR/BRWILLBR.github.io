@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configurações | Sistema de Manutenções</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        
+        .sidebar {
+            background-color: var(--secondary-color);
+            color: white;
+            height: 100vh;
+            position: fixed;
+            padding-top: 20px;
+        }
+        
+        .sidebar .nav-link {
+            color: rgba(255, 255, 255, 0.8);
+            padding: 10px 20px;
+            margin-bottom: 5px;
+            border-radius: 5px;
+        }
+        
+        .sidebar .nav-link:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+        
+        .sidebar .nav-link.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .sidebar .nav-link i {
+            margin-right: 10px;
+        }
+        
+        .content {
+            padding: 20px;
+        }
+        
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            margin-bottom: 20px;
+        }
+        
+        .card-header {
+            background-color: white;
+            border-bottom: 1px solid #eee;
+            padding: 15px 20px;
+            font-weight: 600;
+        }
+        
+        .card-body {
+            padding: 20px;
+        }
+        
+        .nav-pills .nav-link {
+            color: #6c757d;
+            border-radius: 5px;
+            padding: 10px 15px;
+            margin-bottom: 5px;
+        }
+        
+        .nav-pills .nav-link:hover {
+            background-color: #f8f9fa;
+        }
+        
+        .nav-pills .nav-link.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .form-check-input:checked {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        @media (max-width: 768px) {
+            .sidebar {
+                position: static;
+                height: auto;
+                margin-bottom: 20px;
+            }
+            
+            .content {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Menu Lateral Padronizado -->
+            <div class="col-md-2 sidebar d-none d-md-block">
+                <div class="text-center mb-4">
+                    <h4>Sistema de Manutenções</h4>
+                </div>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link" href="dashboard_consolidado.html">
+                            <i class="bi bi-speedometer2"></i> Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="listar_condominios.html" style="background-color: rgba(52, 152, 219, 0.3);">
+                            <i class="bi bi-buildings"></i> <strong>Condomínios</strong>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="manutencoes.html">
+                            <i class="bi bi-tools"></i> Manutenções
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="calendario.html">
+                            <i class="bi bi-calendar-check"></i> Calendário
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="notificacoes.html">
+                            <i class="bi bi-bell"></i> Notificações
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="fornecedores.html">
+                            <i class="bi bi-people"></i> Fornecedores
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="financeiro.html">
+                            <i class="bi bi-cash-coin"></i> Financeiro
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="inteligencia_dados.html">
+                            <i class="bi bi-graph-up"></i> Inteligência de Dados
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="relatorios.html">
+                            <i class="bi bi-file-earmark-text"></i> Relatórios
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="modelos.html">
+                            <i class="bi bi-file-earmark-text"></i> Modelos
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="configuracoes.html">
+                            <i class="bi bi-gear"></i> Configurações
+                        </a>
+                    </li>
+                    <li class="nav-item mt-5">
+                        <a class="nav-link" href="index.html">
+                            <i class="bi bi-box-arrow-left"></i> Sair
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col-md-10 content">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2><i class="bi bi-gear"></i> Configurações</h2>
+                    <button class="btn btn-primary">
+                        <i class="bi bi-save"></i> Salvar Alterações
+                    </button>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="card-body p-0">
+                                <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                                    <button class="nav-link active" id="v-pills-geral-tab" data-bs-toggle="pill" data-bs-target="#v-pills-geral" type="button" role="tab" aria-controls="v-pills-geral" aria-selected="true">
+                                        <i class="bi bi-sliders"></i> Geral
+                                    </button>
+                                    <button class="nav-link" id="v-pills-usuario-tab" data-bs-toggle="pill" data-bs-target="#v-pills-usuario" type="button" role="tab" aria-controls="v-pills-usuario" aria-selected="false">
+                                        <i class="bi bi-person"></i> Usuário
+                                    </button>
+                                    <button class="nav-link" id="v-pills-notificacoes-tab" data-bs-toggle="pill" data-bs-target="#v-pills-notificacoes" type="button" role="tab" aria-controls="v-pills-notificacoes" aria-selected="false">
+                                        <i class="bi bi-bell"></i> Notificações
+                                    </button>
+                                    <button class="nav-link" id="v-pills-backup-tab" data-bs-toggle="pill" data-bs-target="#v-pills-backup" type="button" role="tab" aria-controls="v-pills-backup" aria-selected="false">
+                                        <i class="bi bi-cloud-arrow-up"></i> Backup e Restauração
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="tab-content" id="v-pills-tabContent">
+                                    <!-- Configurações Gerais -->
+                                    <div class="tab-pane fade show active" id="v-pills-geral" role="tabpanel" aria-labelledby="v-pills-geral-tab">
+                                        <h4 class="mb-4">Configurações Gerais</h4>
+                                        
+                                        <div class="mb-4">
+                                            <h5>Aparência</h5>
+                                            <div class="mb-3">
+                                                <label for="tema" class="form-label">Tema</label>
+                                                <select class="form-select" id="tema">
+                                                    <option value="claro">Claro</option>
+                                                    <option value="escuro">Escuro</option>
+                                                    <option value="sistema">Usar configuração do sistema</option>
+                                                </select>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="cor-primaria" class="form-label">Cor Primária</label>
+                                                <input type="color" class="form-control form-control-color" id="cor-primaria" value="#3498db">
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="mb-4">
+                                            <h5>Idioma e Região</h5>
+                                            <div class="mb-3">
+                                                <label for="idioma" class="form-label">Idioma</label>
+                                                <select class="form-select" id="idioma">
+                                                    <option value="pt-br">Português (Brasil)</option>
+                                                    <option value="en">English</option>
+                                                    <option value="es">Español</option>
+                                                </select>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="formato-data" class="form-label">Formato de Data</label>
+                                                <select class="form-select" id="formato-data">
+                                                    <option value="dd/mm/yyyy">DD/MM/AAAA</option>
+                                                    <option value="mm/dd/yyyy">MM/DD/AAAA</option>
+                                                    <option value="yyyy-mm-dd">AAAA-MM-DD</option>
+                                                </select>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="formato-moeda" class="form-label">Formato de Moeda</label>
+                                                <select class="form-select" id="formato-moeda">
+                                                    <option value="brl">R$ (Real Brasileiro)</option>
+                                                    <option value="usd">$ (Dólar Americano)</option>
+                                                    <option value="eur">€ (Euro)</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="mb-4">
+                                            <h5>Dashboard</h5>
+                                            <div class="mb-3">
+                                                <div class="form-check form-switch">
+                                                    <input class="form-check-input" type="checkbox" id="mostrar-grafico-manutencoes" checked>
+                                                    <label class="form-check-label" for="mostrar-grafico-manutencoes">Mostrar gráfico de manutenções</label>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3">
+                                                <div class="form-check form-switch">
+                                                    <input class="form-check-input" type="checkbox" id="mostrar-grafico-custos" checked>
+                                                    <label class="form-check-label" for="mostrar-grafico-custos">Mostrar gráfico de custos</label>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3">
+                                                <div class="form-check form-switch">
+                                                    <input class="form-check-input" type="checkbox" id="mostrar-calendario" checked>
+                                                    <label class="form-check-label" for="mostrar-calendario">Mostrar calendário</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Configurações de Usuário -->
+                                    <div class="tab-pane fade" id="v-pills-usuario" role="tabpanel" aria-labelledby="v-pills-usuario-tab">
+                                        <h4 class="mb-4">Configurações de Usuário</h4>
+                                        
+                                        <div class="mb-4">
+                                            <h5>Informações Pessoais</h5>
+                                            <div class="mb-3">
+                                                <label for="nome-usuario" class="form-label">Nome</label>
+                                                <input type="text" class="form-control" id="nome-usuario" value="">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="email-usuario" class="form-label">E-mail</label>
+                                                <input type="email" class="form-control" id="email-usuario" value="">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="telefone-usuario" class="form-label">Telefone</label>
+                                                <input type="tel" class="form-control" id="telefone-usuario" value="">
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="mb-4">
+                                            <h5>Segurança</h5>
+                                            <div class="mb-3">
+                                                <label for="senha-atual" class="form-label">Senha Atual</label>
+                                                <input type="password" class="form-control" id="senha-atual">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="nova-senha" class="form-label">Nova Senha</label>
+                                                <input type="password" class="form-control" id="nova-senha">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="confirmar-senha" class="form-label">Confirmar Nova Senha</label>
+                                                <input type="password" class="form-control" id="confirmar-senha">
+                                            </div>
+                                            <div class="mb-3">
+                                                <div class="form-check form-switch">
+                                                    <input class="form-check-input" type="checkbox" id="autenticacao-dois-fatores">
+                                                    <label class="form-check-label" for="autenticacao-dois-fatores">Ativar autenticação de dois fatores</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Configurações de Notificações -->
+                                    <div class="tab-pane fade" id="v-pills-notificacoes" role="tabpanel" aria-labelledby="v-pills-notificacoes-tab">
+                                        <h4 class="mb-4">Configurações de Notificações</h4>
+                                        
+                                        <div class="mb-4">
+                                            <h5>Notificações do Sistema</h5>
+                                            <div class="mb-3">
+                                                <div class="form-check form-switch">
+                                                    <input class="form-check-input" type="checkbox" id="notificacao-manutencao-pendente" checked>
+                                                    <label class="form-check-label" for="notificacao-manutencao-pendente">Manutenções pendentes</label>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3">
+                                                <div class="form-check form-switch">
+                                                    <input class="form-check-input" type="checkbox" id="notificacao-manutencao-atrasada" checked>
+                                                    <label class="form-check-label" for="notificacao-manutencao-atrasada">Manutenções atrasadas</label>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3">
+                                                <div class="form-check form-switch">
+                                                    <input class="form-check-input" type="checkbox" id="notificacao-manutencao-concluida" checked>
+                                                    <label class="form-check-label" for="notificacao-manutencao-concluida">Manutenções concluídas</label>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3">
+                                                <div class="form-check form-switch">
+                                                    <input class="form-check-input" type="checkbox" id="notificacao-pagamento-pendente" checked>
+                                                    <label class="form-check-label" for="notificacao-pagamento-pendente">Pagamentos pendentes</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="mb-4">
+                                            <h5>Canais de Notificação</h5>
+                                            <div class="mb-3">
+                                                <div class="form-check form-switch">
+                                                    <input class="form-check-input" type="checkbox" id="notificacao-email" checked>
+                                                    <label class="form-check-label" for="notificacao-email">E-mail</label>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3">
+                                                <div class="form-check form-switch">
+                                                    <input class="form-check-input" type="checkbox" id="notificacao-sistema" checked>
+                                                    <label class="form-check-label" for="notificacao-sistema">Sistema</label>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3">
+                                                <div class="form-check form-switch">
+                                                    <input class="form-check-input" type="checkbox" id="notificacao-sms">
+                                                    <label class="form-check-label" for="notificacao-sms">SMS</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="mb-4">
+                                            <h5>Frequência de Notificações</h5>
+                                            <div class="mb-3">
+                                                <label for="frequencia-notificacoes" class="form-label">Resumo de notificações</label>
+                                                <select class="form-select" id="frequencia-notificacoes">
+                                                    <option value="tempo-real">Em tempo real</option>
+                                                    <option value="diario">Diário</option>
+                                                    <option value="semanal">Semanal</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Backup e Restauração -->
+                                    <div class="tab-pane fade" id="v-pills-backup" role="tabpanel" aria-labelledby="v-pills-backup-tab">
+                                        <h4 class="mb-4">Backup e Restauração</h4>
+                                        
+                                        <div class="mb-4">
+                                            <h5>Backup Manual</h5>
+                                            <p>Faça um backup completo dos dados do sistema.</p>
+                                            <button class="btn btn-primary">
+                                                <i class="bi bi-download"></i> Fazer Backup
+                                            </button>
+                                        </div>
+                                        
+                                        <div class="mb-4">
+                                            <h5>Backup Automático</h5>
+                                            <div class="mb-3">
+                                                <div class="form-check form-switch">
+                                                    <input class="form-check-input" type="checkbox" id="backup-automatico" checked>
+                                                    <label class="form-check-label" for="backup-automatico">Ativar backup automático</label>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="frequencia-backup" class="form-label">Frequência</label>
+                                                <select class="form-select" id="frequencia-backup">
+                                                    <option value="diario">Diário</option>
+                                                    <option value="semanal">Semanal</option>
+                                                    <option value="mensal">Mensal</option>
+                                                </select>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="hora-backup" class="form-label">Hora</label>
+                                                <input type="time" class="form-control" id="hora-backup" value="03:00">
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="mb-4">
+                                            <h5>Restauração</h5>
+                                            <p>Restaure o sistema a partir de um backup anterior.</p>
+                                            <div class="mb-3">
+                                                <label for="arquivo-backup" class="form-label">Arquivo de Backup</label>
+                                                <input class="form-control" type="file" id="arquivo-backup">
+                                            </div>
+                                            <button class="btn btn-warning">
+                                                <i class="bi bi-arrow-counterclockwise"></i> Restaurar Sistema
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Script para filtrar dados de condomínios excluídos -->
+    <script src="js/exclusao_cascata_global.js"></script>
+</body>
+</html>

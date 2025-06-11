@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Importar Condomínios | Sistema de Manutenções</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <!-- Biblioteca para leitura de arquivos Excel -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Menu Lateral Padronizado -->
+            <div class="col-md-2 sidebar d-none d-md-block">
+                <div class="text-center mb-4">
+                    <h4>Sistema de Manutenções</h4>
+                </div>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link" href="dashboard_consolidado.html">
+                            <i class="bi bi-speedometer2"></i> Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="listar_condominios.html">
+                            <i class="bi bi-buildings"></i> <strong>Condomínios</strong>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="manutencoes.html">
+                            <i class="bi bi-tools"></i> Manutenções
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="calendario.html">
+                            <i class="bi bi-calendar-check"></i> Calendário
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="notificacoes.html">
+                            <i class="bi bi-bell"></i> Notificações
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="fornecedores.html">
+                            <i class="bi bi-people"></i> Fornecedores
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="financeiro.html">
+                            <i class="bi bi-cash-coin"></i> Financeiro
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="inteligencia_dados.html">
+                            <i class="bi bi-graph-up"></i> Inteligência de Dados
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="relatorios.html">
+                            <i class="bi bi-file-earmark-text"></i> Relatórios
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="modelos.html">
+                            <i class="bi bi-file-earmark-text"></i> Modelos
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="configuracoes.html">
+                            <i class="bi bi-gear"></i> Configurações
+                        </a>
+                    </li>
+                    <li class="nav-item mt-5">
+                        <a class="nav-link" href="index.html">
+                            <i class="bi bi-box-arrow-left"></i> Sair
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col-md-10 content">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2><i class="bi bi-upload"></i> Importar Condomínios</h2>
+                    <a href="listar_condominios.html" class="btn btn-outline-secondary">
+                        <i class="bi bi-arrow-left"></i> Voltar
+                    </a>
+                </div>
+
+                <!-- Instruções -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5><i class="bi bi-info-circle"></i> Instruções para Importação</h5>
+                    </div>
+                    <div class="card-body">
+                        <ol>
+                            <li>Baixe o modelo de planilha clicando no botão abaixo</li>
+                            <li>Preencha a planilha com os dados dos condomínios</li>
+                            <li>Salve o arquivo em formato Excel (.xlsx) ou CSV (.csv)</li>
+                            <li>Selecione o arquivo e clique em "Importar"</li>
+                        </ol>
+                        <div class="mt-3">
+                            <button type="button" class="btn btn-outline-primary" id="btn-modelo-condominios">
+                                <i class="bi bi-download"></i> Baixar Modelo de Planilha
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Formulário de Importação -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5><i class="bi bi-upload"></i> Importar Arquivo</h5>
+                    </div>
+                    <div class="card-body">
+                        <form id="form-import-condominios">
+                            <div class="mb-3">
+                                <label for="arquivo-condominios" class="form-label">Selecionar Arquivo</label>
+                                <input type="file" class="form-control" id="arquivo-condominios" accept=".xlsx,.xls,.csv" required>
+                                <div class="form-text">Formatos aceitos: Excel (.xlsx, .xls) ou CSV (.csv)</div>
+                            </div>
+                            <div class="d-flex justify-content-end">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="bi bi-upload"></i> Importar Condomínios
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Resultados da Importação -->
+                <div id="import-results" style="display: none;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Incluir o script importacao.js -->
+    <script src="js/importacao.js"></script>
+</body>
+</html>
+
